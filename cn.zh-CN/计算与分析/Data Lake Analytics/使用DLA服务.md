@@ -51,7 +51,7 @@
     数据表创建完成后，执行下列语句建立表格映射：
 
     ```
-    CREATE EXTERNAL TABLE test001 (pk0 int , primary key(pk0));
+    CREATE EXTERNAL TABLE test001 (pk0 int NOT NULL , primary key(pk0));
     
     ```
 
