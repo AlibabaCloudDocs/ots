@@ -13,6 +13,12 @@ This document describes how to install and use NodeJS SDK v4.0 and later for Tab
 
 -    [GitHub](https://github.com/aliyun/aliyun-tablestore-nodejs-sdk) 
 
+You can also use the Node.js package manager (NPM) to download and install the SDK for you, the package is [`tablestore`](https://www.npmjs.com/package/tablestore) and you can also use the NPM CLI tools to download automatically, 
+
+```
+$ npm install -g tablestore
+```
+You can also find code samples for Node.js applications with ES 6 async/await on out GitHub under [samples](https://github.com/aliyun/aliyun-tablestore-nodejs-sdk/tree/master/samples-async(node6)).
 
 ## Version { .section}
 
