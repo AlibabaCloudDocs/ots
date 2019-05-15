@@ -8,6 +8,7 @@ Table Store is a NoSQL database service built on Alibaba Cloud’s Apsara distri
 
 -   Manage data with multiple backups using solid state disks \(SSDs\), enabling quick data access and high data reliability.
 
+Unlike with other ApsaraDb service instances, Table Store does not require any adminstrative or operational actions from the users. Table Store and everything related to operations and management is taken care of by Alibaba Cloud infrastructure. 
 
 ## Basic concepts {#section_prc_w53_bfb .section}
 
@@ -39,7 +40,7 @@ After you load your data to Table Store, you can use it with other Alibaba Cloud
 -   For more information about how to use Function Compute to perform real-time computation on incremental data in Table Store data tables, see [Introduction to Function Compute](../../../../intl.en-US/Compute-Analysis/Function trigger/Introduction to Function Compute.md#).
 
 
-## Use Table Store {#section_lnf_dv3_bfb .section}
+## Usage of Table Store {#section_lnf_dv3_bfb .section}
 
 When using Table Store, you only pay for the resources you reserve and use. Services including cluster resizing, upgrades, and maintenance of database software and hardware are managed free of charge.
 
