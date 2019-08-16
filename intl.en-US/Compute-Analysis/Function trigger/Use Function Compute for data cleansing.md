@@ -74,7 +74,7 @@ The following process describes creating services and processing functions on th
     import tablestore as ots
     INSTANCE_NAME = 'distribute-test'
     REGION = 'cn-shanghai'
-    ENDPOINT = 'http://%s.%s.ots-internal.aliyuncs.com'%(INSTANCE_NAME, REGION)
+    ENDPOINT = 'http://%s.%s.ots.aliyuncs.com'%(INSTANCE_NAME, REGION)
     RESULT_TABLENAME = 'result'
     def _utf8(input):
         return str(bytearray(input, "utf-8"))
