@@ -38,7 +38,7 @@
         -   如果Tablestore实例和MaxCompute不在同一个region，填写公网地址。
         -   不能填写VPC地址。 |
         |Table Store实例名称|Tablestore实例的名称。|
-        |AccessKey ID|登录账户的AccessKeyID和AccessKeySecret，获取方式请参见[创建AccessKey]()。|
+        |AccessKey ID|登录账户的AccessKeyID和AccessKeySecret，获取方式请参见[为RAM用户创建访问密钥](/cn.zh-CN/安全设置/访问密钥/为RAM用户创建访问密钥.md)。|
         |AccessKey Secret|
 
     4.  单击**测试连通性**，测试数据源的连通状态。
