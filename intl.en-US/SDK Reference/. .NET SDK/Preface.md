@@ -1,52 +1,29 @@
-# Preface {#concept_31699_zh .concept}
+# Preface
 
-## Introduction {#section_w2b_mz2_2fb .section}
+This topic describes how to use Tablestore SDK for .NET.
 
-This document describes how to install and use C\# SDK 3.0.0 for Table Store. This document assumes that you have already activated Alibaba Cloud Table Store and created an AccessKeyID and AccessKeySecret.
+## Prerequisites
 
--   If you have not activated Table Store or want to know about the service, visit the Table Store product homepage.
+-   Tablestore is activated. For more information, see [Activate Tablestore](/intl.en-US/Quick Start/Activate Tablestore.md).
+-   An AccessKey pair is created. For more information, see [Create an AccessKey pair for a RAM user](/intl.en-US/Security Settings/AccessKey pairs/Create an AccessKey pair for a RAM user.md).
 
--   If you have not created an AccessKeyID and AccessKeySecret, log on to the [Alibaba Cloud Access Key console](https://partners-intl.console.aliyun.com/#/ak) to create an AccessKey.
+## Download Tablestore SDK for .NET
 
+-   Download the SDK installation package from NuGet. For more information about the download path, visit [https://www.nuget.org/packages/Aliyun.TableStore.SDK/4.1.4](https://www.nuget.org/packages/Aliyun.TableStore.SDK/4.1.4).
+-   Download the source code from GitHub. For more information about the download path, visit [GitHub](https://github.com/aliyun/aliyun-tablestore-csharp-sdk).
 
-## Download the SDK package { .section}
+For more information about the historical versions of Tablestore SDK for .NET, see [Tablestore SDK for .NET](/intl.en-US/SDK Reference/Download SDK/Tablestore SDK for .NET.md).
 
--    [SDK package](https://ots-public-sdk.oss-cn-hangzhou.aliyuncs.com/aliyun-tablestore-dotnet-sdk-3.0.0.zip) 
+## Compatibility
 
--    [GitHub](https://github.com/aliyun/aliyun-tablestore-csharp-sdk) 
-
-
-For more information about version iterations, [click here](reseller.en-US/SDK Reference/Download SDK/. .Net SDK.md#).
-
-## Change updates and compatibility { .section}
-
-For latest version 3.0.0
-
--   Filters are added.
-
--   The warnings generated during the compilation process are cleared.
-
--   The useless dependent packages are cleared.
-
--   The useless code is cleared.
-
--   The template-called code is simplified.
-
--   The invalid parameter checking is added.
-
--   The user-configured parameters are trimmed.
-
--   The UserAgent header is added.
-
--   The DLL file name Aliyun.dll is changed to Aliyun.TableStore.dll.
-
--   The open source code is released to GitHub.
-
+For SDKs V3.x.x: compatible.
 
 For SDKs V2.x.x:
 
--   Incompatibility with partial interfaces: `Condition.IGNORE`, `Condition.EXPECT_EXIST`, and `Condition.EXPECT_NOT_EXIST` are deleted.
+-   Some operations are incompatible. The Condition.IGNORE, Condition.EXPECT\_EXIST and Condition.EXPECT\_NOT\_EXIST parameters are deleted.
+-   The DLL file name is changed from Aliyun.dll to Aliyun.TableStore.dll.
 
--   The DLL file name Aliyun.dll is changed to Aliyun.TableStore.dll.
+## Version
 
+Latest version: 4.1.4.
 
