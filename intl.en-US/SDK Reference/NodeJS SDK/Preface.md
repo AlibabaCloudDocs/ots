@@ -5,7 +5,7 @@ This topic describes how to use Tablestore SDK for Node.js. The content in this 
 ## Prerequisites
 
 -   Tablestore is activated. For more information, see [Activate Tablestore](/intl.en-US/Quick Start/Activate Tablestore.md).
--   An AccessKey pair is created. For more information, see [Create an AccessKey]().
+-   An AccessKey pair is created. For more information, see [Create an AccessKey pair for a RAM user](/intl.en-US/Security Settings/AccessKey pairs/Create an AccessKey pair for a RAM user.md).
 
 ## Download Tablestore SDK for Node.js
 
