@@ -1,55 +1,85 @@
-# What is Tablestore? {#concept_27280_zh .concept}
+# What is Tablestore?
 
-Tablestore is a NoSQL database service built on Alibaba Cloud’s Apsara distributed operating system that can store and access large volumes of structured data in real time , which allows you to:
+Tablestore is a multi-model data storage service that is developed by Alibaba Cloud. It can store a large amount of structured data and supports fast query and analysis. The distributed storage and powerful index-based search engine enable Tablestore to store petabytes of data while ensuring 10 million transactions per second \(TPS\) and a latency within milliseconds.
 
--   Organize data into instances and tables that can seamlessly scale using data partitioning and load balancing.
+## Features
 
--   Protect applications from faults and errors that may occur on the underlying hardware platform, providing fast recovery capability and high service availability.
+-   Fully managed
 
--   Manage data with multiple backups using solid state disks \(SSDs\), enabling quick data access and high data reliability.
+    Tablestore is a fully managed storage service for structured data. You need only to focus on business research and development, without worrying about software and hardware presetting, configurations, faults, cluster scale-out, and security. Tablestore ensures high availability of your business while minimizing management and maintenance costs.
 
+-   Seamless scalability
 
-## Basic concepts {#section_prc_w53_bfb .section}
+    Tablestore uses shards and load balancing to implement seamless scalability. Tablestore adjusts the size of partitions to store more data. Tablestore can store a minimum of 10 PB of data. A single table can store a minimum of 1 PB of data or 1 trillion records.
 
--   Data model
+-   Powerful query capabilities
 
-    The [data model](../../../../intl.en-US/Developer Guide/Wide column model/Introduction.md#) of Tablestore is defined by Table, Row, Primary Key, and Attribute. A table is a set of rows, and a row consists of the [primary key and attribute](../../../../intl.en-US/Developer Guide/Wide column model/Primary keys and attributes.md#).
+    Tablestore supports queries based on global secondary indexes and search indexes in addition to primary key-based queries.
 
--   Time To Live
+    -   Global secondary index: predefines a model to distribute data, which makes data query more efficient.
+    -   Search index: supports query methods such as Boolean query, fuzzy query, geo query, and full-text search based on inverted indexes and column-oriented storage.
+-   High reliability
 
-    [Time To Live](../../../../intl.en-US/Developer Guide/Wide column model/Data versions and time to live.md#) \(TTL\) is a data table attribute measured in seconds that indicates the validity period of data. To save data storage space and reduce storage costs, Tablestore automatically clears any data that exceeds TTL.
+    Tablestore creates multiple backups of data and stores them in different servers across racks. When a backup fails, the system immediately uses another backup to restore the data. This mechanism ensures service availability of 99.99999999% \(ten 9s\).
 
--   Region
+-   Strong consistency
 
-    Region refers to a service region of Alibaba Cloud. Tablestore is deployed across many service regions. You can select a suitable region tailored to your needs. For more information, see [Tablestore regions](intl.en-US/Developer Guide/Terms/Region.md#).
+    Tablestore ensures consistency among three backups. After data is written, applications can immediately read the written data.
 
--   Read/write throughput
+-   Highly concurrent read and write operations
 
-    The [read/write throughput](../../../../intl.en-US/Developer Guide/Terms/Read__write throughput.md#) is measured by read/write capacity units \(CUs\), which is the smallest billing unit for the data read and write operations. Read/write throughput includes Reserved throughput and Additional throughput.
-
-
-## Related services {#section_lfq_y53_bfb .section}
-
-After you load your data to Tablestore, you can use it with other Alibaba Cloud products and services.
-
--   For more information about how to export full data and synchronize incremental data in Tablestore to OSS, see [Overview](../../../../intl.en-US/Data channels/OSS/Overview.md#).
-
--   For more information about how to establish a seamless connection between Tablestore and MaxCompute under an Alibaba Cloud account, see [Allow MaxCompute to access Tablestore using one account](../../../../intl.en-US/Compute-Analysis/MaxCompute /Allow MaxCompute to access Table Store using one account.md#).
-
--   For more information about how to use Function Compute to perform real-time computation on incremental data in Tablestore data tables, see [Introduction to Function Compute](../../../../intl.en-US/Compute-Analysis/Function trigger/Introduction to Function Compute.md#).
+    Tablestore supports tens of millions of concurrent read and write queries per second \(QPS\).
 
 
-## Usage {#section_lnf_dv3_bfb .section}
+## Quick start
 
-When using Tablestore, you only pay for the resources you reserve and use. Services including cluster resizing, upgrades, and maintenance of database software and hardware are managed free of charge.
+You can use the Tablestore console to get started with Tablestore. For more information, see [Getting started](/intl.en-US/Quick Start/Overview.md).
 
-Alibaba Cloud provides an intuitive operation interface for you to manage your Tablestore resources. You can log on to the [Tablestore console](https://ots.console.aliyun.com) to operate your instances.
+## Terms
 
-You can also use APIs and SDKs to manage your Tablestore resources. For more information, see [Tablestore API Reference](../../../../intl.en-US/API Reference/Operations/OperationsSummary.md#) and [Tablestore SDK Reference](../../../../intl.en-US/SDK Reference/SDK overview.md).
+-   time to live \(TTL\)
 
-## Pricing {#section_gvx_2v3_bfb .section}
+    A data table attribute measured in seconds. This attribute indicates the validity period of data. For more information, see [Max versions and TTL](/intl.en-US/Developer Guide/Wide Column model/Max versions and TTL.md). To save storage space and minimize storage costs, the Tablestore backend automatically clears data after its TTL expires.
 
-Billing items of Tablestore include Data storage, Reserved read/write throughput, Additional read/write throughput and Downstream Internet traffic. For more information, see [Billing items and pricing](../../../../intl.en-US/Pricing/Billing items and pricing.md#).
+-   region
 
-For more information about Tablestore pricing, see [Tablestore Pricing page](https://www.alibabacloud.com/product/table-store/pricing).
+    A physical data center. Tablestore is deployed across multiple Alibaba Cloud regions. You can select a region as needed. For more information, see [Region](/intl.en-US/Developer Guide/Terms/Region.md).
+
+-   read/write throughput
+
+    A Tablestore attribute that is measured by read and write capacity units \(CUs\). A CU is the basic billing unit for data read and write operations. For more information, see [Read/write throughput](/intl.en-US/Developer Guide/Terms/Read/write throughput.md).
+
+
+## Implementation modes
+
+-   Console
+
+    Alibaba Cloud provides web pages for you to manage Tablestore. To manage Tablestore instances, log on to the [Tablestore console](https://otsnext.console.aliyun.com/).
+
+-   SDKs
+
+    Alibaba Cloud provides SDKs in various programming languages for you to use Tablestore. For more information, see [SDK overview](/intl.en-US/SDK Reference/SDK overview.md).
+
+-   Tablestore CLI
+
+    Alibaba Cloud provides a command line tool Tablestore CLI for you to manage Tablestore. For more information, see [TablestoreCli](/intl.en-US/Utilities/TablestoreCli.md).
+
+
+## Computing and analysis
+
+You can perform computing and analysis on data in Tablestore.
+
+-   For information about how to combine MaxCompute with Tablestore, see [Use MaxCompute to access Tablestore](/intl.en-US/Compute-Analysis/MaxCompute /Allow MaxCompute to access Table Store using one account.md).
+
+## Data migration for synchronization
+
+You can migrate heterogeneous data to Tablestore without interrupting services. You can also migrate data from Tablestore to services such as OSS.
+
+-   For more information about how to migrate data from Tablestore to OSS, see [Overview](/intl.en-US/Data channels/Data export/OSS/Overview.md).
+
+## Billing
+
+The billing items of Tablestore include data storage usage, reserved read/write throughput, additional read/write throughput, and outbound Internet traffic. For more information, see [Billing overview](/intl.en-US/Pricing/Billing overview.md).
+
+For more information about Tablestore and related resource prices, see [Tablestore Pricing](https://www.alibabacloud.com/product/table-store/pricing).
 
