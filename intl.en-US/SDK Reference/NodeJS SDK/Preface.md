@@ -1,20 +1,18 @@
-# Preface {#concept_56350_zh .concept}
+# Preface
 
-This document describes how to install and use NodeJS SDK v4.0 and later for Table Store. It is assumed that you have activated Alibaba Cloud Table Store and created an AccessKeyID and AccessKeySecret.
+This topic describes how to use Tablestore SDK for Node.js. The content in this topic applies to Tablestore SDK for Node.js V4.x.x.
 
--   If you have not activated Alibaba Cloud Table Store or want to learn more about Table Store, visit the Table Store homepage.
+## Prerequisites
 
--   If you have not created an AccessKeyID and AccessKeySecret, log on to the [Alibaba Cloud AccessKey console](https://partners-intl.console.aliyun.com/#/ak) to create an AccessKey.
+-   Tablestore is activated. For more information, see [Activate Tablestore](/intl.en-US/Quick Start/Activate Tablestore.md).
+-   An AccessKey pair is created. For more information, see [创建Access Key]().
 
+## Download Tablestore SDK for Node.js
 
-## Download the SDK {#section_rh5_1m2_2fb .section}
+-   [SDK package](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/97272/cn_zh/1545381910663/aliyun-tablestore-nodejs-sdk.zip)
+-   [GitHub](https://github.com/aliyun/aliyun-tablestore-nodejs-sdk)
 
--    [SDK package](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/56350/cn_zh/1499332165434/aliyun-tablestore-nodejs-sdk.zip) 
+## Version
 
--    [GitHub](https://github.com/aliyun/aliyun-tablestore-nodejs-sdk) 
-
-
-## Version { .section}
-
-Latest version: 4.0.0
+Latest version: V4.1.0.
 
