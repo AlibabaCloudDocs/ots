@@ -1,12 +1,18 @@
 # Configure an auto-increment primary key column
 
+This topic describes how to configure an auto-increment primary key column. You cannot set a partition key to an auto-increment column. If you write data to a table that contains an auto-increment primary key column, you do not need to specify specific values for the auto-increment primary key column because Tablestore generates values for the auto-increment primary key column. Values generated for the auto-increment primary key column are unique and consecutive within the partition that shares the same partition key value.
+
 ## Prerequisites
 
 The OTSClient instance is initialized. For more information, see [Initialization](/intl.en-US/SDK Reference/NodeJS SDK/Initialization.md).
 
 ## Usage notes
 
-1.  When you write data to a table, you do not need to specify a specific value for the auto-increment column. Instead, you need only to set the value of the auto-increment column to placeholders.
+1.  When you create a table, you cannot set a partition key to an auto-increment primary key column.
+
+    The data type of an auto-increment primary key column can only be set to integer. Each value generated for an auto-increment primary key column is a 64-bit signed long integer.
+
+2.  When you write data to a table, you do not need to specify a specific value for the auto-increment column. You need only to set a placeholder value for the auto-increment column.
 
     If you want to obtain the value of the auto-increment column after data is written to the table, you can set ReturnType to Primarykey.
 
@@ -53,7 +59,7 @@ When you use auto-increment primary key columns, you can call the CreateTable, P
                 }
             },
             tableOptions: {
-                timeToLive: -1,// Specify the validity period of data in seconds. A value of -1 indicates that the data never expires. If you set the validity period to a year, the value of timeToLive is 365*24*3600.
+                timeToLive: -1,// Specify the validity period of data in seconds. A value of -1 indicates that the data never expires. If you set this parameter to 365×24*3600, the validity period of the data is one year.
                 maxVersions: 1// Specify the maximum number of versions that can be saved in each column. A value of 1 indicates that only the latest version is saved in each column.
             },
         };
@@ -70,7 +76,7 @@ When you use auto-increment primary key columns, you can call the CreateTable, P
 
 2.  Write data
 
-    When you write data to a table, you do not need to specify a specific value of the auto-increment column. Instead, you need only to set the value of the auto-increment column to AUTO\_INCREMENT.
+    When you write data to a table, you do not need to specify a value of the auto-increment column. You need only to set a placerholder value for the column.
 
     ```
     var TableStore = require('../index.js');
