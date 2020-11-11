@@ -1,52 +1,54 @@
-# Installation {#concept_31725_zh .concept}
+# Installation
 
-## Prerequisites {#section_wdr_tv2_2fb .section}
+This topic describes how to install Tablestore SDK for Python.
 
-Applicable to Python 2 and Python 3.
+## Prerequisites
 
-## Installation {#section_y55_j4h_1m5 .section}
+Python 2 or Python 3 is available.
 
--   Method 1: Install Python by using pip.
+## Install Tablestore SDK for Python
 
-    The command is as follows.
+-   Method 1: Use pip.
 
-    ``` {#codeblock_ljf_ut5_kzf .language-shell}
-        sudo pip install tablestore
+    Run the following command to install Tablestore SDK for Python:
+
+    ```
+    sudo pip install tablestore
     ```
 
--   Method 2: Install Python by using GitHub.
+-   Method 2: Use GitHub.
 
-    Make sure you have installed [git](https://git-scm.com/downloads), and then run the following command.
+    Make sure that you have installed Git. For more information about how to download Git, visit [Git](https://git-scm.com/downloads). After Git is installed, run the following command:
 
-    ``` {#codeblock_5nm_yj6_z6z .language-shell}
+    ```
     git clone https://github.com/aliyun/aliyun-tablestore-python-sdk.git
-    sudo python setup.py  install
+    sudo python setup.py  install              
     ```
 
--   Method 3: Install Python by using source code.
-    1.  Download the [Python SDK](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyun-tablestore-sdk/python/aliyun-tablestore-python-sdk-5.1.0.tar.gz).
-    2.  Decompress the SDK, and then run the following command.
+-   Method 3: Use source code.
+    1.  Download the [SDK package](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyun-tablestore-sdk/python/aliyun-tablestore-python-sdk-5.1.0.tar.gz).
+    2.  Decompress the SDK package, and then run the following command:
 
-        ``` {#codeblock_wgz_3t5_xqn .language-shell}
-        sudo python setup.py install
+        ```
+        sudo python setup.py install       
         ```
 
 
-## Verify SDK {#section_w56_oq4_8bf .section}
+## Verify Tablestore SDK for Python
 
-Enter python on the command line and press ENTER to check the version.
+To check the SDK version in the Python environment, enter python on the command line and then press Enter.
 
-``` {#codeblock_vqp_hmr_xfy .language-shell}
+```
 >>> import tablestore
 >>> tablestore.__version__
-'5.1.0'
+'5.1.0'       
 ```
 
-## Uninstall SDK {#section_fjb_czo_ibc .section}
+## Uninstall Tablestore SDK for Python
 
-Uninstall python SDK by using pip.
+Run the following command to uninstall Tablestore SDK for Python by using pip:
 
-``` {#codeblock_rd5_8gl_3z2 .language-shell}
-sudo pip uninstall tablestore
+```
+sudo pip uninstall tablestore     
 ```
 
