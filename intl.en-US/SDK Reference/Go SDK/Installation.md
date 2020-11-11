@@ -1,15 +1,16 @@
-# Installation {#concept_52253_zh .concept}
+# Installation
 
-## Prerequisites {#section_x51_gr2_2fb .section}
+This topic describes how to install Tablestore SDK for Go.
 
-Applicable to Go SDK v1.4 and later.
+## Prerequisites
 
-## Procedure { .section}
+Go 1.4 or later is available.
 
-Run the following command:
+## Install Tablestore SDK for Go
+
+Run the following command to install Tablestore SDK for Go:
 
 ```
-	go get github.com/aliyun/aliyun-tablestore-go-sdk
-
+    go get github.com/aliyun/aliyun-tablestore-go-sdk        
 ```
 
