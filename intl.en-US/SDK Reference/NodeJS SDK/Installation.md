@@ -1,24 +1,25 @@
-# Installation {#concept_56351_zh .concept}
+# Installation
 
-## Prerequisites {#section_c4m_lm2_2fb .section}
+This topic describes how to install Tablestore SDK for Node.js.
 
-Applicable to NodeJS v4.0 and later.
+## Preparations
 
-## Procedure { .section}
+Node.js 4.0 or later is installed.
 
-Run the following command:
+**Note:** To avoid incompatibility problems, we recommend that you do not use Node.js versions 12.0 to 12.14.
 
-```language-xml
-npm install tablestore
+## Install Tablestore SDK for Node.js
+
+Run the following command to install Tablestore SDK for Node.js:
 
 ```
+npm install tablestore
+```
 
-## Example program { .section}
+## Sample programs
 
-The Table Store NodeJS SDK provides diverse example programs for your reference or use. You can obtain the example programs using either of the following methods:
+Tablestore SDK for Node.js provides a variety of sample programs for your reference and use. You can obtain the sample programs by using one of the following methods:
 
--   Download and decompress the Table Store NodeJS SDK, and find the example programs in the examples folder.
-
--   Access the [GitHub](https://github.com/aliyun/aliyun-tablestore-nodejs-sdk/tree/master/samples) project for the Table Store NodeJS.
-
+-   Download and decompress the Tablestore SDK for Node.js package. Find the sample programs in the examples folder.
+-   Access Tablestore SDK for Node.js on [GitHub](https://github.com/aliyun/aliyun-tablestore-nodejs-sdk/tree/master/samples).
 
