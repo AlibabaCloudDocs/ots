@@ -1,17 +1,19 @@
-# Installation {#concept_gck_f2j_kgb .concept}
+# Installation
 
-## Download the source code package {#section_u3m_x2j_kgb .section}
+This topic describes how to install Tunnel Service.
+
+## Download the source code package
 
 ```
 go get github.com/aliyun/aliyun-tablestore-go-sdk/tunnel
 ```
 
-## Install dependencies {#section_mbl_y2j_kgb .section}
+## Install dependencies
 
--   You can go to the tunnel directory and use the dep tool to install dependencies.
+-   You can go to the tunnel directory and use the dep tool to install the dependencies.
     -   Install the [dep](https://github.com/golang/dep#installation) tool.
-    -   Run the dep ensure -v command.
--   You can also directly run the go get command to install the dependencies:
+    -   dep ensure -v
+-   You can also run the go get command to install the dependencies:
 
     ```
     go get -u go.uber.org/zap
