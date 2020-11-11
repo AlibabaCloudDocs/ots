@@ -1,8 +1,23 @@
 # Configure an auto-increment primary key column
 
+This topic describes how to configure an auto-increment primary key column. You cannot set a partition key to an auto-increment column. If you write data to a table that contains an auto-increment primary key column, you do not need to specify specific values for the auto-increment primary key column because Tablestore generates values for the auto-increment primary key column. Values generated for the auto-increment primary key column are unique and consecutive within the partition that shares the same partition key value.
+
 ## Prerequisites
 
 The OTSClient instance is initialized. For more information, see [Initialization](/intl.en-US/SDK Reference/Python SDK/Initialization.md).
+
+## Usage notes
+
+1.  When you create a table, you cannot set a partition key to an auto-increment primary key column.
+
+    The data type of an auto-increment primary key column can only be set to integer. Each value generated for an auto-increment primary key column is a 64-bit signed long integer.
+
+2.  When you write data to a table, you do not need to specify specific values for the auto-increment column. Instead, you need only to set placeholder values for the auto-increment column.
+
+    If you want to obtain the values of the auto-increment column after data is written to the table, you can set ReturnType to RT\_PK.
+
+    When you query data, you must specify the values of all primary key columns. To obtain a complete primary key value, you can set ReturnType to RT\_PK in PutRow, UpdateRow, or BatchWriteRow.
+
 
 ## Examples
 
@@ -18,7 +33,7 @@ When you use auto-increment primary key columns, you can call the CreateTable, P
     table_name = 'OTSPkAutoIncrSimpleExample'
     
     def create_table(client):
-        # Create a table that includes the following two INTEGER primary keys: gid and uid. Set uid to the auto-increment column.
+        # Create a table that includes the following two INTEGER primary keys: gid and uid. Set uid to an auto-increment column.
         schema_of_primary_key = [('gid', 'INTEGER'), ('uid', 'INTEGER', PK_AUTO_INCR)]
         table_meta = TableMeta(table_name, schema_of_primary_key)
         table_options = TableOptions()
@@ -29,7 +44,7 @@ When you use auto-increment primary key columns, you can call the CreateTable, P
 
 2.  Write data
 
-    When you write data to a table, you do not need to specify a specific value for the auto-increment column. Instead, you need only to set the value of the auto-increment column to PK\_AUTO\_INCR.
+    When you write data to a table, you do not need to specify specific values for the auto-increment column. Instead, you need only to set placerholder values for the column.
 
     ```
     from tablestore import *
@@ -37,7 +52,7 @@ When you use auto-increment primary key columns, you can call the CreateTable, P
     table_name = 'OTSPkAutoIncrSimpleExample'
     
     def put_row(client):
-        # Write data to the primary keys: Set the value of gid to 1 and set uid to the auto-increment column. You must specify a value for the uid column. Otherwise, an error is returned.
+        # Write data to the primary keys. Set the value of gid to 1 and set uid to the auto-increment column. You must specify values for the uid column. Otherwise, an error is returned.
         primary_key = [('gid',1), ('uid', PK_AUTO_INCR)]
         attribute_columns = [('name','John'), ('mobile',15100000000), ('address','China'), ('age',20)]
         row = Row(primary_key, attribute_columns)
