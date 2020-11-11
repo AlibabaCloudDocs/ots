@@ -10,14 +10,12 @@ Local transactions: supported in all regions. You must [submit a ticket](https:/
 
 Search index and Tunnel Service are not supported in all regions. The following table describes the regions that support the two features.
 
-**Note:** In the following table, the √ mark indicates that the feature is supported in this region, and the x mark indicates that the feature is not supported in this region.
+**Note:** In the following table, the √ mark indicates that the feature is supported in the region, and the x mark indicates that the feature is not supported in the region.
 
 |Region|Search index|Tunnel Service|
 |------|------------|--------------|
 |China \(Hangzhou\)|√|√|
-|China East 1 Finance|×|√|
 |China \(Shanghai\)|√|√|
-|China East 2 Finance|×|√|
 |China \(Qingdao\)|×|×|
 |China \(Beijing\)|√|√|
 |China \(Zhangjiakou\)|√|√|
@@ -31,7 +29,7 @@ Search index and Tunnel Service are not supported in all regions. The following 
 |Indonesia \(Jakarta\)|×|×|
 |Japan \(Tokyo\)|×|×|
 |Germany \(Frankfurt\)|×|×|
-|UK \(London\)|×|×|
+|UK \(London\)|√|√|
 |US \(Silicon Valley\)|√|√|
 |US \(Virginia\)|√|√|
 |India \(Mumbai\)|√|√|
