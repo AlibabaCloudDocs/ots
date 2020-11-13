@@ -1,20 +1,31 @@
-# Delete tables {#concept_tqm_bvk_2gb .concept}
+# Delete tables
 
-You can call the DeleteTable operation to delete a table from a specified instance.
+You can call the DeleteTable operation to delete a specified table from the current instance.
 
-**API**
+## Prerequisites
+
+-   Client is initialized. For more information, see [Initialization](/intl.en-US/SDK Reference/NodeJS SDK/Initialization.md).
+-   A table is created.
+-   The index tables and search indexes for the table are deleted.
+
+## Operations
 
 ```
-  /**
-   * Delete a table from a specified instance.
-   */
-  deleteTable(params, callback)
-
+/**
+ * Delete a specified table from the current instance.
+ */
+deleteTable(params, callback)  
 ```
 
-**Examples**
+## Parameters
 
-The following code provides an example of how to delete a table from a specified instance:
+|Parameter|Description|
+|---------|-----------|
+|tableName|The name of the table.|
+
+## Examples
+
+The following code provides an example on how to delete a specified table:
 
 ```
 var client = require('./client');
@@ -30,8 +41,8 @@ client.deleteTable(params, function (err, data) {
     }
     console.log('success:', data);
 });
-
+            
 ```
 
-**Note:** Code details can be obtained at [deleteTable@GitHub](https://github.com/aliyun/aliyun-tablestore-nodejs-sdk/blob/master/samples/deleteTable.js).
+For the detailed sample code, visit [DeleteTable@GitHub](https://github.com/aliyun/aliyun-tablestore-nodejs-sdk/blob/master/samples/deleteTable.js).
 
