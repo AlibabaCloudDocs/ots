@@ -54,7 +54,7 @@ func RangeQuery(client *tablestore.TableStoreClient, tableName string, indexName
         ReturnAll:true,
     })
     searchResponse, err := client.Search(searchRequest)
-    if err ! = nil {
+    if err != nil {
         fmt.Printf("%#v", err)
         return
     }
@@ -62,7 +62,7 @@ func RangeQuery(client *tablestore.TableStoreClient, tableName string, indexName
     fmt.Println("RowCount: ", len(searchResponse.Rows))
     for _, row := range searchResponse.Rows {
         jsonBody, err := json.Marshal(row)
-        if err ! = nil {
+        if err != nil {
             panic(err)
         }
         fmt.Println("Row: ", string(jsonBody))
