@@ -63,7 +63,7 @@ func BoolQuery(client *tablestore.TableStoreClient, tableName string, indexName 
         searchQuery.SetQuery(boolQuery)
         searchRequest.SetSearchQuery(searchQuery)
         searchResponse, err := client.Search(searchRequest)
-        if err ! = nil {
+        if err != nil {
             fmt.Printf("%#v", err)
             return
         }
@@ -86,7 +86,7 @@ func BoolQuery(client *tablestore.TableStoreClient, tableName string, indexName 
         searchQuery.SetQuery(boolQuery)
         searchRequest.SetSearchQuery(searchQuery)
         searchResponse, err := client.Search(searchRequest)
-        if err ! = nil {
+        if err != nil {
             fmt.Printf("%#v", err)
             return
         }
