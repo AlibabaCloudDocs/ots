@@ -1,88 +1,88 @@
-# Incremental data operations {#concept_52791_zh .concept}
+# Incremental data operations
 
-Table Store provides the ListStream and DescribeStream operations for streams and GetShardIterator and GetStreamRecord operations for shards.
+Tablestore provides the ListStream and DescribeStream operations for streams, and GetShardIterator and GetShardRecord operations for shards.
 
-## ListStream {#section_p23_yj2_2fb .section}
+## ListStream
 
-ListStream is used to list all streams enabled for a table on the current instance.
+You can call the ListStream operation to list all streams enabled for a table on an instance.
 
-**Example**
+Example
 
-List information about all streams enabled for a table.
+List the information about all streams enabled for a table.
 
-```language-java
+```
 private static void listStream(SyncClient client, String tableName) {
-	ListStreamRequest listStreamRequest = new ListStreamRequest(tableName);
-	ListStreamResponse result = client.listStream(listStreamRequest);
+    ListStreamRequest listStreamRequest = new ListStreamRequest(tableName);
+    ListStreamResponse result = client.listStream(listStreamRequest);
 }
-
+            
 ```
 
-## DescribeStream { .section}
+## DescribeStream
 
-DescribeStream is used to query creationTime, expirationTime, status, shards, and the ID of the next start shard \(if shards are not returned\) of a stream.
+You can call the DescribeStream operation to query the creationTime, expirationTime, status, shards, and ID of the next start shard \(if shards are not returned\) of a stream.
 
-**Example 1**
+Example 1
 
-Obtain information about all shards of the current stream.
-
-```language-java
-	private static void describeStream(SyncClient client, String streamId) {
-		DescribeStreamRequest desRequest = new DescribeStreamRequest(streamId);
-		DescribeStreamResponse desStream = client.describeStream(desRequest);
-	}
+Obtain the information about all shards of a stream.
 
 ```
-
-**Example 2**
-
-Set InclusiveStartShardId and the maximum number of shards returned each time.
-
-```language-java
-	private static void describeStream(SyncClient client, String streamId) {
-	DescribeStreamRequest dsRequest = new DescribeStreamRequest(streamId);
-	dsRequest.setInclusiveStartShardId(startShardId);
-	dsRequest.setShardLimit(10);
-	DescribeStreamResponse dscStream = client.describeStream(dsRequest);
-	}
-
+    private static void describeStream(SyncClient client, String streamId) {
+        DescribeStreamRequest desRequest = new DescribeStreamRequest(streamId);
+        DescribeStreamResponse desStream = client.describeStream(desRequest);
+    }
+            
 ```
 
-## GetShardIterator { .section}
+Example 2
 
-GetShardIterator is used to obtain the start iterator for reading a shard.
+Set the ID of the start shard \(InclusiveStartShardId\) and the maximum number of shards to return each time.
 
-**Example**
+```
+    private static void describeStream(SyncClient client, String streamId) {
+    DescribeStreamRequest dsRequest = new DescribeStreamRequest(streamId);
+    dsRequest.setInclusiveStartShardId(startShardId);
+    dsRequest.setShardLimit(10);
+    DescribeStreamResponse dscStream = client.describeStream(dsRequest);
+    }
+            
+```
+
+## GetShardIterator
+
+You can call the GetShardIterator operation to obtain the start iterator for reading a shard.
+
+Example
 
 Obtain the start iterator for reading a shard.
 
-```language-java
-	private static void getShardIterator(SyncClient client, String streamId, String shardId) {
-	GetShardIteratorRequest getShardIteratorRequest = new GetShardIteratorRequest(streamId, shardId);
-	GetShardIteratorResponse shardIterator = client.getShardIterator(getShardIteratorRequest);
-	}
-
+```
+    private static void getShardIterator(SyncClient client, String streamId, String shardId) {
+    GetShardIteratorRequest getShardIteratorRequest = new GetShardIteratorRequest(streamId, shardId);
+    GetShardIteratorResponse shardIterator = client.getShardIterator(getShardIteratorRequest);
+    }
+            
 ```
 
-## GetStreamRecord { .section}
+## GetStreamRecord
 
-GetStreamRecord is used to obtain each update record of a shard.
+You can call the GetStreamRecord operation to obtain the update records of a shard.
 
-**Example**
+Example
 
 Obtain the first 100 update records of a shard.
 
-```language-java
-	private static void getShardIterator(SyncClient client, String shardIterator) {
-		GetStreamRecordRequest streamRecordRequest = new GetStreamRecordRequest(shardIterator);
-		streamRecordRequest.setLimit(100);
-		GetStreamRecordResponse streamRecordResponse = client.getStreamRecord(streamRecordRequest);
-		List<StreamRecord> records = streamRecordResponse.getRecords();
-		for(int k=0;k<records.size();k++){
-			System.out.println("record info:" +  records.get(k).toString());
-		}
-		System.out.println("next iterator:" + streamRecordResponse.getNextShardIterator());
-	}
-
+```
+    private static void getShardIterator(SyncClient client, String shardIterator) {
+        GetStreamRecordRequest streamRecordRequest = new GetStreamRecordRequest(shardIterator);
+        streamRecordRequest.setLimit(100);
+        GetStreamRecordResponse streamRecordResponse = client.getStreamRecord(streamRecordRequest);
+        List<StreamRecord> records = streamRecordResponse.getRecords();
+        for(int k=0;k<records.size();k++){
+            System.out.println("record info:" +  records.get(k).toString());
+        }
+        System.out.println("next iterator:" + streamRecordResponse.getNextShardIterator());
+    }
+            
 ```
 
