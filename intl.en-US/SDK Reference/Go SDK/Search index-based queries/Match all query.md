@@ -38,7 +38,7 @@ func MatchAllQuery(client *tablestore.TableStoreClient, tableName string, indexN
     searchQuery.SetLimit(0) // Set Limit to 0, which indicates that no data is returned.
     searchRequest.SetSearchQuery(searchQuery)
     searchResponse, err := client.Search(searchRequest)
-    if err ! = nil { // Check for exceptions.
+    if err != nil { // Check for exceptions.
         fmt.Printf("%#v", err) 
         return
     }
