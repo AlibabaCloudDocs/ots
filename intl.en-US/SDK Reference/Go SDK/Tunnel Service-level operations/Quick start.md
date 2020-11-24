@@ -1,81 +1,66 @@
-# Quick start {#concept_sjd_g2j_kgb .concept}
+# Quick start
 
-## Initialize the Tunnel Service client {#section_hss_ffj_kgb .section}
+Tablestore SDK for Go allows you to use Tunnel Service. Before you use Tunnel Service, you must understand the usage notes.
 
-```
-// endpoint specifies the URL that is used to access a Table Store instance, such as https://instance.cn-hangzhou.ots.aliyun.com.
-// instance specifies the name of an instance.
-// AccessKeyId specifies the AccessKey ID that is used to access Table Store. AccessKeySecret specifies the corresponding AccessKey Secret that is used to access Table Store.
-tunnelClient := tunnel.NewTunnelClient(endpoint, instance,
-   accessKeyId, accessKeySecret)
+## Usage notes
 
-```
+-   By default, TunnelWorkerConfig starts the thread pool to read and process data. A single server starts multiple TunnelWorkers. We recommend that TunnelWorkers share the same TunnelWorkerConfig.
+-   When you create a differential tunnel to consume full and incremental data, the tunnel retains incremental logs for a maximum of seven days. The specific expiration time of incremental logs is the same as that of incremental data for a table. If the tunnel does not consume full data within seven days, the OTSTunnelExpired error occurs when the tunnel starts to consume incremental data. As a result, the tunnel cannot consume incremental data. If you estimate that the tunnel cannot consume full data within seven days, submit a ticket or join DingTalk group 23307953 to request technical support.
+-   TunnelWorker requires warm-up time during initialization. The HeartbeatInterval parameter in TunnelWorkerConfig determines the warm-up time. You can use the time method in TunnelWorkerConfig to set this parameter. The default value is 30s. The minimum value is 5s.
+-   When the mode switches from the full channel to the incremental channel, the full channel is closed and the incremental channel is started. This process requires the time for initialization. The HeartbeatInterval parameter determines the initialization time.
+-   When the TunnelWorker client is abnormally shut down due to an exceptional exit or manual termination, TunnelWorker automatically recycles resources in the following ways: 1. Release the thread pool. 2. Automatically call the shutdown method that you have registered for the Channel class. 3. Shut down the tunnel.
 
-## Create tunnels {#section_ssd_kfj_kgb .section}
+## Experience Tunnel Service
 
-```
-req := &tunnel.CreateTunnelRequest{
-   TableName:  "testTable",
-   TunnelName: "testTunnel",
-   Type:       tunnel.TunnelTypeBaseStream, //Set the type of the tunnel to differential.
-}
-resp, err := tunnelClient.CreateTunnel(req)
-if err ! = nil {
-   log.Fatal("create test tunnel failed", err)
-}
-log.Println("tunnel id is", resp.TunnelId)
-```
+1.  Initialize a Tunnel client instance.
 
-## Obtain information of existing tunnels {#section_q4b_lfj_kgb .section}
+    ```
+    // Set endpoint to the endpoint of the Tablestore instance. Example: https://instance.cn-hangzhou.ots.aliyun.com.
+    // Set the name of the instance.
+    // Set accessKeyId and accessKeySecret to the AccessKey ID and AccessKey secret used to access Tablestore.
+    tunnelClient := tunnel.NewTunnelClient(endpoint, instance,
+       accessKeyId, accessKeySecret)                    
+    ```
 
-```
-req := &tunnel.DescribeTunnelRequest{
-   TableName:  "testTable",
-   TunnelName: "testTunnel",
-}
-resp, err := tunnelClient.DescribeTunnel(req)
-if err ! = nil {
-   log.Fatal("create test tunnel failed", err)
-}
-log.Println("tunnel id is", resp.Tunnel.TunnelId)
-```
+2.  Create a tunnel.
 
-## Configure a callback function and start to consume data {#section_tzc_lfj_kgb .section}
-
-```
-// Define a callback function.
-func exampleConsumeFunction(ctx *tunnel.ChannelContext, records []*tunnel.Record) error {
-    fmt.Println("user-defined information", ctx.CustomValue)
-    for _, rec := range records {
-        fmt.Println("tunnel record detail:", rec.String())
+    ```
+    req := &tunnel.CreateTunnelRequest{
+       TableName:  "testTable",
+       TunnelName: "testTunnel",
+       Type:       tunnel.TunnelTypeBaseStream, // Create the BaseStream tunnel.
     }
-    fmt.Println("a round of records consumption finished")
-    return nil
-}
+    resp, err := tunnelClient.CreateTunnel(req)
+    if err != nil {
+       log.Fatal("create test tunnel failed", err)
+    }
+    log.Println("tunnel id is", resp.TunnelId)
+    ```
 
-// Configure the callback function. Information about the callback function is passed to the SimpleProcessFactory API. Configure the TunnelWorkerConfig API.
-workConfig := &tunnel.TunnelWorkerConfig{
-   ProcessorFactory: &tunnel.SimpleProcessFactory{
-      CustomValue: "user custom interface{} value",
-      ProcessFunc: exampleConsumeFunction,
-   },
-}
+3.  Customize the data consumption callback function to start automatic data consumption.
 
-// Specify TunnelDaemon to continuously consume the specified tunnel.
-daemon := tunnel.NewTunnelDaemon(tunnelClient, tunnelId, workConfig)
-log.Fatal(daemon.Run())
-```
+    ```
+    // Customize the data consumption callback function.
+    func exampleConsumeFunction(ctx *tunnel.ChannelContext, records []*tunnel.Record) error {
+        fmt.Println("user-defined information", ctx.CustomValue)
+        for _, rec := range records {
+            fmt.Println("tunnel record detail:", rec.String())
+        }
+        fmt.Println("a round of records consumption finished")
+        return nil
+    }
+    
+    // Configure the callback function. Information about the callback function is passed to the SimpleProcessFactory operation. Configure the TunnelWorkerConfig operation.
+    workConfig := &tunnel.TunnelWorkerConfig{
+       ProcessorFactory: &tunnel.SimpleProcessFactory{
+          CustomValue: "user custom interface{} value",
+          ProcessFunc: exampleConsumeFunction,
+       },
+    }
+    
+    // Use TunnelDaemon to continuously consume the specified tunnel.
+    daemon := tunnel.NewTunnelDaemon(tunnelClient, tunnelId, workConfig)
+    log.Fatal(daemon.Run())
+    ```
 
-## Delete tunnels {#section_bvk_lfj_kgb .section}
-
-```
-req := &tunnel.DeleteTunnelRequest {
-   TableName: "testTable",
-   TunnelName: "testTunnel",
-}
-_, err := tunnelClient.DeleteTunnel(req)
-if err ! = nil {
-   log.Fatal("delete test tunnel failed", err)
-}
-```
 
