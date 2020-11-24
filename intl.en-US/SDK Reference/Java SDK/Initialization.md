@@ -1,95 +1,88 @@
-# Initialization {#concept_43009_zh .concept}
+# Initialization
 
-The OTSClient is the client for Table Store. It provides callers with a series of methods for operating tables and reading/writing data from/to a single row or multiple rows. To use the Java SDK to initiate a request to Table Store, you must initialize an OTSClient instance and modify the default configurations of the ClientConfiguration as needed.
+OTSClient is the client for Tablestore. OTSClient provides a series of methods for you to manage tables and perform read and write operations on one or more rows. To use Tablestore SDK for Java to initiate a request, you must initialize an OTSClient instance and modify the default configuration items of ClientConfiguration.
 
-## Determine an endpoint {#section_nwd_jbd_2fb .section}
+## Obtain an endpoint
 
-An endpoint is the domain of Alibaba Cloud Table Store in a region. It supports the following format.
+An endpoint is the domain name used to access a Tablestore instance in a region. The following table lists the examples of endpoints in the supported format.
 
 |Example|Description|
 |:------|:----------|
-| `http://sun.cn-hangzhou.ots.aliyuncs.com` |Accesses the sun instance in Hangzhou over the Internet using the HTTP protocol.|
-| `https://sun.cn-hangzhou.ots.aliyuncs.com` |Accesses the sun instance in Hangzhou over the Internet using the HTTPS protocol.|
+|http://sun.cn-hangzhou.ots.aliyuncs.com|The public endpoint used to access the sun instance in the China \(Hangzhou\) region over HTTP.|
+|https://sun.cn-hangzhou.ots.aliyuncs.com|The public endpoint used to access the sun instance in the China \(Hangzhou\) region over HTTPS.|
 
-**Note:** Instances can also be accessed over the intranet.
+**Note:** Tablestore supports access over the Internet and internal network. For more information, see [Endpoint](/intl.en-US/Function Introduction/Terms/Endpoint.md).
 
-To query the endpoint where your Table Store instance is located, follow these steps:
+To query the endpoints of your Tablestore instance, perform the following operations:
 
-1.  Log on to the [Alibaba Cloud Table Store Console](https://partners-intl.console.aliyun.com/#/ots).
-2.  Go to the Instance Details page and locate the Instance Access URL, which is the endpoint of the instance.
+1.  Log on to the Tablestore console.
 
-## Configure an AccessKey { .section}
+2.  Click the instance name to go to the Instance Management page.
 
-To access the Alibaba Cloud Table Store service, you need a valid AccessKey for signature authentication. The following types of AccessKeys is supported:
+    On the Instance Details tab, you can view the endpoints of the instance in Instance Access URL.
 
--   AccessKeyID and AccessKeySecret of the primary account. The creation process is as follows:
 
-    1.  Register an Alibaba Cloud account on the Alibaba Cloud website.
-    2.  Log on to the [AccessKey Console](https://partners-intl.console.aliyun.com/#/ak) to apply for an AccessKey.
--   AccessKeyID and AccessKeySecret of the RAM user authorized to access Table Store. The creation process is as follows:
+## Configure an AccessKey pair
 
-    1.  Use the primary account to access RAM and create a RAM user or use an existing RAM user.
-    2.  Use the primary account to authorize the RAM user to access Table Store.
+To access Tablestore, you must have an AccessKey pair that consists of an AccessKey ID and AccessKey secret to verify your identity. The following types of AccessKey pairs are supported:
 
-        After authorization, the AccessKeyID and AccessKeySecret of the RAM user can be used to access Table Store.
+-   The AccessKey pair of an Alibaba Cloud account. To obtain the AccessKey pair of an Alibaba Cloud account, take the following steps:
+    1.  On the Alibaba Cloud official website,[Create Your Alibaba Cloud Account](https://account-intl.aliyun.com/register/intl_register.htm).
+    2.  Create an AccessKey ID and an AccessKey secret on the [User Management](https://ak-console.aliyun.com/#/accesskey) console.
+-   The AccessKey pair of a RAM user who is granted with permissions to access Tablestore. To obtain the AccessKey pair of a RAM user, take the following steps:
+    1.  Use your Alibaba Cloud account to log on to [RAM](https://www.aliyun.com/product/ram/). Create a RAM user or use an existing RAM user.
+    2.  Use your Alibaba Cloud account to authorize the RAM user to access Tablestore.
+    3.  After the RAM user is authorized, you can use the AccessKey pair of the RAM user to access Tablestore.
+-   Temporary access credentials obtained from STS. To obtain temporary access credentials from STS, take the following steps:
+    1.  The application server uses RAM or STS to obtain access credentials that consist of a temporary AccessKey ID, an AccessKey secret, and a token. After the access credentials are obtained, the application server sends them to you.
+    2.  You can use the received access credentials to access Tablestore.
 
--   STS token for temporary access. The token acquisition process is as follows:
+## Initialize an OTSClient instance
 
-    1.  The application server accesses the RAM/STS server to obtain a temporary AccessKeyID, AccessKeySecret, and token, and sends them to you.
-    2.  Use the temporary AccessKeyID, AccessKeySecret, and token to access Table Store.
-
-## Initialization { .section}
-
-After you obtain the AccessKeyID and AccessKeySecret, you must initialize an OTSClient instance.
+After you obtain the AccessKey ID and AccessKey secret, you can perform the following operations to initialize an OTSClient instance:
 
 Create a client
 
-When using Table Store SDKs, you must construct a client and then call the client API to access the Table Store service. The client API functions are similar to the RESTful API provided by Table Store.
+When you use Tablestore SDKs, you must create a client and then call the operations in the client to access Tablestore. The operations in the client provide the same functions as the RESTful API provided by Tablestore.
 
-The latest versions of Table Store SDKs provide two types of clients: SyncClient and AsyncClient, which are designed for synchronous APIs and asynchronous APIs respectively.
+Tablestore SDKs offer two client types: SyncClient and AsyncClient. SyncClient is designed for synchronous operations and AsyncClient is for asynchronous operations. After a synchronous operation is called, the service request succeeds. You can call synchronous operations to learn more about the various functions of Tablestore. Compared with synchronous operations, asynchronous operations provide greater flexibility. If you require high performance, you can choose between the use of asynchronous operations and multithreading.
 
-Once a synchronous API call is completed, the request has been executed. You can call synchronous APIs to learn about the various functions of Table Store. Compared to synchronous APIs, asynchronous APIs provide greater flexibility. If you have high performance requirements, you can choose between the use of asynchronous APIs and multithreading, depending on your business needs.
+**Note:** Both SyncClient and AsyncClient are thread-safe and can internally manage threads and connection resources. You do not need to create a client for each thread or request. Instead, create a global client.
 
-**Note:** Both SyncClient and AsyncClient are secure threads, which contain management threads and connection resources. We do not recommend creating too many clients. Generally, one global client is sufficient.
+Examples
 
-Sample code
+-   The following code provides an example on how to use the default configurations to create a SyncClient:
 
-1.  Use the default configuration to create a SyncClient.
-
-    ```language-java
+    ```
             final String endPoint = ""; 
             final String accessKeyId = ""; 
             final String accessKeySecret = ""; 
             final String instanceName = "";
-    
             SyncClient client = new SyncClient(endPoint, accessKeyId, accessKeySecret, instanceName);
-    
+                            
     ```
 
-2.  Use custom configuration to create a SyncClient.
+-   The following code provides an example on how to use the custom configurations to create a SyncClient:
 
     ```
-    // ClientConfiguration provides multiple configuration items. Commonly used items are listed as follows.
+            // ClientConfiguration provides multiple configuration items. Only the most commonly used items are listed.
             ClientConfiguration clientConfiguration = new ClientConfiguration();
-            // Set the connection establishment time-out.
+            // Set the timeout period for establishing a connection.
             clientConfiguration.setConnectionTimeoutInMillisecond(5000);
-            // Set the socket time-out.
+            // Set the timeout period for the socket connection.
             clientConfiguration.setSocketTimeoutInMillisecond(5000);
-            // Set the retry policy. If this is not set, the default retry policy is used.
+            // Configure a retry policy. If you do not configure policies, the default retry policy is used.
             clientConfiguration.setRetryStrategy(new AlwaysRetryStrategy());
-            SyncClient client = new SyncClient(endPoint, accessId, accessKey,
-                    instanceName, clientConfiguration);
+            SyncClient client = new SyncClient(endPoint, accessId, accessKey, instanceName, clientConfiguration);
     ```
 
 
-## HTTPS { .section}
+## HTTPS
 
-Upgrade to Java 7 for HTTPS.
+Upgrade to Java 7 for HTTPS access.
 
-## Multithreading { .section}
+## Multithreading
 
 -   Multithreading is supported.
-
--   We recommend that multiple threads use the same OTSClient object.
-
+-   We recommend that you use the same OTSClient object to perform multithreading tasks.
 
