@@ -1,6 +1,6 @@
 # Read and write data in the console
 
-After a table is created, you can read data from and write data to the table in the console.
+After a table is created, you can read data from and write data to the table in the Tablestore console.
 
 ## Add data
 
@@ -18,14 +18,14 @@ After a table is created, you can read data from and write data to the table in 
 
 6.  Click **OK**.
 
-    Rows that contain the written data are displayed on the Data Editor tab.
+    Rows containing the written data are displayed on the Data Editor tab.
 
-    **Note:** A maximum of 50 rows of data can be displayed in the console. However, Tablestore does not impose limits on the number of rows of data that can be displayed when you use Tablestore SDK.
+    **Note:** A maximum of 50 rows of data can be displayed in the Tablestore console. However, Tablestore does limit the number of rows of data that can be displayed when you use Tablestore SDKs.
 
 
 ## Delete data
 
-You can delete data you no longer need.
+You can delete data that you no longer need.
 
 1.  Log on to the [Tablestore console](https://otsnext.console.aliyun.com/).
 
@@ -33,7 +33,7 @@ You can delete data you no longer need.
 
 3.  In the Tables section of the Instance Details tab, click the name of the requested table, and click the Data Editor tab. You can also click **Data Editor** in the Actions column corresponding to the table.
 
-4.  On the Data Editor tab, select the row of data you want to delete. Click **Delete**.
+4.  On the Data Editor tab, select the row of data that you want to delete. Click **Delete**.
 
 5.  In the Delete message, click **OK**.
 
@@ -48,20 +48,20 @@ You can update data in the attribute columns of a row.
 
 3.  In the Tables section of the Instance Details tab, click the name of the requested table, and click the Data Editor tab. You can also click **Data Editor** in the Actions column corresponding to the table.
 
-4.  On the Data Editor tab, select the row of data you want to update. Click **Update**.
+4.  On the Data Editor tab, select the row of data that you want to update. Click **Update**.
 
-    ![fig_tablestore_004](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/9477925951/p96253.png)
+    ![fig_tablestore_004](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/9477925951/p96253.png)
 
-5.  In the Update dialog box, modify the type and value for the primary key, add or remove attribute columns, and update or delete data in attribute columns.
+5.  In the Update dialog box, modify the type and value of a primary key, add or remove attribute columns, or update or delete data in attribute columns.
 
-    -   You can click **+Add Column** to add an attribute column. You can also click the ![fig_tablestore_005](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/5806659951/p96256.png) icon to delete an attribute column.
-    -   If you select **Update**, you can modify data in attribute columns. If you select **Delete**, select the number of version to delete. If you select **Delete All**, all versions of the data are deleted.
+    -   You can click **Add Column** to add an attribute column. You can also click the ![fig_tablestore_005](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5806659951/p96256.png) icon to delete an attribute column.
+    -   In the first Actions column, if you select **Update**, you can modify data in attribute columns. If you select **Delete**, you can delete data of the selected version. If you select **Delete All**, you can delete all versions of the data.
 6.  Click **OK**.
 
 
 ## Query data
 
-In the Tablestore console, you can query data in a single row \(GetRow\) or query data within a specified range \(RangeQuery\).
+In the Tablestore console, you can query data in a single row \(GetRow\) or data within a specified range \(RangeQuery\).
 
 To query data in a single row, perform the following operations:
 
@@ -77,26 +77,26 @@ To query data in a single row, perform the following operations:
 
     1.  Set Modes to **GetRow**.
 
-        ![fig_tablestore_006](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/9477925951/p96271.png)
+        ![fig_tablestore_006](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/9477925951/p96271.png)
 
     2.  By default, all columns are returned. To return a specific attribute column, turn off **All Columns**, and then enter the specified attribute columns. Separate the attribute columns with commas\(,\).
 
-        **Note:** You can specify a maximum of 20 attribute columns in the console. This limit does not apply to Tablestore SDK.
+        **Note:** You can specify a maximum of 20 attribute columns in the console. This limit does not apply when you use Tablestore SDKs.
 
     3.  Set **Primary Key Columns**.
 
-        The integrity and accuracy of the primary key value affect the query results.
+        The integrity and accuracy of the primary key values affect the query results.
 
     4.  Set **Max Versions** to specify the maximum number of versions to return.
 
-        **Note:** You can specify a maximum of 20 attribute columns in the console. This limit does not apply to Tablestore SDK.
+        **Note:** You can specify a maximum of 20 versions in the console. This limit does not apply when you use Tablestore SDKs.
 
 6.  Click **OK**.
 
     Data that meets the filter conditions is displayed on the Data Editor tab.
 
 
-To perform range query, perform the following steps:
+To query data within a specified range, perform the following steps:
 
 1.  Log on to the [Tablestore console](https://otsnext.console.aliyun.com/).
 
@@ -110,11 +110,11 @@ To perform range query, perform the following steps:
 
     1.  Set Modes to **Range Search**.
 
-        ![fig_tablestore_007](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/9477925951/p96285.png)
+        ![fig_tablestore_007](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/9477925951/p96285.png)
 
     2.  By default, all columns are returned. To return a specific attribute column, turn off **All Columns**, and then enter the specified attribute columns. Separate the attribute columns with commas\(,\).
 
-        **Note:** You can specify a maximum of 20 attribute columns in the console. This limit does not apply to Tablestore SDK.
+        **Note:** You can specify a maximum of 20 attribute columns in the console. This limit does not apply when you use Tablestore SDKs.
 
     3.  Set Start Primary Key Column and End Primary Key Column.
 
@@ -122,11 +122,11 @@ To perform range query, perform the following steps:
 
         **Note:**
 
-        -   The value in the first primary key column takes priority when the range query mode is used. When the minimum and maximum values for the first primary key column are the same, the system uses the value in the second primary key column to perform the query. The query rules for the subsequent primary keys are the same as those for the first two primary keys.
+        -   The value in the first primary key column takes priority when the range query mode is used. When the minimum and maximum values for the first primary key column are the same, the system uses the value in the second primary key column to perform the query. The query rules for subsequent primary keys are the same as those for the first two primary keys.
         -   The Custom range is a left-open and right-closed interval.
     4.  Set **Max Versions** to specify the maximum number of versions to return.
 
-        **Note:** You can specify a maximum of 20 attribute columns in the console. This limit does not apply to Tablestore SDK.
+        **Note:** You can specify a maximum of 20 versions in the console. This limit does not apply when you use Tablestore SDKs.
 
     5.  Set Sequence to **Forward Search** or **Backward Search**.
 
