@@ -1,18 +1,19 @@
-# SDK overview {#concept_mfx_rsj_bfb .concept}
+# SDK overview
 
-Before using the table store SDK, you must:
+This topic describes Tablestore SDKs for different programming languages.
 
--   Activate [Alibaba Cloud Table Store Service](https://www.alibabacloud.com/product/table-store).
--   [Create an AccessKey](https://www.alibabacloud.com/help/doc-detail/53045.htm).
+Before you use Tablestore SDKs, you must:
 
-This document describes how to install and use Java SDK v4.0.0 and later for Table Store \(formerly OTS\).
+-   Understand and activate Tablestore. For more information, see the [Tablestore product page](https://www.alibabacloud.com/product/table-store).
+-   Create an AccessKey pair. For more information, see [Create an AccessKey pair](https://www.alibabacloud.com/help/doc-detail/53045.htm).
 
-|Language|References|
-|:-------|:---------|
-|Java|[Java SDK](intl.en-US/SDK Reference/Java SDK/Preface.md#)|
-|Python|[Python SDK](intl.en-US/SDK Reference/Python SDK/Preface.md#)|
-|C++|[C++ SDK](intl.en-US/SDK Reference/C++ SDK/Preface.md#)|
-|Go|[Go SDK](intl.en-US/SDK Reference/Go SDK/Preface.md#)|
-|. .NET|[. .Net SDK](intl.en-US/SDK Reference/. .NET SDK/Preface.md#)|
-|NodeJS|[NodeJS SDK](intl.en-US/SDK Reference/NodeJS SDK/Preface.md#)|
+The following table lists the Tablestore SDKs for different programming languages.
+
+|Language|Reference|
+|:-------|:--------|
+|Java|[Java SDK](/intl.en-US/SDK Reference/Java SDK/Preface.md)|
+|Python|[Python SDK](/intl.en-US/SDK Reference/Python SDK/Preface.md)|
+|Go|[Go SDK](/intl.en-US/SDK Reference/Go SDK/Preface.md)|
+|.NET|[.NET SDK](/intl.en-US/SDK Reference/.NET SDK/Preface.md)|
+|Node.js|[Node.js SDK](/intl.en-US/SDK Reference/NodeJS SDK/Preface.md)|
 
