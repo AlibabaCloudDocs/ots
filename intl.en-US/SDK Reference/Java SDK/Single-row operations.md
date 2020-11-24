@@ -1,6 +1,6 @@
 # Single-row operations
 
-Tablestore SDK for Go provides the following single-row operations: PutRow, GetRow, UpdateRow, and DeleteRow.
+Tablestore SDKs provide the following single-row operations: PutRow, GetRow, UpdateRow, and DeleteRow.
 
 ## Prerequisites
 
