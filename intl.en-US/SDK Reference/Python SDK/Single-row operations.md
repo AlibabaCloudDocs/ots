@@ -1,239 +1,323 @@
-# Single-row operations {#reference7829 .reference}
+# Single-row operations
 
-The Table Store SDK provides the following single-row operation APIs: PutRow, GetRow, UpdateRow, and DeleteRow.
+Tablestore SDKs provide the following single-row operations: PutRow, GetRow, UpdateRow, and DeleteRow.
 
-## PutRow { .section}
+## Prerequisites
 
-Inserts data into a specified row.
+-   The OTSClient instance is initialized. For more information, see [Initialization](/intl.en-US/SDK Reference/Python SDK/Initialization.md).
+-   A data table is created. Data is written to the table.
 
-**API**
+## PutRow
 
-```language-python
-        """
-        Description: This operation writes a single row of data. CapacityUnit consumed by the operation is returned.
-        ``table_name`` is the name of the table.
-        ``row`` indicates row data, including primary key columns and attribute columns.
-        ``condition`` indicates the conditions to be checked before an operation is executed. If the conditions are met, the operation is executed. It is an instance of the tablestore.metadata.Condition class. Currently, this function only supports row existence checks. Check conditions include: 'IGNORE', 'EXPECT_EXIST', and 'EXPECT_NOT_EXIST'.
-        ``return_type`` indicates the type of the returned value. It is an instance of the tablestore.metadata.ReturnType class. Currently, only return of PrimaryKey is supported, which is typically used in automatic increment of primary key columns.
-		
-        Return: CapacityUnits consumed by the operation, and the row data to be returned.
-		``consumed`` indicates the CapacityUnits consumed. It is an instance of the tablestore.metadata.CapacityUnit class.
-        ``return_row`` indicates the row data returned, which may include the primary key and attribute columns.
-		"""
-		def put_row(self, table_name, row, condition = None, return_type = None)
+You can call this operation to insert a row of data. If the row already exists, this operation deletes the existing row \(all columns and all versions of the original row\), and then writes data to the row.
 
-```
+-   API operations
 
-**Examples**
+    ```
+            """
+            Description: This operation writes a single row of data. Thu number of capacity unites (CUs) consumed by the operation is returned.
+            table_name specifies the name of the table.
+            row specifies the row you want to insert to the table, including a primary key and attribute columns.
+            condition is an instance of the tablestore.metadata.Condition class. After you specify conditions, the system checks whether the specified conditions are met before the system performs the operation. If the conditions are met, the operation is performed. This function supports row existence and column-based condition checks. Check conditions for row existence include IGNORE, EXPECT_EXIST, and EXPECT_NOT_EXIST.
+            return_type specifies the data type to return. return_type is an instance of the tablestore.metadata.ReturnType class. You can use only return_type to specify the type of primary key data to return. This parameter applies to auto-increment primary key columns.
+    
+            Response: the number of CUs consumed by this operation and the row data to return.
+            consumed is an instance of the tablestore.metadata.CapacityUnit class. This parameter indicates the number of CUs consumed by this operation.
+            return_row indicates the row to return, including the primary key and attribute columns.
+            """
+            def put_row(self, table_name, row, condition = None, return_type = None)
+                        
+    ```
 
-Insert a data row.
+-   Parameters
 
-```language-python
-	## The first primary key column of the primary key is gid with an integral value of 1. The second primary key column is uid with an integral value of 101.
-    primary_key = [('gid',1), ('uid',101)]
-	
-	## Four attribute columns exist:
-	##                        The first attribute column is "name" with the string value "John". The version is not specified, and the current system time is used as the version.
-	##                        The second attribute column is "mobile" with the integral value 15100000000. The version is not specified, and the current system time is used as the version.
-	##                        The third attribute column is "address" with the binary value "China". The version is not specified, and the current system time is used as the version.
-	##                        The fourth column is "age" with the value 29.7. The version is 1498184687.
-	attribute_columns = [('name','John'), ('mobile',15100000000),('address', bytearray('China')),('female', False), ('age', 29.7, 1498184687000)] 
-	
-	## Construction of Row using primary_key and attribute_columns
-    row = Row(primary_key, attribute_columns)
-	
-    # Row condition: The expected row does not exist. If the expected row exists, the error "Condition Update Failed" is returned.
-    condition = Condition(RowExistenceExpectation.EXPECT_NOT_EXIST)
-	
-	try :
-		# Call the put_row method. If ReturnType is not specified, return_row is None.
-    	consumed, return_row = client.put_row(table_name, row, condition)
-	
-		# The write CU consumed by this request is printed.
-    	print ('put row succeed, consume %s write cu.' % consumed.write)
-	# The client is abnormal, which is typically due to incorrect parameters or a network error.
-	except OTSClientError as e:
-		print "put row failed, http_status:%d, error_message:%s" % (e.get_http_status(), e.get_error_message())
-	# The server is abnormal, which is typically due to incorrect parameters or a network error.
-	except OTSServiceError as e:
-		print "put row failed, http_status:%d, error_code:%s, error_message:%s, request_id:%s" % (e.get_http_status(), e.get_error_code(), e.get_error_message(), e.get_request_id())
+    |Parameter|Description|
+    |---------|-----------|
+    |table\_name|The name of the table.|
+    |primary\_key|The primary key of the row.**Note:**
 
-```
+    -   The number and type of primary key columns configured must be consistent with those of primary key columns of the table.
+    -   When the primary key column is an auto-increment column, you need only to set the value of the auto-increment column to placeholders. For more information, see [Configure an auto-increment primary key column](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure an auto-increment primary key column.md). |
+    |attribute\_columns|The attribute column of the row.    -   Each item specifies the values in the following sequence: the attribute column name, attribute column value \(ColumnValue\), attribute column value type \(ColumnType, which is optional\), and timestamp \(optional\).
+    -   ColumnType can be set to ColumnType.INTEGER, ColumnType.STRING, ColumnType.BINARY, ColumnType.BOOLEAN, and ColumnType.DOUBLE, which respectively indicate the INTEGER, STRING \(UTF-8 encoded string\), BINARY, BOOLEAN, and DOUBLE types. If the type is BINARY, the type must be specified. Otherwise, the type can be ignored.
+    -   The timestamp is the version number of the data. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
 
-**Note:** 
+You can customize a version number or specify that the system generates the version number. If the timestamp is not set, the version number is generated by the system.
 
--   RowExistenceExpectation.IGNORE indicates that new data is inserted no matter whether the specified row exists or not. If the inserted data is the same as the existing data, the existing data is overwritten.
+        -   The version number is calculated based on the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
+        -   When you choose to customize the version number, make sure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range. |
+    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure conditional update.md).**Note:**
 
--   RowExistenceExpectation.EXPECT\_EXIST indicates that new data is inserted only when the specified row exists. The existing data is overwritten.
+    -   RowExistenceExpectation.IGNORE indicates that new data is inserted into a row no matter whether the specified row exists. If the specified row exists, the existing data is overwritten.
+    -   RowExistenceExpectation.EXPECT\_EXIST indicates that new data is inserted only when the specified row exists. The existing data is overwritten.
+    -   RowExistenceExpectation.EXPECT\_NOT\_EXIST indicates that data is inserted only when the specified row does not exist. |
 
--   RowExistenceExpectation.EXPECT\_NOT\_EXIST indicates that data is inserted only when the specified row does not exist.
+-   Examples
 
--   In the preceding sample program, the version of the attribute column “age” is 1498184687000, and the value is June, 23, 2017. If the current time minus the value of max\_time\_deviation \(specified during table creation\) is greater than 1498184687000, the PutRow operation is disabled.
--   If the operation is successful, no exception is thrown; if the operation fails, an exception is thrown.
+    The following code provides an example on how to insert a row of data:
+
+    **Note:** In the following example, the data version in the age attribute column is 1498184687000, which indicates June 23, 2017. If the current time minus max\_time\_deviation \(specified during table creation\) is greater than 1498184687000, PutRow is disabled.
+
+    ```
+        ## The first primary key column of the primary key is gid and its value is the integer 1. The second primary key column is uid and its value is the integer 101.
+        primary_key = [('gid',1), ('uid',101)]
+    
+        ## Insert the following attribute columns:
+        ##                        The name of the first attribute column is name and its value is the string John. The version number is not specified, so the current system time is used as the version number.
+        ##                        The name of the second attribute column is mobile and its value is the integer 15100000000. The version number is not specified, so the current system time is used as the version number.
+        ##                        The name of the third attribute column is address and its value is the binary string China. The version number is not specified, so the current system time is used as the version number.
+        ##                        The name of the fourth attribute column is age and its value is 29.7. The version number is 1498184687000.
+        attribute_columns = [('name','John'), ('mobile',15100000000),('address', bytearray('China')),('female', False), ('age', 29.7, 1498184687000)] 
+    
+        ## Construct a row by using primary_key and attribute_columns.
+        row = Row(primary_key, attribute_columns)
+    
+        # Set the conditional update. The check condition for row existence is that the expected row does not exist. If the specified row exists, the Condition Update Failed error occurs.
+        condition = Condition(RowExistenceExpectation.EXPECT_NOT_EXIST)
+    
+        try :
+            # If ReturnType is not specified when you call the put_row method, the value of return_row is None.
+            consumed, return_row = client.put_row(table_name, row, condition)
+    
+            # Display the write CUs consumed by this request.
+            print ('put row succeed, consume %s write cu.' % consumed.write)
+        # Client exceptions are caused by parameter errors or network exceptions.
+        except OTSClientError as e:
+            print "put row failed, http_status:%d, error_message:%s" % (e.get_http_status(), e.get_error_message())
+        # Server exceptions are caused by parameter or throttling errors.
+        except OTSServiceError as e:
+            print "put row failed, http_status:%d, error_code:%s, error_message:%s, request_id:%s" % (e.get_http_status(), e.get_error_code(), e.get_error_message(), e.get_request_id())
+                        
+    ```
+
+    For the detailed sample code, visit [PutRow@GitHub](https://github.com/aliyun/aliyun-tablestore-python-sdk/blob/master/examples/put_row.py).
 
 
-Obtain code details at [PutRow@GitHub](https://github.com/aliyun/aliyun-tablestore-python-sdk/blob/master/examples/put_row.py).
+## GetRow
 
-## GetRow { .section}
+You can call this operation to read a row of data.
 
-Reads a single data row based on a given Primary Key.
+The following results of the read request may be returned:
 
-**API**
+-   If the row exists, the primary key columns and attribute columns of the row are returned.
+-   If the row does not exist, no row is returned and no error is reported.
 
-```language-python
-       """
-        Description: This operation reads a single row of data.
-        ``table_name`` is the name of the table.
-        ``primary_key`` indicates the primary key; type: dict.
-        ``columns_to_get`` is an optional parameter that indicates the names of the columns to read in list format. If not entered, all columns are read.
-        ``column_filter`` is an optional parameter, which indicates reading the row that meets specified conditions.
-        ``max_version`` is an optional parameter, which indicates the maximum number of read versions.
-        ``time_range`` is an optional parameter, which indicates reading versions within the specified range or reading the specified version. time_range and max_version are mutually exclusive.
+-   API operations
 
-        Return: The CapacityUnits consumed by this operation, the primary key columns, and attribute columns.
-        ``consumed`` indicates the CapacityUnits consumed. It is an instance of the tablestore.metadata.CapacityUnit class.
-        ``return_row`` indicates row data, including primary key columns and attribute columns of the list type, for example, [('PK0',value0), ('PK1',value1)].
-        ``next_token`` indicates the location of the next read operation in the case of wide row reading. The value is encoded in binary format.
-		"""
-		def get_row(self, table_name, primary_key, columns_to_get=None,
-                column_filter=None, max_version=None, time_range=None,
-                start_column=None, end_column=None, token=None):
+    ```
+           """
+            Description: This operation reads a single row of data.
+            table_name specifies the name of the table.
+            primary_key specifies the primary key. Type: list.
+            Optional. columns_to_get specifies the columns to read. If you do not specify this parameter, all columns are read. Type: list.
+            Optional. column_filter specifies the filter conditions for columns. Only rows that meet the condition are returned.
+            Optional. max_version specifies the maximum number of versions that can be read. You must specify at least one of max_version and time_range.
+            Optional. time_range specifies a range of versions to read or a version of data to read. You must specify at least one of max_version and time_range.
+    
+            Response: the number of CUs consumed by this operation and the primary key columns and attribute columns.
+            consumed is an instance of the tablestore.metadata.CapacityUnit class. This parameter indicates the number of CUs consumed by this operation.
+            return_row indicates the row to return, including the primary key and attribute columns. Type: list. Example: [('PK0',value0), ('PK1',value1)].
+            next_token indicates the start column of a wide row to read next time. The data type of the column is binary.
+            """
+            def get_row(self, table_name, primary_key, columns_to_get=None,
+                    column_filter=None, max_version=None, time_range=None,
+                    start_column=None, end_column=None, token=None):
+                        
+    ```
 
-```
+-   Parameters
 
-**Examples**
+    |Parameter|Description|
+    |---------|-----------|
+    |table\_name|The name of the table.|
+    |primary\_key|The primary key of the row.**Note:** The number and type of primary key columns configured must be consistent with those of primary key columns of the table. |
+    |columns\_to\_get|The set of columns to read. The column name can be the primary key column or attribute column. If you do not specify this parameter, all data in the row is returned.
 
-Read a data row.
+**Note:**
 
-```language-python
-	# The first column of the primary key is uid with the integral value 1. The second column is gid with the integral value 101.
-    primary_key = [('uid',1), ('gid',101)]
-	
-	# Attribute columns to be returned: name, growth, and type If columns_to_get is [], all attribute columns are returned.
-    columns_to_get = ['name', 'growth', 'type'] 
-	
-	# Add column filter: This row is returned if the value of the growth column is not 0.9.
-    cond = CompositeColumnCondition(LogicalOperator.AND)
-    cond.add_sub_condition(SingleColumnCondition("growth", 0.9, ComparatorType.NOT_EQUAL))
-    cond.add_sub_condition(SingleColumnCondition("name", 'Hangzhou', ComparatorType.EQUAL))
-	
-	try:
-		# Call the get_row query interface. The last parameter 1 indicates that the value of only one version needs to be returned.
-    	consumed, return_row, next_token = client.get_row(table_name, primary_key, columns_to_get, cond, 1)
-    	print ('Read succeed, consume %s read cu.' % consumed.read)
-    	print ('Value of primary key: %s' % return_row.primary_key)
-    	print ('Value of attribute: %s' % return_row.attribute_columns)
-    	for att in return_row.attribute_columns:
-			# Print the key, value, and version of each column.
-        	print ('name:%s\tvalue:%s\ttimestamp:%d' % (att[0], att[1], att[2]))
-	# The client is abnormal, which is typically due to incorrect parameters or a network error.
-	except OTSClientError as e:
-		print "get row failed, http_status:%d, error_message:%s" % (e.get_http_status(), e.get_error_message())
-	# The server is abnormal, which is typically due to incorrect parameters or a network error.
-	except OTSServiceError as e:
-		print "get row failed, http_status:%d, error_code:%s, error_message:%s, request_id:%s" % (e.get_http_status(), e.get_error_code(), e.get_error_message(), e.get_request_id())
+    -   If you query a row of data, the system returns the data in all columns of the row. You can set the columns\_to\_get parameter to read the data only in specified columns. If col0 and col1 are added to columns\_to\_get, only the values of the col0 and col1 columns are returned.
+    -   When columns\_to\_get and column\_filter are used at the same time, the columns specified by columns\_to\_get are returned. Then, the returned columns are filtered. |
+    |max\_version|The maximum number of read versions.**Note:** You must specify at least one of max\_version and time\_range.
 
-```
+    -   If you specify only max\_version, data of up to the specified number of versions is returned from the latest to the earliest.
+    -   If you specify only time\_range, all data within a range or a version of data is returned.
+    -   If you specify both max\_version and time\_range, data of up to the specified number of versions within the time range is returned from the latest to the earliest. |
+    |time\_range|Reads data within a range of versions or a version of data. For more information, see [TimeRange](/intl.en-US/API Reference/Data Types/TimeRange.md).**Note:** You must specify at least one of max\_version and time\_range.
 
-**Note:** If you query a data row, the system returns the data in all columns of the row. You can use the columns\_to\_get parameter to read the data in specified columns. For example, the system only returns the data in col0 and col1 if col0 and col1 are inserted into columns\_to\_get.
+    -   If you specify only max\_version, data of up to the specified number of versions is returned from the latest to the earliest.
+    -   If you specify only time\_range, all data within a range or a version of data is returned.
+    -   If you specify both max\_version and time\_range, data of up to the specified number of versions within the time range is returned from the latest to the earliest.
+    -   To query data within a range, you must set start\_time and end\_time. start\_time specifies the start timestamp. end\_time indicates the end timestamp. The time range is a left-closed and right-open interval, which is \[start\_time, end\_time\).
+    -   If you query data within a range of versions, set specific\_time. specific\_time specifies a specific timestamp.
+You can set one of specific\_time and \[start\_time, end\_time\),
 
-Obtain code details at [GetRow@GitHub](https://github.com/aliyun/aliyun-tablestore-python-sdk/blob/master/examples/get_row.py).
+Valid values: \[0, INT64.MAX\). Unit: milliseconds. |
+    |column\_filter|Filters the read results on the server side and returns only the rows of data that meet the conditions in the filter. For more information, see [Configure filter](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure filter.md).**Note:** When columns\_to\_get and column\_filter are used at the same time, the columns specified by columns\_to\_get are returned. Then, the returned columns are filtered. |
 
-## UpdateRow { .section}
+-   Examples
 
-Updates the data of the specified row. If the row does not exist, a new row is added. If the row exists, the values of the specified columns are added, modified, or deleted based on the request content.
+    The following code provides an example on how to read a row of data:
 
-**API**
+    ```
+        # The first primary key column is uid and its value is the integer 1. The second primary key column is gid and its value is the integer 101.
+        primary_key = [('uid',1), ('gid',101)]
+    
+        # The attribute columns to return are name, growth, and type. If the value of columns_to_get is [], all attribute columns are returned.
+        columns_to_get = ['name', 'growth', 'type'] 
+    
+        # Set filters for the columns. If the value in the growth column is not 0.9 and the value in the name column is Hangzhou, this row is returned.
+        cond = CompositeColumnCondition(LogicalOperator.AND)
+        cond.add_sub_condition(SingleColumnCondition("growth", 0.9, ComparatorType.NOT_EQUAL))
+        cond.add_sub_condition(SingleColumnCondition("name", 'Hangzhou', ComparatorType.EQUAL))
+    
+        try:
+            # If you set the value of the last parameter to 1 when you call the get_row operation, only a version of data is returned in the response.
+            consumed, return_row, next_token = client.get_row(table_name, primary_key, columns_to_get, cond, 1)
+            print ('Read succeed, consume %s read cu.' % consumed.read)
+            print ('Value of primary key: %s' % return_row.primary_key)
+            print ('Value of attribute: %s' % return_row.attribute_columns)
+            for att in return_row.attribute_columns:
+                # Display the key, value, and version of each column.
+                print ('name:%s\tvalue:%s\ttimestamp:%d' % (att[0], att[1], att[2]))
+        # Client exceptions are caused by parameter errors or network exceptions.
+        except OTSClientError as e:
+            print "get row failed, http_status:%d, error_message:%s" % (e.get_http_status(), e.get_error_message())
+        # Server exceptions are caused by parameter or throttling errors.
+        except OTSServiceError as e:
+            print "get row failed, http_status:%d, error_code:%s, error_message:%s, request_id:%s" % (e.get_http_status(), e.get_error_code(), e.get_error_message(), e.get_request_id())
+                        
+    ```
 
-```language-python
-        """
-        Description: This operation updates a single row of data.
-        ``table_name`` is the name of the table.
-        ``row`` indicates the updated row data, including primary key columns (of the list type) and attribute columns (of the dict type).
-        ``condition`` indicates the conditions to be checked before an operation is executed. If the conditions are met, the operation is executed. It is an instance of the tablestore.metadata.Condition class.
-        Currently, this function only supports row existence checks. Check conditions include: 'IGNORE', 'EXPECT_EXIST', and 'EXPECT_NOT_EXIST'.
-        ``return_type`` indicates the type of the returned value. It is an instance of the tablestore.metadata.ReturnType class. Currently, only return of PrimaryKey is supported, which is typically used in automatic increment of primary key columns.
-        Return: CapacityUnits consumed by the operation, and the row data to be returned (which is indicated by return_row).
-        consumed indicates the CapacityUnits consumed. It is an instance of the tablestore.metadata.CapacityUnit class.
-        return_row indicates the row data to be returned.
-        """
-        def update_row(self, table_name, row, condition, return_type = None)
+    For the detailed sample code, visit [GetRow@GitHub](https://github.com/aliyun/aliyun-tablestore-python-sdk/blob/master/examples/get_row.py).
 
-```
 
-**Examples**
+## UpdateRow
 
-Update a data row.
+You can call this operation to update data of a specified row. You can add or delete attribute columns of a row, delete a specified version of data from an attribute column, or update the existing data in an attribute column. If the row does not exist, a new row is added.
 
-```language-python
-	# The first column of the primary key is uid with the integral value 1. The second column is gid with the integral value 101.
-    primary_key = [('uid',1), ('gid',101)]
-	
-	# The update contains three parts: PUT, DELETE, and DELETE_ALL.
-	# PUT: Add two columns. The first column is "name" and the value is David; the second column is "address" and the value is Hongkong.
-	# DELETE: Delete the value of the address column with the version 1488436949003.
-	# DELETE_ALL: Delete the values of all versions in the "mobile" and "age" columns.
-    update_of_attribute_columns = {
-        'PUT' : [('name','David'), ('address','Hongkong')],
-        'DELETE' : [('address', None, 1488436949003)],
-        'DELETE_ALL' : [('mobile'), ('age')], 
-    }
-    row = Row(primary_key, update_of_attribute_columns)
-	
-	# The row condition is Ignore, indicating that data is updated regardless of whether the specified row exists.
-    condition = Condition(RowExistenceExpectation.IGNORE, SingleColumnCondition("age", 20, ComparatorType.EQUAL)) # update row on\
-ly when this row is exist
+**Note:** If the UpdateRow request contains only columns to delete, and the specified row does not exist, a new row is not added.
 
-	try:
-    	consumed, return_row = client.update_row(table_name, row, condition)
-	# The client is abnormal, which is typically due to incorrect parameters or a network error.
-	except OTSClientError as e:
-		print "update row failed, http_status:%d, error_message:%s" % (e.get_http_status(), e.get_error_message())
-	# The server is abnormal, which is typically due to incorrect parameters or a network error.
-	except OTSServiceError as e:
-		print "update row failed, http_status:%d, error_code:%s, error_message:%s, request_id:%s" % (e.get_http_status(), e.get_error_code(), e.get_error_message(), e.get_request_id())
+-   API operations
 
-```
+    ```
+            """
+            Description: This operation updates a single row of data.
+            table_name specifies the name of the table.
+            row specifies the row you want to delete, including a primary key and attribute columns of the list type.
+            condition is an instance of the tablestore.metadata.Condition class. After you specify conditions, the system checks whether the specified conditions are met before the system performs the operation. If the conditions are met, the operation is performed. This function supports row existence and column-based condition checks. Check conditions for row existence include IGNORE, EXPECT_EXIST, and EXPECT_NOT_EXIST.
+            return_type specifies the data type to return. return_type is an instance of the tablestore.metadata.ReturnType class. You can use only return_type to specify the type of primary key data to return. This parameter applies to auto-increment primary key columns.
+            Response: the number of CUs consumed by this operation and the row data that is specified by return_row to return.
+            consumed is an instance of the tablestore.metadata.CapacityUnit class. This parameter indicates the number of CUs consumed by this operation.
+            return_row indicates the row to return.
+            """
+            def update_row(self, table_name, row, condition, return_type = None)
+                        
+    ```
 
-Obtain code details at [UpdateRow@GitHub](https://github.com/aliyun/aliyun-tablestore-python-sdk/blob/master/examples/update_row.py).
+-   Parameters
 
-## DeleteRow { .section}
+    |Parameter|Description|
+    |---------|-----------|
+    |table\_name|The name of the table.|
+    |primary\_key|The primary key of the row.**Note:** The number and type of primary key columns configured must be consistent with those of primary key columns of the table. |
+    |update\_of\_attribute\_columns|The attribute column to be updated.    -   To add or update data, you must set the attribute name, attribute value, attribute type \(optional\), and timestamp \(optional\).
 
-**API**
+You can customize a version number or specify that the system generates the version number. If the timestamp is not set, the version number is generated by the system. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
 
-```language-python
-        """
-        Description: This operation deletes a single row of data.
-        ``table_name`` is the name of the table.
-        ``row`` indicates row data, which contains only the primary key in the case of delete_row.
-        ``condition`` indicates the conditions to be checked before an operation is executed. If the conditions are met, the operation is executed. It is an instance of the tablestore.metadata.Condition class.
-        Currently, this function only supports row existence checks. Check conditions include: 'IGNORE', 'EXPECT_EXIST', and 'EXPECT_NOT_EXIST'.
-        Return: CapacityUnits consumed by the operation, and the row data to be returned (which is indicated by return_row). 
-        consumed indicates the CapacityUnits consumed. It is an instance of the tablestore.metadata.CapacityUnit class.
-        return_row indicates the row data to be returned.
-        """
-		def delete_row(self, table_name, row, condition, return_type = None): 
+        -   The version number is calculated based on the number of milliseconds that have elapsed since 00:00:00 UTC on January 1, 1970.
+        -   When you choose to customize the version number, make sure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range.
+    -   To delete a specific version of an attribute, you need only to set the attribute name and timestamp.
 
-```
+A timestamp is a 64-bit integer that indicates a specific version of data. Unit: milliseconds.
 
-**Examples**
+    -   When you delete an attribute column, you need only to set the attribute name.
 
-Delete a data row.
+**Note:** A row exists even if all attribute columns in the row are deleted. To delete a row, use the DeleteRow operation. |
+    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure conditional update.md).|
 
-```language-python
-    primary_key = [('gid',1), ('uid','101')]
-    row = Row(primary_key)
-	try:
-    	consumed, return_row = client.delete_row(table_name, row, None)
-	# The client is abnormal, which is typically due to incorrect parameters or a network error.
-	except OTSClientError as e:
-		print "update row failed, http_status:%d, error_message:%s" % (e.get_http_status(), e.get_error_message())
-	# The server is abnormal, which is typically due to incorrect parameters or a network error.
-	except OTSServiceError as e:
-		print "update row failed, http_status:%d, error_code:%s, error_message:%s, request_id:%s" % (e.get_http_status(), e.get_error_code(), e.get_error_message(), e.get_request_id())	
-    print ('Delete succeed, consume %s write cu.' % consumed.write) 
+-   Examples
 
-```
+    The following code provides an example on how to update the data of a specified row:
 
-Obtain code details at [DeleteRow@GitHub](https://github.com/aliyun/aliyun-tablestore-python-sdk/blob/master/examples/delete_row.py).
+    ```
+        # The first primary key column is uid and its value is the integer 1. The second primary key column is gid and its value is the integer 101.
+        primary_key = [('uid',1), ('gid',101)]
+    
+        # The update types include PUT, DELETE, and DELETE_ALL.
+        # PUT: adds a value to the column or updates the existing value in the column. In the example, two columns are added. The first column is name and its value is David. The second column is address and its value is Hongkong.
+        # DELETE: deletes a specified version (timestamp) of data. In this example, data of the 1488436949003 version in the address column is deleted.
+        # DELETE_ALL: deletes the column. In the example, the data of all versions in the mobile and age columns is deleted.
+        update_of_attribute_columns = {
+            'PUT' : [('name','David'), ('address','Hongkong')],
+            'DELETE' : [('address', None, 1488436949003)],
+            'DELETE_ALL' : [('mobile'), ('age')], 
+        }
+        row = Row(primary_key, update_of_attribute_columns)
+    
+        # The check condition for row existence is that the row existence is ignored. No matter whether the row exists, the row is updated.
+        condition = Condition(RowExistenceExpectation.IGNORE, SingleColumnCondition("age", 20, ComparatorType.EQUAL)) # update row only when this row is exist
+    
+        try:
+            consumed, return_row = client.update_row(table_name, row, condition)
+        # Client exceptions are caused by parameter errors or network exceptions.
+        except OTSClientError as e:
+            print "update row failed, http_status:%d, error_message:%s" % (e.get_http_status(), e.get_error_message())
+        # Server exceptions are caused by parameter or throttling errors.
+        except OTSServiceError as e:
+            print "update row failed, http_status:%d, error_code:%s, error_message:%s, request_id:%s" % (e.get_http_status(), e.get_error_code(), e.get_error_message(), e.get_request_id())
+                        
+    ```
+
+    For the detailed sample code, visit [UpdateRow@GitHub](https://github.com/aliyun/aliyun-tablestore-python-sdk/blob/master/examples/update_row.py).
+
+
+## DeleteRow
+
+You can call this operation to delete a row of data. If the row to delete does not exist, no changes are made to the table.
+
+-   API operations
+
+    ```
+            """
+            Description: This operation deletes a single row of data.
+            table_name specifies the name of the table.
+            row specifies the row you want to delete, including only the primary key.
+            condition is an instance of the tablestore.metadata.Condition class. After you specify conditions, the system checks whether the specified conditions are met before the system performs the operation. If the conditions are met, the operation is performed. This function supports row existence and column-based condition checks. Check conditions for row existence include IGNORE, EXPECT_EXIST, and EXPECT_NOT_EXIST.
+            Response: the number of CUs consumed by this operation and the row data that is specified by return_row to return.
+            consumed is an instance of the tablestore.metadata.CapacityUnit class. This parameter indicates the number of CUs consumed by this operation.
+            return_row indicates the row to return.
+            """
+            def delete_row(self, table_name, row, condition, return_type = None): 
+                        
+    ```
+
+-   Parameters
+
+    |Parameter|Description|
+    |---------|-----------|
+    |table\_name|The name of the table.|
+    |primary\_key|The primary key of the row.**Note:** The number and type of primary key columns configured must be consistent with those of primary key columns of the table. |
+    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure conditional update.md).|
+
+-   Examples
+
+    The following code provides an example on how to delete a row of data:
+
+    ```
+        primary_key = [('gid',1), ('uid','101')]
+        row = Row(primary_key)
+        try:
+            consumed, return_row = client.delete_row(table_name, row, None)
+        # Client exceptions are caused by parameter errors or network exceptions.
+        except OTSClientError as e:
+            print "update row failed, http_status:%d, error_message:%s" % (e.get_http_status(), e.get_error_message())
+        # Server exceptions are caused by parameter or throttling errors.
+        except OTSServiceError as e:
+            print "update row failed, http_status:%d, error_code:%s, error_message:%s, request_id:%s" % (e.get_http_status(), e.get_error_code(), e.get_error_message(), e.get_request_id())    
+        print ('Delete succeed, consume %s write cu.' % consumed.write) 
+                        
+    ```
+
+    For the detailed sample code, visit [DeleteRow@GitHub](https://github.com/aliyun/aliyun-tablestore-python-sdk/blob/master/examples/delete_row.py).
+
 
