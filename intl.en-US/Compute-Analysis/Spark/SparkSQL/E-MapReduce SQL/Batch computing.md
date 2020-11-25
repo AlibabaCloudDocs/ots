@@ -196,7 +196,6 @@ After Spark is connected to a table and search index of Tablestore, the system a
 
       After you create a search index, the search index synchronizes data from the table. When the search index enters the incremental state, the search index is created.
 
-      ![fig_searchindex_batch_list](../images/p164617.png)
       
    
 
