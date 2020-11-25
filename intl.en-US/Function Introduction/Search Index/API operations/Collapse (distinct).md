@@ -19,9 +19,8 @@ The API operation for the collapse \(distinct\) feature is Search, which is impl
 
 You can use the following Tablestore SDKs to implement the collapse \(distinct\) feature:
 
--   Tablestore SDK for Java: [Collapse \(distinct\)]()
+-   Tablestore SDK for Java: [Collapse \(distinct\)](/intl.en-US/SDK Reference/Java SDK/Search index/Collapse (distinct).md)
 -   Tablestore SDK for Go: [Collapse \(distinct\)](/intl.en-US/SDK Reference/Go SDK/Search index-based queries/Collapse (distinct).md)
--   Tablestore SDK for PHP: [Collapse \(distinct\)]()
 
 ## Parameters
 
