@@ -31,9 +31,8 @@ After Spark is connected to a table and global secondary index of Tablestore, th
 
    1. Create a Tablestore table. For more information, see [Overview](/intl.en-US/Quick Start/Overview.md).
 
-      In the example, the name of the table is tpch_lineitem_perf. The primary key columns are l_orderkey (type: LONG) and l_linenumber (type: LONG). Part of the 14 attribute columns are l_comment (type: STRING), l_commitdate (type: STRING), l_discount (type: DOUBLE), l_extendedprice (type: DOUBLE), l_linestatus (type: STRING), l_partkey(type: LONG), l_quantity(type: DOUBLE), and l_receiptdate (type: STRING). The number of data is 384,016,850. The following figure shows an example of the data.
+      In the example, the name of the table is tpch_lineitem_perf. The primary key columns are l_orderkey (type: LONG) and l_linenumber (type: LONG). Part of the 14 attribute columns are l_comment (type: STRING), l_commitdate (type: STRING), l_discount (type: DOUBLE), l_extendedprice (type: DOUBLE), l_linestatus (type: STRING), l_partkey(type: LONG), l_quantity(type: DOUBLE), and l_receiptdate (type: STRING). The number of data is 384,016,850. 
 
-      ![fig_00a](../images/p175968.png)
       
    
    2. (Optional) Create a global secondary index on a table. For more information, see [Use SDKs](/intl.en-US/Function Introduction/Global secondary index/Use SDKs.md).
@@ -44,7 +43,6 @@ After Spark is connected to a table and global secondary index of Tablestore, th
 
       Global secondary index allows you to create an index table based on specified columns. Data in the generated index table is sorted by the specified indexed columns. All data written to the base table is automatically synchronized to the index table in an asynchronous manner.
 
-      ![fig_00b](../images/p175971.png)
       
    
 
