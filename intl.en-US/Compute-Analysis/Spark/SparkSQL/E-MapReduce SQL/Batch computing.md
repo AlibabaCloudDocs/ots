@@ -13,7 +13,6 @@ Prerequisites
 
   This topic uses Shell commands. For more information about how to use the graphical interfaces of EMR to implement data development, see [Overview]().
 
-  ![fig_sparksql001](../images/p162026.png)
   
 
 * The [emr-datasources_shaded_2.11-2.2.0-SNAPSHOT.jar](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyun-tablestore-emr/emr-datasources_shaded_2.11-2.2.0-SNAPSHOT.jar) package is uploaded to the EMR Header server.
