@@ -1,27 +1,27 @@
 # Parallel scan
 
-In scenarios where the order of query results does not matter, you can use parallel scan to perform a query using several parallel threads.
+In scenarios where you are not concerned with the order of the query results, you can use parallel scan to obtain query results in parallel.
 
 ## Background information
 
-The Search operation of search index provides a full set of query and analysis capabilities such as sorting and aggregation to return query results in a specified order.
+The Search operation of search indexes provides a full set of query and analysis capabilities such as sorting and aggregation to return query results in a specified order.
 
-However, in some cases you may be more concerned with the query speed than with the order of the results, such as when you integrate Tablestore with the Spark or Presto cluster computing environment or when you query a specified group of objects. To address these needs, Tablestore provides the ParallelScan operation for search index.
+However, in some cases you may be more concerned with the query speed than with the order of the results, such as when you integrate Tablestore with the cluster computing environment Spark or Presto or when you query a specified group of objects. To address these needs, Tablestore provides the ParallelScan operation for search index.
 
 **Note:** SDKs 5.6.0 and later support the parallel scan feature.
 
-Compared with the Search operation, the ParallelScan operation supports all query features but does not provide analysis capabilities such as sorting and aggregation. This way, the query speed is improved by more than five times. You can call the ParallelScan operation to export hundreds of millions of data records within a minute. This capability of exporting data can be horizontally expanded without limits.
+Compared with the Search operation, the ParallelScan operation supports all query features but does not provide analysis capabilities such as sorting and aggregation. This way, the query speed is improved by more than five times. You can call the ParallelScan operation to export hundreds of millions of data records within a minute. This capability to export data can be horizontally scaled without limits.
 
 The maximum number of rows to return by sending a single parallel scan request is greater than that of a Search request. A single Search request can query up to 100 rows, whereas a single parallel scan request can query up to 5,000 rows. The parallel scan feature allows you to use multiple threads to initiate requests, which accelerates data exports.
 
 ## Scenarios
 
 -   Use the Search operation if you want to sort or aggregate query results or if the query request is sent from an end user.
--   Use the ParallelScan operation if you do not need to sort query results but want to obtain all matched results quickly or if you use a computing environment such as Spark or Presto to query data.
+-   Use the ParallelScan operation if you do not need to sort query results and want to quickly obtain all matched results or if the data is queried by a computing environment such as Spark or Presto.
 
-## Features
+## Characteristics
 
-Compared with the Search operation, the ParallelScan operation has the following features:
+Compared with the Search operation, the ParallelScan operation has the following characteristics:
 
 -   Stable results
 
@@ -29,23 +29,23 @@ Compared with the Search operation, the ParallelScan operation has the following
 
 -   Sessions
 
-    ParallelScan-related operations use sessions. Session IDs can be used to determine the result sets of scanned data in the following process:
+    ParallelScan-related operations use sessions. The session ID can be used to determine the result set of scanned data in the following process:
 
     1.  Use the ComputeSplits operation to query the maximum number of concurrent threads and the current session ID.
     2.  Initiate multiple concurrent parallel scan requests to read data. You must specify the current session ID and the concurrency ID in these requests.
-    In scenarios where session IDs are difficult to obtain, you can call ParallelScan to initiate a request without specifying a session ID. However, if you send a request without a session ID, the obtained result set may contain duplicate data.
+    In scenarios where session IDs are difficult to obtain, you can also call ParallelScan to initiate a request without specifying a session ID. However, if you send a request without a session ID, the obtained result set may contain duplicate data.
 
-    Tablestore returns the OTSSessionExpired error code when network exceptions, thread exceptions, dynamic modifications on schema, or index switchovers occur during a parallel scan and stop the scan. In this case, you must initiate another parallel scan task to scan data again.
+    Tablestore returns the OTSSessionExpired error code when network exceptions, thread exceptions, dynamic modifications on schema, or index switchover occurs during the parallel scan process and the data scan stops. In this case, you must initiate another parallel scan task to scan data again.
 
 -   Maximum number of concurrent threads
 
-    The maximum number of concurrent threads supported by parallel scan is determined by the returned value of ComputeSplits. The larger the volume of data is, the more concurrent threads are supported.
+    The maximum number of concurrent threads supported by parallel scan is determined by the returned value of ComputeSplits. The larger volume of the data requires more concurrent threads.
 
     A single request is specified by one query statement. For example, if you use the Search operation to query results where the value of city is Hangzhou, all data that matches this condition is returned in the result. However, if you use the ParallelScan operation and the number of concurrent threads is 2, each query returns half of the results. The complete result set consists of the two concurrent result sets.
 
 -   Rows to return for each request
 
-    The default value of limit is 2000. The maximum value of limit is 5000. If you set the value of limit to greater than 5000, the performance remains unchanged.
+    The default value of limit is 2000. The maximum value of limit is 5000. If the value you set for limit exceeds 5000, the performance remains unchanged.
 
 -   Performance
 
@@ -59,14 +59,14 @@ Compared with the Search operation, the ParallelScan operation has the following
 
     Only indexed columns can be queried in search indexes. The ReturnType parameter can be set to RETURN\_ALL\_INDEX or RETURN\_SPECIFIED, but cannot be set to RETURN\_ALL.
 
-    Arrays, geographical locations, and nested fields can be returned. However, the field values returned are formatted and may be different from those written to the table. For example, the value written to a table is "\[1,2, 3, 4\]", the value returned by the ParallelScan operation is "\[1,2,3,4\]".
+    Parallel scan can return formatting values of the ARRAY, GEOPOINT, and NEST columns. The formatting values may be different from the values in the table. For example, if the value written to the table is "\[1,2, 3, 4\]", the value exported by using the ParallelScan operation is "\[1,2,3,4\]".
 
 -   Limits
 
-    The maximum number of concurrent parallel scan tasks is 10. This limit will be adjusted in the future. Concurrent tasks that have the same session ID and the same ScanQuery parameter value are considered as one task. A parallel scan task starts when the parallel scan request is sent for the first time, and ends when all data is scanned or the token expires.
+    The maximum number of concurrent parallel scan tasks is 10. This limit will be adjusted to meet your requirements. Concurrent tasks that have the same session ID and the same ScanQuery parameter value are considered as one task. A parallel scan task starts when the parallel scan request is sent for the first time, and ends when all data is scanned or the token expires.
 
 
-## API Operations
+## Operations
 
 Concurrent data export is implemented by using the following API operations:
 
@@ -79,22 +79,22 @@ Concurrent data export is implemented by using the following API operations:
 |---------|-----------|
 |tableName|The name of the table.|
 |indexName|The name of the search index.|
-|scanQuery|query|The query statement for the search index. The operation supports exact query, fuzzy query, range query, geo query, and nested query. These features are similar to those of the Search operation.|
+|scanQuery|query|The query statement for the search index. The operation supports term-level query, fuzzy query, range query, geo query, and nested query, which are similar to those of the Search operation.|
 |limit|The maximum number of rows that can be returned at a time.|
-|maxParallel|The maximum number of concurrent threads. The maximum number of concurrent threads varies with the data volume. The larger the volume of data is, the more concurrent threads are supported. You can use the ComputeSplits operation to query the maximum number of concurrent requests.|
+|maxParallel|The maximum number of concurrent requests. The maximum number of concurrent threads varies based on the data volume. The larger the volume of data is, the more concurrent threads are supported. You can use the ComputeSplits operation to query the maximum number of concurrent threads.|
 |currentParallelId|The ID of the concurrent request. Valid values: \[0, Value of maxParallel\)|
 |token|The token used for pagination. The result of the parallel scan request contains the token for the next page. You can use the token to query data for the following page.|
-|aliveTime|The validity period of the current parallel scan task. It is also the validity period of the token. We recommend that you use the default value. If the next request is not initiated within the validity period, more data cannot be queried. The validity period of the token is refreshed each time you send a request.|
-|columnsToGet|You can use parallel scan to query only indexed columns in search indexes. You must set store to true when you create a search index.|
-|sessionId|The session ID of the parallel scan task. You can call the ComputeSplits operation to create a session and query the maximum number of concurrent requests that is supported by the task.|
+|aliveTime|The validity period of the current ParallelScan task. It is also the validity period of the token. We recommend that you use the default value. Default value: 60. Unit: seconds. If the next request is not initiated within the validity period, more data cannot be queried. The validity period of the token is refreshed each time you send a request.|
+|columnsToGet|You can use parallel scan to scan only data in search indexes. To use parallel scan for a search index, you must set store to true when you create the search index.|
+|sessionId|The session ID of the parallel scan task. You can call the ComputeSplits operation to create a session and query the maximum number of concurrent threads that are supported by the task.|
 
 ## Examples
 
-The following code provides examples on how to scan data by sending a single request or by using multiple threads at a time:
+The following examples describe how to scan data by sending a single request or by using multiple threads at a time:
 
--   Send a single request to scan data
+-   Scan data by sending a single request
 
-    When you use parallel scan, the code for a single request is simpler than that for a request using multithreading. The currentParallelId and maxParallel parameters are not required for a single request.
+    When you use parallel scan, the code for a single request is simpler than that for a request that uses multiple threads. The currentParallelId and maxParallel parameters are not required for a single request.
 
     ```
     import java.util.ArrayList;
@@ -200,7 +200,7 @@ The following code provides examples on how to scan data by sending a single req
     
             /*
              * Retry if the operation fails. If the caller of this function has a retry mechanism or you do not want to retry if the operation fails, you can ignore this part.
-             * To ensure availability, we recommend that you restart parallel scan tasks when exceptions occur. The parallel scan task starts as a new one.
+             * To ensure availability, we recommend that you restart parallel scan tasks when exceptions occur. The parallel scan task starts from the beginning.
              * The following exceptions may occur when you send a parallel scan request:
              * 1. Exceptions of the session occur on the server side. The error code is OTSSessionExpired.
              * 2. Exceptions such as a network exception occur on the client side.
@@ -211,7 +211,7 @@ The following code provides examples on how to scan data by sending a single req
                     RowIterator iterator = client.createParallelScanIterator(parallelScanRequestByBuilder);
                     while (iterator.hasNext()) {
                         Row row = iterator.next();
-                        // Query the rows. If you have enough memory space, you can add the rows to a list.
+                        // Query the rows. If you have sufficient memory, you can add the rows to a list.
                         result.add(row);
                     }
                 }
@@ -222,7 +222,7 @@ The following code provides examples on how to scan data by sending a single req
                     RowIterator iterator = client.createParallelScanIterator(parallelScanRequestByBuilder);
                     while (iterator.hasNext()) {
                         Row row = iterator.next();
-                        // Query the rows. If you have enough memory space, you can add the rows to a list.
+                        // Query the rows. If you have sufficient memory, you can add the rows to a list.
                         result.add(row);
                     }
                 }
@@ -292,13 +292,13 @@ The following code provides examples on how to scan data by sending a single req
                                 //.returnAllColumnsFromIndex(true)
                                 .sessionId(sessionId)
                                 .build();
-                            // Use an iterator to query all of the data.
+                            // Use an iterator to query all the data.
                             RowIterator ltr = client.createParallelScanIterator(parallelScanRequest);
                             System.out.println("thread name:" + this.getName());
                             long count = 0;
                             while (ltr.hasNext()) {
                                 Row row = ltr.next();
-                                // Add custom processing logic or create a list that contains the rows to query in all threads.
+                                // Add custom processing logic or create a list containing the rows to query in all threads.
                                 count++;
                             }
                             System.out.println("thread name:" + this.getName() + ", total data records obtained by the thread:" + count);
@@ -321,7 +321,7 @@ The following code provides examples on how to scan data by sending a single req
                 thread.start();
             }
     
-            // The main thread is blocked until all threads are complete.
+            // The main thread is blocked until all threads are completed.
             for (ThreadForScanQuery thread : threadList) {
                 thread.join();
             }
