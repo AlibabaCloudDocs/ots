@@ -21,6 +21,7 @@ You can use the following Tablestore SDKs to implement the collapse \(distinct\)
 
 -   Tablestore SDK for Java: [Collapse \(distinct\)](/intl.en-US/SDK Reference/Java SDK/Search index/Collapse (distinct).md)
 -   Tablestore SDK for Go: [Collapse \(distinct\)](/intl.en-US/SDK Reference/Go SDK/Search index-based queries/Collapse (distinct).md)
+-   Tablestore SDK for PHP: [Collapse \(distinct\)](/intl.en-US/SDK Reference/PHP SDK/Search index/Collapse (distinct).md)
 
 ## Parameters
 
