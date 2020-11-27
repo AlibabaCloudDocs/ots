@@ -33,7 +33,7 @@ primary\_key:
 
 -   Required parameter: Yes
 
--   All primary key columns in the row, including the primary key names and values. The primary key columns are encoded in Plainbuffer format. For more information, see [Plainbuffer](ZH-CN_TP_20466_V1.md#) encoding.
+-   All primary key columns in the row, including the primary key names and values. The primary key columns are encoded in Plainbuffer format. For more information, see [PlainBuffer](/intl.en-US/API Reference/Data Types/PlainBuffer.md) encoding.
 
 
 columns\_to\_get:
@@ -53,7 +53,7 @@ columns\_to\_get:
 
 time\_range:
 
--   Type: [TimeRange](ZH-CN_TP_20488_V1.md#)
+-   Type: [TimeRange](/intl.en-US/API Reference/Data Types/TimeRange.md)
 
 -   Required parameter: Either time\_range or max\_versions is required.
 
@@ -87,7 +87,7 @@ filter:
 
 -   The filtering condition expression.
 
--   It indicates the binary data after the [Filter](ZH-CN_TP_20461_V1.md#) is serialized in Protobuf format.
+-   It indicates the binary data after the [Filter](/intl.en-US/API Reference/Data Types/Filter.md) is serialized in Protobuf format.
 
 
 start\_column:
@@ -131,7 +131,7 @@ message GetRowResponse {
 
 consumed:
 
--   Type: [CapacityUnit](ZH-CN_TP_20453_V1.md#)
+-   Type: [CapacityUnit](/intl.en-US/API Reference/Data Types/CapacityUnit.md)
 
 -   The capacity units consumed by this operation.
 
@@ -140,7 +140,7 @@ row:
 
 -   Type: Bytes
 
--   The read data is encoded in Plainbuffer format. For more information, see [Plainbuffer](ZH-CN_TP_20466_V1.md#) encoding.
+-   The read data is encoded in Plainbuffer format. For more information, see [PlainBuffer](/intl.en-US/API Reference/Data Types/PlainBuffer.md) encoding.
 
 -   If this row does not exist, null is returned.
 
