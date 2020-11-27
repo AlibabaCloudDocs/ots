@@ -13,7 +13,7 @@ Prerequisites
   When you create a cluster, ensure that **Assign Public IP Address** is enabled to access the cluster over the Internet and Remote Logon is enabled to log on to a remote server by using Shell.
   **Note**
 
-  This topic uses Shell commands. For more information about how to use the graphical interfaces of EMR to implement data development, see [Overview]().
+  This topic uses Shell commands. For more information about how to use the graphical interfaces of EMR to implement data development, see [Manage projects](/intl.en-US/Data Development/Manage projects.md).
 
   
 
