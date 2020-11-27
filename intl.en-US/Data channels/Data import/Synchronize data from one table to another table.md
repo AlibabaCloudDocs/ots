@@ -81,7 +81,7 @@ You can use DataWorks or DataX to synchronize data from the source table to the 
 
 1.  Add data sources of Tablestore
 
-    Add the Tablestore instances of the source table and the destination table as data sources. For more information, see [t1068405.md\#section\_wio\_jja\_80o]().
+    Add the Tablestore instances of the source table and the destination table as data sources. For more information, see [Create a sync node]().
 
 2.  Create a node for the data synchronization task.
     1.  Log on to the [DataWorks console](https://workbench.data.aliyun.com/console) as a workspace administrator.
@@ -100,17 +100,17 @@ You can use DataWorks or DataX to synchronize data from the source table to the 
     1.  Click **Data Integration**. Double-click the name of the node for the data synchronization task.
     2.  On the editing page for the node of data synchronization, find the Connections section and set the Source connection and the Target connection.
 
-        Set **Connection type** to **OTS** for both the **Source** and **Target** connections. Then, select connections for Source and Target. Click the ![script](../images/p127620.png) icon or the **Switch to Code Editor** icon to configure a script.
+        Set **Connection type** to **OTS** for both the **Source** and **Target** connections. Then, select connections for Source and Target. Click the ![script](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5815446061/p127620.png) icon or the **Switch to Code Editor** icon to configure a script.
 
         **Note:** Tableastore supports only the script mode. For more information about how to configure scripts, see [Configure Tableastore Reader]() and [Configure Tableastore Writer]().
 
-    3.  Click the ![save](../images/p127623.png) icon to save the data source configuration.
+    3.  Click the ![save](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5815446061/p127623.png) icon to save the data source configuration.
 4.  Run the synchronization task.
-    1.  Click the ![start](../images/p127635.png) icon.
+    1.  Click the ![start](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5815446061/p127635.png) icon.
     2.  In the Arguments dialog box, select the resource group for scheduling.
     3.  Click **OK** to run the task.
 
         After the task is completed, you can check whether the task is successful and view the number of exported rows on the Runtime Log tab.
 
-5.  \(Optional\) Run the data synchronization task at the scheduled time. For more information, see [t1068405.md\#section\_82s\_783\_c9z]().
+5.  \(Optional\) Run the data synchronization task at the scheduled time. For more information, see [Configure recurrence and dependencies for a node]().
 
