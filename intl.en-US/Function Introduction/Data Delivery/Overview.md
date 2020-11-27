@@ -27,7 +27,6 @@ You can use data delivery function to address needs of the following scenarios:
 
   When search indexes are not created for Tablestore data, and the query conditions exclude primary key column-based filter conditions, you can use delivery service to synchronize data to OSS. Then, use DLA and OSS data scanning to accelerate SQL-based analysis.
 
-  ![image.png](../images/p168841.png "image.png")
   
 
 
