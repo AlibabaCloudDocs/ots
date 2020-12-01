@@ -12,7 +12,7 @@ However, in some cases you may be more concerned with the query speed than with 
 
 Compared with the Search operation, the ParallelScan operation supports all query features but does not provide analysis capabilities such as sorting and aggregation. This way, the query speed is improved by more than five times. You can call the ParallelScan operation to export hundreds of millions of data records within a minute. This capability to export data can be horizontally scaled without limits.
 
-The maximum number of rows to return by sending a single parallel scan request is greater than that of a Search request. A single Search request can query up to 100 rows, whereas a single parallel scan request can query up to 5,000 rows. The parallel scan feature allows you to use multiple threads to initiate requests, which accelerates data exports.
+The maximum number of rows to return by sending a single parallel scan request is greater than that of a Search request. A single Search request can query up to 100 rows, whereas a single parallel scan request can query up to 2,000 rows. The parallel scan feature allows you to use multiple threads to initiate requests, which accelerates data exports.
 
 ## Scenarios
 
@@ -45,7 +45,7 @@ Compared with the Search operation, the ParallelScan operation has the following
 
 -   Rows to return for each request
 
-    The default value of limit is 2000. The maximum value of limit is 5000. If the value you set for limit exceeds 5000, the performance remains unchanged.
+    The default value of limit is 2000. The maximum value of limit is 2000. If the value you set for limit exceeds 2000, the performance remains unchanged.
 
 -   Performance
 
