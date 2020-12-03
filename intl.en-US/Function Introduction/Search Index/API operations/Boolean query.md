@@ -28,11 +28,12 @@ You can use the following Tablestore SDKs to implement Boolean query:
 
 The overall relevance score is higher if more subqueries of shouldQueries are met. |
 |minimumShouldMatch|The minimum number of subqueries specified in shouldQueries. Default value: 1.|
+|getTotalCount|Specifies whether to return the total number of rows that match the query conditions. By default, this parameter is set to false, which indicates that the total number of rows that match the query conditions is not returned. Query performance is affected when the total number of rows that match the query conditions is returned. |
 |tableName|The name of the table.|
 |indexName|The name of the search index.|
-|columnsToGet|Specifies whether to return all columns of each matched row. You can configure ReturnAll and Columns for this parameter. By default, ReturnAll is set to false, which indicates that not all columns are returned. If ReturnAll is set to false, you can use Columns to specify the columns to return. If you do not specify the columns to return, only the primary key columns are returned.
+|columnsToGet|Specifies whether to return all columns of each matched row. You can configure returnAll and columns for this parameter. By default, returnAll is set to false, which indicates that not all columns are returned. If returnAll is set to false, you can use columns to specify the columns to return. If you do not specify the columns to return, only the primary key columns are returned.
 
-If ReturnAll is set to true, all columns are returned. |
+If returnAll is set to true, all columns are returned. |
 
 ## Examples
 
@@ -68,18 +69,18 @@ If ReturnAll is set to true, all columns are returned. |
             BoolQuery boolQuery = new BoolQuery();
             boolQuery.setMustQueries(Arrays.asList(rangeQuery, matchQuery));
             searchQuery.setQuery(boolQuery);
-            searchQuery.setGetTotalCount(true);
+            //searchQuery.setGetTotalCount(true);//Set the total number of matched rows to return.
     
             SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
     
             // You can set the columnsToGet parameter to specify the columns to return or specify to return all columns. If you do not set this parameter, only the primary key columns are returned.
             //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
-            //columnsToGet.setReturnAll(true); // Set ReturnAll to true to return all columns.
-            //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set Columns to return specified columns.
+            //columnsToGet.setReturnAll(true); // Set returnAll to true to return all columns.
+            //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set columns to return specified columns.
             //searchRequest.setColumnsToGet(columnsToGet);
     
             SearchResponse resp = client.search(searchRequest);
-            System.out.println("TotalCount: " + resp.getTotalCount()); //// Display the total number of matched rows.
+            //System.out.println("TotalCount: " + resp.getTotalCount()); //// Display the total number of matched rows.
             System.out.println("Row: " + resp.getRows());
         }
     }
@@ -112,24 +113,25 @@ If ReturnAll is set to true, all columns are returned. |
     
         SearchQuery searchQuery = new SearchQuery();
         {
-            /**
+        /**
          * Create a BoolQuery where the query result meets at least one of Conditions 1 and 2.
          */
         BoolQuery boolQuery = new BoolQuery();
         boolQuery.setShouldQueries(Arrays.asList(rangeQuery, matchQuery));
         boolQuery.setMinimumShouldMatch(1); // Specify that the result meets at least one of the conditions.
         searchQuery.setQuery(boolQuery);
-        searchQuery.setGetTotalCount(true);
-        SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
+        //searchQuery.setGetTotalCount(true);//Set the total number of matched rows to return.
     
+    
+        SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
         // You can set the columnsToGet parameter to specify the columns to return or specify to return all columns. If you do not set this parameter, only the primary key columns are returned.
         //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
-        columnsToGet.setReturnAll(true); // Set ReturnAll to true to return all columns.
-        //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set Columns to return specified columns.
+        //columnsToGet.setReturnAll(true); // Set returnAll to true to return all columns.
+        //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set columns to return specified columns.
         //searchRequest.setColumnsToGet(columnsToGet);
     
         SearchResponse resp = client.search(searchRequest);
-        System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows.
+        //System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows.
         System.out.println("Row: " + resp.getRows());
         }
     }
@@ -161,17 +163,17 @@ If ReturnAll is set to true, all columns are returned. |
             BoolQuery boolQuery = new BoolQuery();
             boolQuery.setMustNotQueries(Arrays.asList(matchQuery));
             searchQuery.setQuery(boolQuery);
-            searchQuery.setGetTotalCount(true);
-            SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
+            //searchQuery.setGetTotalCount(true);//Set the total number of matched rows to return.
     
+            SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
             // You can set the columnsToGet parameter to specify the columns to return or specify to return all columns. If you do not set this parameter, only the primary key columns are returned.
             //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
-            //columnsToGet.setReturnAll(true); // Set ReturnAll to true to return all columns.
-            //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set Columns to return specified columns.
+            //columnsToGet.setReturnAll(true); // Set returnAll to true to return all columns.
+            //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set columns to return specified columns.
             //searchRequest.setColumnsToGet(columnsToGet);
     
             SearchResponse resp = client.search(searchRequest);
-            System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows.
+            //System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows.
             System.out.println("Row: " + resp.getRows());
         }
     }
@@ -237,15 +239,17 @@ If ReturnAll is set to true, all columns are returned. |
             boolQuery.setShouldQueries(queryList3);
     
             searchQuery.setQuery(boolQuery);
-            SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
+            //searchQuery.setGetTotalCount(true);//Set the total number of matched rows to return.
     
+            SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
             // You can set the columnsToGet parameter to specify the columns to return or specify to return all columns. If you do not set this parameter, only the primary key columns are returned.
             //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
-            columnsToGet.setReturnAll(true); // Set ReturnAll to true to return all columns.
-            //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set Columns to return specified columns.
+            //columnsToGet.setReturnAll(true); // Set returnAll to true to return all columns.
+            //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set columns to return specified columns.
             //searchRequest.setColumnsToGet(columnsToGet);
     
             SearchResponse response = client.search(searchRequest);
+            //System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows.
             System.out.println(response.getRows());
     
         }
