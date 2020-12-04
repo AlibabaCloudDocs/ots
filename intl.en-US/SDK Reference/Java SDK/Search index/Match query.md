@@ -53,10 +53,8 @@ private static void matchQuery(SyncClient client) {
     //columnsToGet.setReturnAll(true); // Set returnAll to true to return all columns.
     //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set columns to return specified columns.
     //searchRequest.setColumnsToGet(columnsToGet);
-
-
-    resp = client.search(searchRequest);
-    System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows instead of the number of returned rows.
+    SearchResponse resp = client.search(searchRequest);
+    //System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows instead of the number of returned rows.
     System.out.println("Row: " + resp.getRows());
 }
             
