@@ -43,7 +43,7 @@ private static void matchPhraseQuery(SyncClient client) {
     searchQuery.setLimit(20); // Set limit to 20 to return up to 20 rows.
     //searchQuery.setGetTotalCount(true);//Set the total number of matched rows to return.
 
-    SearchRequest searchRequest = new SearchRequest(TABLE_NAME, INDEX_NAME, searchQuery);
+    SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
     // You can set the columnsToGet parameter to specify the columns to return or specify to return all columns. If you do not set this parameter, only the primary key columns are returned.
     //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
     //columnsToGet.setReturnAll(true); // Set returnAll to true to return all columns.
