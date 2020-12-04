@@ -23,6 +23,7 @@ You can use the following Tablestore SDKs to implement terms query:
 |query|The type of the query. Set the query type to TermsQuery.|
 |fieldName|The name of the field you want to match.|
 |terms|The keywords used to match the column values when you perform a terms query.A row of data is returned if one of the keywords matches the field value. |
+|getTotalCount|Specifies whether to return the total number of rows that match the query conditions. By default, this parameter is set to false, which indicates that the total number of rows that match the query conditions is not returned. Query performance is affected when the total number of rows that match the query conditions is returned. |
 |tableName|The name of the table.|
 |indexName|The name of the search index.|
 |columnsToGet|Specifies whether to return all columns of each matched row. You can configure returnAll and columns for this parameter. By default, returnAll is set to false, which indicates that not all columns are returned. If returnAll is set to false, you can use columns to specify the columns you want to return. If you do not specify the columns you want to return, only the primary key columns are returned.
@@ -43,14 +44,17 @@ private static void termQuery(SyncClient client) {
     termsQuery.addTerm(ColumnValue.fromString("hangzhou")); // Set the value that you want to match.
     termsQuery.addTerm(ColumnValue.fromString("xi'an")); // Set the value that you want to match.
     searchQuery.setQuery(termsQuery);
-    SearchRequest searchRequest = new SearchRequest(TABLE_NAME, INDEX_NAME, searchQuery);
+    //searchQuery.setGetTotalCount(true);//Set the total number of matched rows to return.
 
-    SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
-    columnsToGet.setReturnAll(true); // Set ReturnAll to true to return all columns.
-    searchRequest.setColumnsToGet(columnsToGet);
+    SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
+    // You can set the columnsToGet parameter to specify the columns to return or specify to return all columns. If you do not set this parameter, only the primary key columns are returned.
+    //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
+    //columnsToGet.setReturnAll(true); // Set returnAll to true to return all columns.
+    //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set columns to return specified columns.
+    //searchRequest.setColumnsToGet(columnsToGet);
 
     SearchResponse resp = client.search(searchRequest);
-    System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows instead of the number of returned rows.
+    //System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows instead of the number of returned rows.
     System.out.println("Row: " + resp.getRows());
 }
 ```
