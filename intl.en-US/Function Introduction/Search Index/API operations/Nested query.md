@@ -5,7 +5,7 @@ This topic describes how to use NestedQuery to query the data of nested columns.
 **Note:**
 
 -   Only NESTED columns can be queried when you use nested query.
--   However, a query request can include nested queries and queries of other types. For more information about the NESTED type, see [Nested type](/intl.en-US/Function Introduction/Search Index/API operations/Array and Nested field types.md).
+-   However, a query request can include nested queries and queries of other types. For more information about the NESTED type, see [NEST](/intl.en-US/Function Introduction/Search Index/API operations/ARRAY and NEST data types.md).
 
 ## Operations
 
@@ -15,12 +15,12 @@ You can call the Search or ParallelScan operation and set the query type to Nest
 
 You can use the following Tablestore SDKs to implement nested query:
 
--   Tablestore SDK for Java: [Nested query](/intl.en-US/SDK Reference/Java SDK/Search index/NestedQuery.md)
--   Tablestore SDK for Go: [Nested query](/intl.en-US/SDK Reference/Go SDK/Search index-based queries/Query by nested field.md)
--   Tablestore SDK for Python: [Nested query](/intl.en-US/SDK Reference/Python SDK/Search index-based queries/Query by nested field.md)
--   Tablestore SDK for Node.js: [Nested query](/intl.en-US/SDK Reference/NodeJS SDK/Search index-based queries/Query by nested field.md)
--   Tablestore SDK for .NET: [Nested query](/intl.en-US/SDK Reference/.NET SDK/Search index operations/NestedQuery.md)
--   Tablestore SDK for PHP: [Nested query](/intl.en-US/SDK Reference/PHP SDK/Search index/Query by nested field.md)
+-   Tablestore SDK for Java: [Nested query](/intl.en-US/SDK Reference/Java SDK/Search index/Nested query.md)
+-   Tablestore SDK for Go: [Nested query](/intl.en-US/SDK Reference/Go SDK/Search index-based queries/Nested query.md)
+-   Tablestore SDK for Python: [Nested query](/intl.en-US/SDK Reference/Python SDK/Search index-based queries/Nested query.md)
+-   Tablestore SDK for Node.js: [Nested query](/intl.en-US/SDK Reference/NodeJS SDK/Search index-based queries/Nested query.md)
+-   Tablestore SDK for .NET: [Nested query](/intl.en-US/SDK Reference/.NET SDK/Search index operations/Nested query.md)
+-   Tablestore SDK for PHP: [Nested query](/intl.en-US/SDK Reference/PHP SDK/Search index/Nested query.md)
 
 ## Parameters
 
@@ -29,8 +29,12 @@ You can use the following Tablestore SDKs to implement nested query:
 |path|The path of the NESTED column. The path is similar to the tree structure. For example, news.title indicates the title subcolumn in the news column of the NESTED type.|
 |query|The query on the subcolumn in the NESTED column. The query can be of any query type.|
 |scoreMode|Specifies which value is used to calculate the score when a column contains multiple values.|
+|getTotalCount|Specifies whether to return the total number of rows that match the query conditions. By default, this parameter is set to false, which indicates that the total number of rows that match the query conditions is not returned. Query performance is affected when the total number of rows that match the query conditions is returned. |
 |tableName|The name of the table.|
 |indexName|The name of the search index.|
+|columnsToGet|Specifies whether to return all columns. By default, returnAll is set to false, which indicates that not all columns are returned. If returnAll is set to false, you can use columns to specify the columns to return. If you do not specify the columns to return, only the primary key columns are returned.
+
+If returnAll is set to true, all columns are returned. |
 
 ## Examples
 
@@ -47,15 +51,17 @@ private static void nestedQuery(SyncClient client) {
     nestedQuery.setQuery(termQuery);
     nestedQuery.setScoreMode(ScoreMode.None);
     searchQuery.setQuery(nestedQuery);
-    searchQuery.setGetTotalCount(true);
-    SearchRequest searchRequest = new SearchRequest(TABLE_NAME, INDEX_NAME, searchQuery);
+    //searchQuery.setGetTotalCount(true);//Set the total number of matched rows to return.
 
-    SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
-    columnsToGet.setReturnAll(true); // Set ReturnAll to true to return all columns.
-    searchRequest.setColumnsToGet(columnsToGet);
-
+    SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
+    // You can set the columnsToGet parameter to specify the columns to return or specify to return all columns. If you do not set this parameter, only the primary key columns are returned.
+    //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
+    //columnsToGet.setReturnAll(true); // Set returnAll to true to return all columns.
+    //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set columns to return specified columns.
+    //searchRequest.setColumnsToGet(columnsToGet);
+ 
     SearchResponse resp = client.search(searchRequest);
-    System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows instead of the number of returned rows.
+    //System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows instead of the number of returned rows.
     System.out.println("Row: " + resp.getRows());
 }
 ```
