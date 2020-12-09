@@ -1,10 +1,10 @@
 # Prefix query
 
-You can use prefix query to query data that matches a specified prefix. When a table contains a TEXT string, Tablestore tokenizes the string and matches tokens by using the specified prefix.
+You can call the PrefixQuery operation to query data that matches a specified prefix. When a table contains a TEXT string, Tablestore tokenizes the string and matches tokens by using the specified prefix.
 
 ## Operations
 
-You can call the Search or ParallelScan operation and set the query type to PrefixQuery to perform prefix query.
+You can call the Search or ParallelScan operation and set the query type to PrefixQuery to implement prefix query.
 
 ## Use Tablestore SDKs
 
@@ -22,11 +22,11 @@ You can use the following Tablestore SDKs to implement prefix query:
 |Parameter|Description|
 |---------|-----------|
 |query|The type of the query. Set the query type to PrefixQuery.|
-|fieldName|The field you want to match.|
-|prefix|The prefix used to match the field value.When a table contains a TEXT string, Tablestore tokenizes the string and matches tokens by using the specified prefix. |
+|fieldName|The name of the field that you want to match.|
+|prefix|The prefix.When a table contains a TEXT string, Tablestore tokenizes the string and matches tokens by using the specified prefix. |
 |tableName|The name of the table.|
 |indexName|The name of the search index.|
-|columnsToGet|Specifies whether to return all columns of each matched row. You can configure returnAll and columns for this parameter. By default, returnAll is set to false, which indicates that not all columns are returned. If returnAll is set to false, you can use columns to specify the columns you want to return. If you do not specify the columns you want to return, only the primary key columns are returned.
+|columnsToGet|Specifies whether to return all columns of each matched row. You can configure returnAll and columns for this parameter. By default, returnAll is set to false, which indicates that not all columns are returned. If returnAll is set to false, you can use columns to specify the columns to return. If you do not specify the columns to return, only the primary key columns are returned.
 
 If returnAll is set to true, all columns are returned. |
 
