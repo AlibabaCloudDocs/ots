@@ -8,25 +8,24 @@ You can use geo-bounding box query to query data that falls within a rectangular
 |---------|-----------|
 |fieldName|The name of the column. Set the query type to Geopoint.|
 |topLeft|The coordinate pair of the upper-left corner of the rectangular geographic area.|
-|bottomRight|The coordinate pair of the lower-right corner of the rectangular geographic area.This parameter value must be in the format of "latitude,longitude". Valid values of the latitude: \[-90,90\]. Valid values of longitude: \[-180,180\]. Example: “35.8,-45.91". |
-|query|The query statement for the search index. Ste the query type to GeoBoundingBoxQuery.|
+|bottomRight|The coordinate pair of the lower-right corner of the rectangular geographic area. The coordinate pairs of the upper-left corner and lower-right corner define a unique rectangular geographic area.This parameter value must be in the format of "latitude,longitude". Valid values of the latitude: \[-90, 90\]. Valid values of the longitude: \[-180, 180\]. Example: “35.8,-45.91". |
+|query|The query statement for the search index. Set the query type to GeoBoundingBoxQuery.|
 |tableName|The name of the table.|
 |indexName|The name of the search index.|
 
 ## Examples
 
-The data type of Col\_GeoPoint is GeoPoint. The coordinate pair of the upper-left corner is "10,0". The coordinate pair of the lower-right corner is "0,10". You can obtain the rows where the value of Col\_GeoPoint falls within the rectangular geographic area.
+\* The data type of Col\_GeoPoint is GeoPoint. You can obtain the rows where the value of Col\_GeoPoint falls within the rectangular geographic area where the upper-left corner is at "10,0" and the lower-right corner is at "0,10".
 
 ```
 /**
  * @param client
- */
-public static void geoBoundingBoxQuery(SyncClient client) {
+ */public static void geoBoundingBoxQuery(SyncClient client) {
     SearchQuery searchQuery = new SearchQuery();
     GeoBoundingBoxQuery geoBoundingBoxQuery = new GeoBoundingBoxQuery(); // Set the query type to GeoBoundingBoxQuery.
     geoBoundingBoxQuery.setFieldName("Col_GeoPoint"); // Set the name of the field that you want to match.
-    geoBoundingBoxQuery.setTopLeft("10,0"); // Specify the coordinate pair for the upper-left corner of the rectangular geographic area.
-    geoBoundingBoxQuery.setBottomRight("0,10"); // Specify coordinate pair for the lower-right corner of the rectangular geographic area.
+    geoBoundingBoxQuery.setTopLeft("10,0"); // Specify coordinates for the upper-left corner of the rectangular geographic area.
+    geoBoundingBoxQuery.setBottomRight("0,10"); // Specify coordinates for the lower-right corner of the rectangular geographic area.
     searchQuery.setQuery(geoBoundingBoxQuery);
 
     SearchRequest searchRequest = new SearchRequest(TABLE_NAME, INDEX_NAME, searchQuery);
