@@ -43,11 +43,14 @@ private static void prefixQuery(SyncClient client) {
     prefixQuery.setFieldName("Col_Keyword");
     prefixQuery.setPrefix("hangzhou");
     searchQuery.setQuery(prefixQuery);
-    SearchRequest searchRequest = new SearchRequest(TABLE_NAME, INDEX_NAME, searchQuery);
+    //searchQuery.setGetTotalCount(true);//Set the total number of matched rows to return.
 
-    SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
-    columnsToGet.setReturnAll(true); // Set ReturnAll to true to return all columns.
-    searchRequest.setColumnsToGet(columnsToGet);
+    SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
+    // You can set the columnsToGet parameter to specify the columns to return or specify to return all columns. If you do not set this parameter, only the primary key columns are returned.
+    //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
+    //columnsToGet.setReturnAll(true); // Set returnAll to true to return all columns.
+    //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set columns to return specified columns.
+    //searchRequest.setColumnsToGet(columnsToGet);
 
     SearchResponse resp = client.search(searchRequest);
     System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows instead of the number of returned rows.
