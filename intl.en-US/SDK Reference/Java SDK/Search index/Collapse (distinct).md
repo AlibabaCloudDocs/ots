@@ -21,8 +21,8 @@ You can use the collapse feature to collapse the result set based on a specified
 |---------|-----------|
 |query|The query type.|
 |collapse|The collapse parameter, including the fieldName field.fieldName: the name of the column based on which the result set is collapsed. Only columns whose values are of the INTEGER, FLOATING-POINT or KEYWORD type are supported. |
-|limit|The position from which the current query starts.|
-|offset|The maximum number of rows that the current query returns.To query only the number of matched rows without the data, you can set limit to 0. In this case, Tablestore returns the number of matched rows without table data. |
+|offset|The position from which the current query starts.|
+|limit|The maximum number of rows that the current query returns.To query only the number of matched rows without the data, you can set limit to 0. In this case, Tablestore returns the number of matched rows without table data. |
 |getTotalCount|Specifies whether to return the total number of rows that match the query conditions. By default, this parameter is set to false, which indicates that the total number of rows that match the query conditions is not returned. Query performance is affected when the total number of rows that match the query conditions is returned. |
 |tableName|The name of the table.|
 |indexName|The name of the search index.|
