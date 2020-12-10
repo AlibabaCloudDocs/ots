@@ -15,6 +15,7 @@ You can call the PrefixQuery operation to query data that matches a specified pr
 |query|The type of the query. Set the query type to PrefixQuery.|
 |fieldName|The name of the field that you want to match.|
 |prefix|The prefix.When a table contains a TEXT string, Tablestore tokenizes the string and matches tokens by using the specified prefix. |
+|getTotalCount|Specifies whether to return the total number of rows that match the query conditions. By default, this parameter is set to false, which indicates that the total number of rows that match the query conditions is not returned. Query performance is affected when the total number of rows that match the query conditions is returned. |
 |tableName|The name of the table.|
 |indexName|The name of the search index.|
 |columnsToGet|Specifies whether to return all columns of each matched row. You can configure returnAll and columns for this parameter. By default, returnAll is set to false, which indicates that not all columns are returned. If returnAll is set to false, you can use columns to specify the columns to return. If you do not specify the columns to return, only the primary key columns are returned.
