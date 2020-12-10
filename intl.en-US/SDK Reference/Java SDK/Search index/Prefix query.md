@@ -45,7 +45,7 @@ private static void prefixQuery(SyncClient client) {
     //searchRequest.setColumnsToGet(columnsToGet);
 
     SearchResponse resp = client.search(searchRequest);
-    System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows instead of the number of returned rows.
+    //System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows instead of the number of returned rows.
     System.out.println("Row: " + resp.getRows());
 ```
 
