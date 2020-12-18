@@ -1,49 +1,55 @@
-# Initialization {#concept_52254_zh .concept}
+# Initialization
 
-TableStoreClient is the client for Table Store. It provides callers with a series of methods for operating tables and reading/writing data from/to a single row or multiple rows.
+TableStoreClient is the client for Tablestore. TableStoreClient provides a series of methods for you to manage tables and perform read and write operations on one or more rows.
 
-## Determine an endpoint {#section_fjq_kr2_2fb .section}
+## Obtain an endpoint
 
-An endpoint is the domain name address of Alibaba Cloud Table Store in a region. It supports the following format:
+An endpoint is the domain name that is used to access a Tablestore instance in a region. To query an endpoint, perform the following operations:
 
-|Endpoint type|Description|
-|:------------|:----------|
-|Region address|The region of the current Table Store instance, for example, `https://instance.cn-hangzhou.ots.aliyuncs.com` |
+1.  Log on to the Tablestore console.
 
-**Region address of Table Store**
+2.  Click the instance name to go to the Instance Management page.
 
-To query the endpoint where your Table Store instance is located, follow these steps:
+    On the Instance Details tab, you can view the endpoints of the instance in Instance Access URL.
 
-1.  Log on to the [Table Store console](https://partners-intl.console.aliyun.com/#/ots).
-2.  Go to the Instance Details page and locate the instance access address, which is the endpoint of the instance.
 
-## Configure an AccessKey { .section}
+**Note:** For more information about endpoints, see [Endpoint](/intl.en-US/Function Introduction/Terms/Endpoint.md).
 
-To access Alibaba Cloud Table Store, you need a valid AccessKey \(including an AccessKeyId and AccessKeySecret\) for signature authentication. To obtain the AccessKey, follow these steps:
+## Configure an AccessKey pair
 
-1.  Register an Alibaba Cloud account.
-2.  Log on to the [AccessKey console](https://partners-intl.console.aliyun.com/#/ak) to create an AccessKeyId and AccessKeySecret.
+To access Tablestore, you must have an AccessKey pair that consists of an AccessKey ID and AccessKey secret to verify your identity. The following types of AccessKey pairs are supported:
 
-After you obtain the AccessKeyId and AccessKeySecret, initialize a TableStore.Client instance by following these steps:
+-   The AccessKey pair of an Alibaba Cloud account. To obtain the AccessKey pair of an Alibaba Cloud account, take the following steps:
+    1.  On the Alibaba Cloud official website,[Create Your Alibaba Cloud Account](https://account-intl.aliyun.com/register/intl_register.htm).
+    2.  Create an AccessKey ID and an AccessKey secret on the [User Management](https://ak-console.aliyun.com/#/accesskey) console.
+-   The AccessKey pair of a RAM user who is granted with permissions to access Tablestore. To obtain the AccessKey pair of a RAM user, take the following steps:
+    1.  Use your Alibaba Cloud account to log on to [RAM](https://www.aliyun.com/product/ram/). Create a RAM user or use an existing RAM user.
+    2.  Use your Alibaba Cloud account to authorize the RAM user to access Tablestore.
+    3.  After the RAM user is authorized, you can use the AccessKey pair of the RAM user to access Tablestore.
+-   Temporary access credentials obtained from STS. To obtain temporary access credentials from STS, take the following steps:
+    1.  The application server uses RAM or STS to obtain access credentials that consist of a temporary AccessKey ID, an AccessKey secret, and a token. After the access credentials are obtained, the application server sends them to you.
+    2.  You can use the received access credentials to access Tablestore.
 
-Use the endpoint of Table Store to create a client.
+## Initialize a Tablestore client instance
 
- **API:** 
+After you obtain the AccessKey ID and AccessKey secret, you can perform the following operations to initialize a Tablestore client instance:
 
-```language-go
-	// Initialize the "TableStoreClient" instance
-	// endPoint is the Table Store address (for example, "https://instance.cn-hangzhou.ots.aliyun.com:80"), which must start with "https://"
-	// accessKeyId is the AccessKeyID used to access Table Store.
-	// accessKeySecret is the AccessKeySecret used to access Table Store.
-	// instanceName is the name of the instance to access. You can create an instance on the Table Store console
-func NewClient(endPoint, instanceName, accessKeyId, accessKeySecret string, options ... ClientOption) *TableStoreClient
+-   Operations
 
-```
+    ```
+        // Initialize the TableStoreClient instance.
+        // endPoint indicates the endpoint used to access the Tablestore instance, which must start with https://. Example: https://instance.cn-hangzhou.ots.aliyun.com:80
+        // accessKeyId indicates the AccessKey ID used to access the Tablestore instance. You can visit the official website or contact an administrator to obtain an AccessKey ID.
+        // accessKeySecret indicates the AccessKey secret used to access the Tablestore instance. You can visit the official website or contact an administrator to obtain an AccessKey secret.
+        // instanceName indicates the name of the instance you want to access. You can create an instance in the Tablestore console or contact an administrator to obtain the name of an existing instance.
+    func NewClient(endPoint, instanceName, accessKeyId, accessKeySecret string, options ...ClientOption) *TableStoreClient
+                        
+    ```
 
- **Example:** 
+-   Examples
 
-```language-go
-	client = NewClient("your_instance_endpoint",  "your_instance_name", "your_user_id", "your_user_key")
+    ```
+        client = tablestore.NewClient("your_instance_endpoint",  "your_instance_name", "your_user_id", "your_user_key")          
+    ```
 
-```
 
