@@ -1,28 +1,28 @@
 # Aggregation
 
-You can use aggregation to obtain the minimum value, maximum value, sum, and average of a column, and the count and distinct count of rows. You can also use aggregation to group the obtained results by column value, range, geographical location, and filter, and implement nesting. You can also use multiple aggregations to perform complex queries.
+You can use aggregation to obtain the minimum value, maximum value, sum, average, the count and distinct count of rows, and the rows in each group from an aggregation operation. You can also use aggregation to group the obtained results by field value, range, geographical location, and filter, and implement nested query. You can also use multiple aggregations to perform complex queries.
 
 ## Minimum value
 
-The aggregation method used to return the minimum value of a column. This method is similar to the SQL MIN function.
+The aggregation method used to return the minimum value of a field. This method is similar to the SQL MIN function.
 
 -   Parameters
 
     |Parameter|Description|
     |---------|-----------|
     |aggregationName|The unique name specified for the aggregation operation. You can query results of the aggregation operation based on the name.|
-    |fieldName|The name of the column used to perform the aggregation operation. Only the LONG and DOUBLE data types are supported.|
-    |missing|The default value for the column used for the aggregation operation on a row when the column value is empty.
+    |fieldName|The name of the field used to perform the aggregation operation. Only the LONG and DOUBLE data types are supported.|
+    |missing|The default value for the field used for the aggregation operation on a row when the field value is empty.
 
-     -   If the missing parameter is not specified, the row is ignored.
-    -   If the missing parameter is set, the value of this parameter is used as the column value of the row. |
+    -   If the missing parameter is not specified, the row is ignored.
+    -   If the missing parameter is set, the value of this parameter is used as the field value of the row. |
 
 -   Examples
 
     ```
     /**
-     *  The price of each product is listed in the product table. Query the minimum price of the products produced in Zhejiang.
-     *  The equivalent SQL statement: SELECT min(column_price) FROM product where place_of_production = "Zhejiang".
+     * The price of each product is listed in the product table. Query the minimum price of the products produced in Zhejiang.
+     * The equivalent SQL statement: SELECT min(column_price) FROM product where place_of_production = "Zhejiang".
      */
     public void min(SyncClient client) {
         // Create a query request.
@@ -46,18 +46,18 @@ The aggregation method used to return the minimum value of a column. This method
 
 ## Maximum value
 
-The aggregation method used to return the maximum value of a column. This method is similar to the SQL MAX function.
+The aggregation method used to return the maximum value of a field. This method is similar to the SQL MAX function.
 
 -   Parameters
 
     |Parameter|Description|
     |---------|-----------|
     |aggregationName|The unique name specified for the aggregation operation. You can query results of the aggregation operation based on the name.|
-    |fieldName|The name of the column used to perform the aggregation operation. Only the LONG and DOUBLE data types are supported.|
-    |missing|The default value for the column used for the aggregation operation on a row when the column value is empty.
+    |fieldName|The name of the field used to perform the aggregation operation. Only the LONG and DOUBLE data types are supported.|
+    |missing|The default value for the field used for the aggregation operation on a row when the field value is empty.
 
-     -   If the missing parameter is not specified, the row is ignored.
-    -   If the missing parameter is set, the value of this parameter is used as the column value of the row. |
+    -   If the missing parameter is not specified, the row is ignored.
+    -   If the missing parameter is set, the value of this parameter is used as the field value of the row. |
 
 -   Examples
 
@@ -88,18 +88,18 @@ The aggregation method used to return the maximum value of a column. This method
 
 ## Sum
 
-The aggregation method used to return the sum of all rows for a numeric column. This method is similar to the SQL SUM function.
+The aggregation method used to return the sum of all rows for a numeric field. This method is similar to the SQL SUM function.
 
 -   Parameters
 
     |Parameter|Description|
     |---------|-----------|
     |aggregationName|The unique name specified for the aggregation operation. You can query results of the aggregation operation based on the name.|
-    |fieldName|The name of the column used to perform the aggregation operation. Only the LONG and DOUBLE data types are supported.|
-    |missing|The default value for the column used for the aggregation operation on a row when the column value is empty.
+    |fieldName|The name of the field used to perform the aggregation operation. Only the LONG and DOUBLE data types are supported.|
+    |missing|The default value for the field used for the aggregation operation on a row when the field value is empty.
 
-     -   If the missing parameter is not specified, the row is ignored.
-    -   If the missing parameter is set, the value of this parameter is used as the column value of the row. |
+    -   If the missing parameter is not specified, the row is ignored.
+    -   If the missing parameter is set, the value of this parameter is used as the field value of the row. |
 
 -   Examples
 
@@ -130,18 +130,18 @@ The aggregation method used to return the sum of all rows for a numeric column. 
 
 ## Average
 
-The aggregation method used to return the average value of all rows for a numeric column. This method is similar to the SQL AVG function.
+The aggregation method used to return the average value of all rows for a numeric field. This method is similar to the SQL AVG function.
 
 -   Parameters
 
     |Parameter|Description|
     |---------|-----------|
     |aggregationName|The unique name specified for the aggregation operation. You can query results of the aggregation operation based on the name.|
-    |fieldName|The name of the column used to perform the aggregation operation. Only the LONG and DOUBLE data types are supported.|
-    |missing|The default value for the column used for the aggregation operation on a row when the column value is empty.
+    |fieldName|The name of the field used to perform the aggregation operation. Only the LONG and DOUBLE data types are supported.|
+    |missing|The default value for the field used for the aggregation operation on a row when the field value is empty.
 
-     -   If the missing parameter is not specified, the row is ignored.
-    -   If the missing parameter is set, the value of this parameter is used as the column value of the row. |
+    -   If the missing parameter is not specified, the row is ignored.
+    -   If the missing parameter is set, the value of this parameter is used as the field value of the row. |
 
 -   Examples
 
@@ -172,7 +172,7 @@ The aggregation method used to return the average value of all rows for a numeri
 
 ## Count
 
-The aggregation method used to return the total number of values of a specified column or the total number of rows in the table. This method is similar to the SQL COUNT function.
+The aggregation method used to return the total number of values of a specified field or the total number of rows in the table. This method is similar to the SQL COUNT function.
 
 **Note:** You can use the following methods to query the total number of rows in a table or the number of rows that match the query conditions:
 
@@ -186,13 +186,13 @@ You can set the value of count to the name of a column to query the number of ro
     |Parameter|Description|
     |---------|-----------|
     |aggregationName|The unique name specified for the aggregation operation. You can query results of the aggregation operation based on the name.|
-    |fieldName|The name of the column used to perform the aggregation operation. Only the LONG, DOUBLE, BOOLEAN, KEYWORD, and GEOPOINT data types are supported.|
+    |fieldName|The name of the field used to perform the aggregation operation. Only the LONG, DOUBLE, BOOLEAN, KEYWORD, and GEOPOINT data types are supported.|
 
 -   Examples
 
     ```
     /**
-     * Punishment records of merchants are recorded in the merchant table. Query the number of merchants in Zhejiang who have punishment records. If merchants have no punishment records, the merchants do not have a value for the specified column.
+     * Punishment records of merchants are recorded in the merchant table. Query the number of merchants in Zhejiang who have punishment records. If merchants have no punishment records, the merchants do not have a value for the specified field.
      * The equivalent SQL statement: SELECT count(column_history) FROM product where place_of_production="Zhejiang".
      */
     public void count(SyncClient client) {
@@ -217,7 +217,7 @@ You can set the value of count to the name of a column to query the number of ro
 
 ## Distinct count
 
-The aggregation method used to return the number of distinct values for a column. This method is similar to the SQL COUNT\(distinct\) function.
+The aggregation method used to return the number of distinct values for a field. This method is similar to the SQL COUNT\(distinct\) function.
 
 **Note:** The number of distinct values is an approximate number.
 
@@ -229,9 +229,9 @@ The aggregation method used to return the number of distinct values for a column
     |Parameter|Description|
     |---------|-----------|
     |aggregationName|The unique name specified for the aggregation operation. You can query results of the aggregation operation based on the name.|
-    |fieldName|The name of the column used to perform the aggregation operation. Only the LONG, DOUBLE, BOOLEAN, KEYWORD, and GEOPOINT data types are supported.|
-    |missing|The default value for the column used for the aggregation operation on a row when the column value is empty.     -   If the missing parameter is not specified, the row is ignored.
-    -   If the missing parameter is set, the value of this parameter is used as the column value of the row. |
+    |fieldName|The name of the field used to perform the aggregation operation. Only the LONG, DOUBLE, BOOLEAN, KEYWORD, and GEOPOINT data types are supported.|
+    |missing|The default value for the field used for the aggregation operation on a row when the field value is empty.     -   If the missing parameter is not specified, the row is ignored.
+    -   If the missing parameter is set, the value of this parameter is used as the field value of the row. |
 
 -   Examples
 
@@ -260,9 +260,9 @@ The aggregation method used to return the number of distinct values for a column
     ```
 
 
-## Group by column value
+## Group by field value
 
-The method used to group query results based on column values. The same values are grouped together. The value of each group and the number of corresponding values are returned.
+The method used to group query results based on field values. The same values are grouped together. The value of each group and the number of corresponding values are returned.
 
 **Note:** The calculated number may be slightly different from the actual number when the number of values in a group is too large.
 
@@ -271,7 +271,7 @@ The method used to group query results based on column values. The same values a
     |Parameter|Description|
     |---------|-----------|
     |groupByName|The unique name specified for the aggregation operation. You can query results of the aggregation operation based on the name.|
-    |fieldName|The name of the column used to perform the aggregation operation. Only the LONG, DOUBLE, BOOLEAN, and KEYWORD data types are supported.|
+    |fieldName|The name of the field used to perform the aggregation operation. Only the LONG, DOUBLE, BOOLEAN, and KEYWORD data types are supported.|
     |groupBySorter|The sorting rules for items in a group. By default, group items are sorted in descending order. When you set multiple sorting rules, data is sorted based on the order in which the rules are added. Supported parameters:     -   Sort by value in ascending alphabetical order
     -   Sort by value in descending alphabetical order
     -   Sort by the count of rows in ascending order
@@ -293,7 +293,7 @@ First group query results by product category, and then add two sub-aggregations
         -   Electronic devices: 3. The maximum price is CNY 8,699. The minimum price is CNY 2,300.
         -   Other products: 15. The maximum price is CNY 1,000. The minimum price is CNY 80. |
 
--   Example 1
+-   Example 1:
 
     ```
     /**
@@ -337,8 +337,8 @@ First group query results by product category, and then add two sub-aggregations
 
     ```
         /**
-         * Group data based on multiple columns.
-         * Search index supports the use of nested GroupByFields instead of the GROUP BY syntax in SQL to group data based on multiple columns.
+         * Group data based on multiple fields.
+         * Search index supports the use of nested GroupByFields instead of the GROUP BY syntax in SQL to group data based on multiple fields.
          * The following code provides an example on how to group data based on multiple columns, which serves the same purpose as SQL statement select a,d, sum(b), sum(c) from user group by a,d.
          */
         public void GroupByMultiField() {
@@ -419,14 +419,14 @@ First group query results by product category, and then add two sub-aggregations
 
 ## Group by range
 
-The method used to group query results based on value ranges of a column. Column values that fall within a specified range are grouped together. The number of values in each range is returned.
+The method used to group query results based on value ranges of a field. Field values that fall within a specified range are grouped together. The number of values in each range is returned.
 
 -   Parameters
 
     |Parameter|Description|
     |---------|-----------|
     |groupByName|The unique name specified for the aggregation operation. You can query results of the aggregation operation based on the name.|
-    |fieldName|The name of the column used to perform the aggregation operation. Only the LONG and DOUBLE data types are supported.|
+    |fieldName|The name of the field used to perform the aggregation operation. Only the LONG and DOUBLE data types are supported.|
     |range\[double\_from, double\_to\)|The value ranges for grouping. The value range can start from Double.MIN\_VALUE and end at Double.MAX\_VALUE. |
     |subAggregation and subGroupBy|The sub-aggregation. The sub-aggregation operation is performed based on the grouping results. For example, after you group query results by sales volume and then by province, you can obtain the result of which province has the largest proportion in a specified range of sales volume. You must specify GroupByField in GroupByRange to run this query. |
 
@@ -474,7 +474,7 @@ The method used to group query results based on their geographical distances to 
     |Parameter|Description|
     |---------|-----------|
     |groupByName|The unique name specified for the aggregation operation. You can query results of the aggregation operation based on the name.|
-    |fieldName|The name of the column used to perform the aggregation operation. Only the GEOPOINT data type is supported.|
+    |fieldName|The name of the field used to perform the aggregation operation. Only the GEOPOINT data type is supported.|
     |origin\(double lat, double lon\)|The longitude and latitude of the central point. double lat specifies the latitude of the central point. double lon specifies the longitude of the central point. |
     |range\[double\_from, double\_to\)|The ranges for grouping. Unit: m. The value range can start from Double.MIN\_VALUE and end at Double.MAX\_VALUE. |
     |subAggregation and subGroupBy|The sub-aggregation. The sub-aggregation operation is performed based on the grouping results.|
@@ -483,7 +483,7 @@ The method used to group query results based on their geographical distances to 
 
     ```
     /**
-     * Group people based on their geographical distances to a Wanda Plaza to obtain the result of the number of people in each distance range. Group the distances based on ranges [0, 1000), [1000, 5000), and [5000, Double.MAX_VALUE). The unit is in meters.
+     * Group people based on their geographical distances to a Wanda Plaza to obtain the result of the number of people in each distance range. Group the distances based on ranges [0, 1000), [1000, 5000), and [5000, Double.MAX_VALUE). The unit is in meter.
      */
     public void groupByGeoDistance(SyncClient client) {
         // Create a query request.
@@ -560,16 +560,65 @@ The method used to filter the query results and group them together to obtain th
     ```
 
 
+## Query the rows in each group from an aggregation operation
+
+After you group query results, you can query data in rows of each group. This method is similar to ANY\_VALUE\(field\) in MySQL.
+
+-   Parameters
+
+    |Parameter|Description|
+    |---------|-----------|
+    |aggregationName|The unique name specified for the aggregation operation. You can query results of the aggregation operation based on the name.|
+    |limit|The maximum number of rows that can be returned for each group. By default, one row of data is returned.|
+    |sort|The sorting method of data in groups. By default, the sorting method of data in groups is consistent with that in query.|
+    |columnsToGet|The fields to be returned. Only fields in search indexes are supported. ARRAY, GEOPOINT, and nested fields are not supported.|
+
+-   Examples
+
+    ```
+    /**
+     * An activity application form of a school contains information such as the names of students, class, headteacher, and monitor.
+     * The equivalent SQL statement: select className, teacher, monitor, COUNT(*) as number from table GROUP BY className.
+     */
+    public void testTopRows(SyncClient client) {
+        SearchRequest searchRequest = SearchRequest.newBuilder()
+            .indexName(indexName)
+            .tableName(tableName)
+            .searchQuery(
+                SearchQuery.newBuilder()
+                    .query(QueryBuilders.matchAll())
+                    .limit(0)
+                    .addGroupBy(GroupByBuilders.groupByField("groupName", "className")
+                        .size(5)
+                        .addSubAggregation(AggregationBuilders.topRows("topRowsName").limit(1))
+                    )
+                    .build())
+            .addColumnsToGet(Arrays.asList("teacher", "monitor"))
+            .build();
+        SearchResponse resp = client.search(searchRequest);
+        List<GroupByFieldResultItem> items = resp.getGroupByResults().getAsGroupByFieldResult("groupName").getGroupByFieldResultItems();
+        for (GroupByFieldResultItem item : items) {
+            String className = item.getKey();
+            long number = item.getRowCount();
+            List<Row> topRows = item.getSubAggregationResults().getAsTopRowsAggregationResult("topRowsName").getRows();
+            Row row = topRows.get(0);
+            String teacher = row.getLatestColumn("teacher").getValue().asString();
+            String monitor = row.getLatestColumn("monitor").getValue().asString();
+        }
+    }
+    ```
+
+
 ## Nesting
 
 GroupBy supports nesting. You can add sub-aggregations to a GroupBy.
 
 Nesting is used to perform sub-aggregations within a group. Take two-level nesting aggregations as an example:
 
--   GroupBy + SubGroupBy: Groups items by province and then by city to obtain data for each city in each province.
--   GroupBy + SubAggregation: Groups items by province to obtain the maximum value of a metric for each province.
+-   GroupBy + SubGroupBy: groups items by province and then by city to obtain data for each city in each province.
+-   GroupBy + SubAggregation: groups items by province to obtain the maximum value of a metric for each province.
 
-**Note:** GroupBy can contain endless levels for nesting. However, to ensure the performance and facilitate GroupBy operations, you are allowed only to configure a small number of levels for nesting. For more information, see [Limits](/intl.en-US/Developer Guide/Search Index/Limits.md).
+**Note:** GroupBy can contain endless levels for nesting. However, to ensure the performance and facilitate GroupBy operations, you are allowed only to configure a small number of levels for nesting. For more information, see [Search index limits](/intl.en-US/Function Introduction/Limits/Search index limits.md).
 
 Examples
 
@@ -622,8 +671,8 @@ public void subGroupBy(SyncClient client) {
         // Display the GroupByRange values obtained from the sub-aggregation operation.
         GroupByRangeResult subResults = resp.getGroupByResults().getAsGroupByRangeResult("subName3");
         for (GroupByRangeResultItem subItem : subResults.getGroupByRangeResultItems()) {
-            System.out.println("Count" + subItem.getRowCount());
-            System.out.println("key" + subItem.getKey());
+            System.out.println("Count:" + subItem.getRowCount());
+            System.out.println("key:" + subItem.getKey());
         }
     }
 }
@@ -633,9 +682,9 @@ public void subGroupBy(SyncClient client) {
 
 You can perform multiple aggregation operations.
 
-**Note:** Implementing multiple complex aggregation operations at a time may increase response time.
+**Note:** If multiple complex aggregation operations are implemented at a time, the response time may increase.
 
--   Example 1
+-   Example 1:
 
     ```
     public void multipleAggregation(SyncClient client) {
@@ -654,11 +703,11 @@ You can perform multiple aggregation operations.
             .build();
         // Execute the query request.
         SearchResponse resp = client.search(searchRequest);
-        // Obtain the minimum value obtained from the aggregation operation.
+        // Obtain the minimum value calculated from the aggregation operation.
         System.out.println(resp.getAggregationResults().getAsMinAggregationResult("name1").getValue());
-        // Obtain the sum obtained from the aggregation operation.
+        // Obtain the sum calculated from the aggregation operation.
         System.out.println(resp.getAggregationResults().getAsSumAggregationResult("name2").getValue());
-        // Obtain the distinct count obtained from the aggregation operation.
+        // Obtain the distinct count calculated from the aggregation operation.
         System.out.println(resp.getAggregationResults().getAsDistinctCountAggregationResult("name3").getValue());
     }
     ```
@@ -684,13 +733,13 @@ You can perform multiple aggregation operations.
             .build();
         // Execute the query request.
         SearchResponse resp = client.search(searchRequest);
-        // Obtain the minimum value obtained from the aggregation operation.
+        // Obtain the minimum value calculated from the aggregation operation.
         System.out.println(resp.getAggregationResults().getAsMinAggregationResult("name1").getValue());
-        // Obtain the sum obtained from the aggregation operation.
+        // Obtain the sum calculated from the aggregation operation.
         System.out.println(resp.getAggregationResults().getAsSumAggregationResult("name2").getValue());
-        // Obtain the distinct count obtained from the aggregation operation.
+        // Obtain the distinct count calculated from the aggregation operation.
         System.out.println(resp.getAggregationResults().getAsDistinctCountAggregationResult("name3").getValue());
-        // Obtain the GroupByField values obtained from the aggregation operation.
+        // Obtain the GroupByField values from the aggregation operation.
         for (GroupByFieldResultItem item : resp.getGroupByResults().getAsGroupByFieldResult("name4").getGroupByFieldResultItems()) {
             // Display the keys.
             System.out.println(item.getKey());
