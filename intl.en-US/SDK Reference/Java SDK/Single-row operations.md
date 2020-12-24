@@ -19,8 +19,8 @@ You can call this operation to insert a row of data. If the row you want to inse
     |primaryKey|The primary key of the row.**Note:**
 
     -   The configured number and types of primary key columns must be consistent with the number and types of primary key columns of the table.
-    -   For an auto-increment primary key column, you need only to set the value of the auto-increment primary key column to a placeholder. For more information, see [Configure an auto-increment primary key column](/intl.en-US/SDK Reference/Java SDK/Table operations/Configure an auto-increment primary key column.md). |
-    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Java SDK/Table operations/Configure conditional update.md).**Note:**
+    -   For an auto-increment primary key column, you need only to set the value of the auto-increment primary key column to a placeholder. For more information, see [Configure an auto-increment primary key column](/intl.en-US/SDK Reference/Java SDK/Table/Configure an auto-increment primary key column.md). |
+    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Java SDK/Table/Configure conditional update.md).**Note:**
 
     -   RowExistenceExpectation.IGNORE indicates that new data is inserted into a row no matter whether the specified row exists. If the specified row exists, the existing data is overwritten.
     -   RowExistenceExpectation.EXPECT\_EXIST indicates that new data is inserted only when the specified row exists. The existing data is overwritten.
@@ -181,7 +181,7 @@ The following results for the read request may be returned:
 You need only to set one of following parameters: timestamp and \[start, end\).
 
 The value of timestamp ranges from 0 to Long.MAX\_VALUE. Unit: milliseconds. |
-    |filter|Specifies filter conditions to filter the queried results on the server side. Only rows that meet the specified filter conditions are returned. For more information, see [Configure filter](/intl.en-US/SDK Reference/Java SDK/Table operations/Configure filter.md).**Note:** If you use columnsToGet and filter together, the system first queries the columns specified by columnsToGet, and then returns rows that meet the filter conditions. |
+    |filter|Specifies filter conditions to filter the queried results on the server side. Only rows that meet the specified filter conditions are returned. For more information, see [Configure filter](/intl.en-US/SDK Reference/Java SDK/Table/Configure filter.md).**Note:** If you use columnsToGet and filter together, the system first queries the columns specified by columnsToGet, and then returns rows that meet the filter conditions. |
 
 -   Example 1
 
@@ -258,7 +258,7 @@ You can call this operation to update data of a specified row. You can add attri
     |---------|-----------|
     |tableName|The name of the table.|
     |primaryKey|The primary key of the row.**Note:** The configured number and types of primary key columns must be consistent with the number and types of primary key columns of the table. |
-    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Java SDK/Table operations/Configure conditional update.md).|
+    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Java SDK/Table/Configure conditional update.md).|
     |column|The attribute column you want to update.    -   To add an attribute column or update the value of an existing attribute column, you must specify the name, value and type \(optional\) of the attribute column, and a timestamp \(optional\).
 
 The timestamp is the version number of the data. It can be automatically generated or customized. If you do not specify this parameter, Tablestore automatically generates a timestamp. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
@@ -346,7 +346,7 @@ You can call this operation to delete a row of data. If the row to delete does n
     |---------|-----------|
     |tableName|The name of the table.|
     |primaryKey|The primary key of the row.**Note:** The configured number and types of primary key columns must be consistent with the number and types of primary key columns of the table. |
-    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Java SDK/Table operations/Configure conditional update.md).|
+    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Java SDK/Table/Configure conditional update.md).|
 
 -   Example 1
 
