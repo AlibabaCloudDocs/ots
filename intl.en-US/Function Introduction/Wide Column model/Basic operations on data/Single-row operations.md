@@ -22,7 +22,7 @@ You can use the following Tablestore SDKs to perform single-row operations:
 -   Tablestore SDK for Java: [Single row operations](/intl.en-US/SDK Reference/Java SDK/Single-row operations.md)
 -   Tablestore SDK for Go: [Single-row operations](/intl.en-US/SDK Reference/Go SDK/Single-row operations.md)
 -   Tablestore SDK for Python: [Single-row operations](/intl.en-US/SDK Reference/Python SDK/Single-row operations.md)
--   Tablestore SDK for Node.js: [Single-row operations](/intl.en-US/SDK Reference/NodeJS SDK/Single-row operations.md)
+-   Tablestore SDK for Node.js: [Single-row operations](/intl.en-US/SDK Reference/Node.js SDK/Single-row operations.md)
 -   Tablestore SDK for .NET: [Single-row operations](/intl.en-US/SDK Reference/.NET SDK/Single-row operations.md)
 -   Tablestore SDK for PHP: [Single-row operations](/intl.en-US/SDK Reference/PHP SDK/Single-row operations.md)
 
