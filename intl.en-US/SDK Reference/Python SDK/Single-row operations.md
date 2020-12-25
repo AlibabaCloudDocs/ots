@@ -1,6 +1,6 @@
 # Single-row operations
 
-Tablestore SDKs provide the following single-row operations: PutRow, GetRow, UpdateRow, and DeleteRow.
+Tablestore provides the following single-row operations: PutRow, GetRow, UpdateRow, and DeleteRow.
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ You can call this operation to insert a row of data. If the row you want to inse
     |primary\_key|The primary key of the row.**Note:**
 
     -   The configured number and types of primary key columns must be consistent with the number and types of primary key columns of the table.
-    -   For an auto-increment primary key column, you need only to set the value of the auto-increment primary key column to a placeholder. For more information, see [Configure an auto-increment primary key column](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure an auto-increment primary key column.md). |
+    -   For an auto-increment primary key column, you need only to set the value of the auto-increment primary key column to a placeholder. For more information, see [Configure an auto-increment primary key column](/intl.en-US/SDK Reference/Python SDK/Table/Configure an auto-increment primary key column.md). |
     |attribute\_columns|The attribute columns of the row.    -   An attribute column is specified by parameters in the following sequence: the attribute column name, attribute column value \(ColumnValue\), attribute column value type \(ColumnType, which is optional\), and timestamp \(optional\).
     -   You can set ColumnType to ColumnType.INTEGER, ColumnType.STRING, ColumnType.BINARY, ColumnType.BOOLEAN, or ColumnType.DOUBLE, which separately indicates INTEGER, STRING \(a UTF-8 encoded string\), BINARY, BOOLEAN, or DOUBLE. If you want to set the column value type to BINARY, you must set ColumnType to ColumnType.BINARY. If you want to use other types of column values, the setting of ColumnType is optional.
     -   A timestamp is the data version number. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
@@ -45,7 +45,7 @@ You can customize a data version number or use the data version number generated
 
         -   The version number is calculated based on the number of milliseconds that have elapsed since 00:00:00 UTC on January 1, 1970.
         -   When you choose to specify the version number, ensure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range. |
-    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure conditional update.md).**Note:**
+    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Python SDK/Table/Configure conditional update.md).**Note:**
 
     -   RowExistenceExpectation.IGNORE indicates that new data is inserted into a row regardless of whether the specified row exists or not. If the specified row exists, the existing data is overwritten.
     -   RowExistenceExpectation.EXPECT\_EXIST indicates that new data is inserted only when the specified row exists. The existing data is overwritten.
@@ -151,7 +151,7 @@ The following results of the read request may be returned:
 You can set either of specific\_time or \[start\_time, end\_time\).
 
 The timestamp used for the value of time\_range ranges from 0 to INT64.MAX. Unit: milliseconds. |
-    |column\_filter|You can set filter conditions to filter the queried results on the server side. Only rows that meet the specified filter conditions are returned. For more information, see [Configure filter](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure filter.md).**Note:** If you configure columns\_to\_get and column\_filter together, Tablestore first queries the columns specified by columns\_to\_get, and then returns rows that meet the filter conditions. |
+    |column\_filter|You can set filter conditions to filter the queried results on the server side. Only rows that meet the specified filter conditions are returned. For more information, see [Filter](/intl.en-US/SDK Reference/Python SDK/Table/Filter.md).**Note:** If you configure columns\_to\_get and column\_filter together, Tablestore first queries the columns specified by columns\_to\_get, and then returns rows that meet the filter conditions. |
 
 -   Examples
 
@@ -218,20 +218,20 @@ You can call this operation to update data of a specified row. You can add attri
     |---------|-----------|
     |table\_name|The name of the table.|
     |primary\_key|The primary key of the row.**Note:** The configured number and types of primary key columns must be consistent with the number and types of primary key columns of the table. |
-    |update\_of\_attribute\_columns|The attribute columns you want to update.    -   To add or update data, you must set the attribute name, attribute value, attribute type \(optional\), and timestamp \(optional\).
+    |update\_of\_attribute\_columns|The attribute columns you want to update.    -   To add an attribute column or update the value of an existing attribute column, you must specify the name, value and type \(optional\) of the attribute column, and a timestamp \(optional\).
 
-You can customize a version number or specify that the system generates the version number. If the timestamp is not set, the version number is generated by the system. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
+The timestamp is the version number of the data. It can be automatically generated or customized. If you do not specify this parameter, Tablestore automatically generates a timestamp. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
 
         -   The version number is calculated based on the number of milliseconds that have elapsed since 00:00:00 UTC on January 1, 1970.
-        -   When you choose to customize the version number, make sure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range.
-    -   To delete a specific version of an attribute, you need only to set the attribute name and timestamp.
+        -   If you choose to specify the version number, ensure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range.
+    -   You need only to set the name of the attribute column and the timestamp to delete a specified version of data in an attribute column.
 
-A timestamp is a 64-bit integer that indicates a specific version of data. Unit: milliseconds.
+A timestamp is a 64-bit integer that indicates a specified version of data. Unit: milliseconds.
 
-    -   When you delete an attribute column, you need only to set the attribute name.
+    -   You need only to set the name of the attribute column to delete an attribute column.
 
 **Note:** A row exists even if all attribute columns in the row are deleted. To delete a row, use the DeleteRow operation. |
-    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure conditional update.md).|
+    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Python SDK/Table/Configure conditional update.md).|
 
 -   Examples
 
@@ -293,7 +293,7 @@ You can call this operation to delete a row of data. If the row to delete does n
     |---------|-----------|
     |table\_name|The name of the table.|
     |primary\_key|The primary key of the row.**Note:** The configured number and types of primary key columns must be consistent with the number and types of primary key columns of the table. |
-    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure conditional update.md).|
+    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/Python SDK/Table/Configure conditional update.md).|
 
 -   Examples
 
