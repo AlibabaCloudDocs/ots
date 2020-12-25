@@ -1,6 +1,6 @@
 # Single-row operations
 
-Tablestore SDKs provide the following single-row operations: PutRow, GetRow, UpdateRow, and DeleteRow.
+Tablestore provides the following single-row operations: PutRow, GetRow, UpdateRow, and DeleteRow.
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ You can call this operation to insert a row of data. If the row already exists, 
     |primaryKey|The primary key of the row.**Note:**
 
     -   The number and type of primary key columns configured must be consistent with those of primary key columns of the table.
-    -   When the primary key column is an auto-increment column, you need only to set the value of the auto-increment column to placeholders. For more information, see [Configure an auto-increment primary key column](/intl.en-US/SDK Reference/.NET SDK/Table operations/Configure an auto-increment primary key column.md). |
+    -   When the primary key column is an auto-increment column, you need only to set the value of the auto-increment column to placeholders. For more information, see [Configure an auto-increment primary key column](/intl.en-US/SDK Reference/.NET SDK/Table/Configure an auto-increment primary key column.md). |
     |attribute|The attribute column of the row.    -   Each item specifies the values in the following sequence: the attribute column name, attribute column value type \(optional\), attribute column value, and timestamp \(optional\).
     -   The timestamp is the version number of the data. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
 
@@ -44,7 +44,7 @@ You can customize a version number or specify that the system generates the vers
 
         -   The version number is calculated based on the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         -   When you choose to customize the version number, make sure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range. |
-    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/.NET SDK/Table operations/Configure conditional update.md).**Note:**
+    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/.NET SDK/Table/Configure conditional update.md).**Note:**
 
     -   In addition to row conditions, the Condition parameter also supports column conditions in Tablestore SDK for .NET 2.2.0 and later.
     -   Condition.IGNORE, Condition.EXPECT\_EXIST, and Condition.EXPECT\_NOT\_EXIST are deprecated since Tablestore SDK for .NET 3.0.0. Replace them with new Condition \(RowExistenceExpectation.IGNORE\), new Condition \(RowExistenceExpectation.EXPECT\_EXIST\), and new Condition \(RowExistenceExpectation.EXPECT\_NOT\_EXIST\).
@@ -230,7 +230,7 @@ The following results of the read request may be returned:
 You can set one of SpecificTime and \[StartTime, EndTime\),
 
 Valid values: \[0, Int64.MaxValue\). Unit: milliseconds. |
-    |filter|Filters the read results on the server side and returns only the rows of data that meet the conditions in the filter. For more information, see [Configure filter](/intl.en-US/SDK Reference/.NET SDK/Table operations/Configure filter.md).**Note:** When columnsToGet and filter are used at the same time, the columns specified by columnsToGet are returned. Then, the returned columns are filtered. |
+    |filter|Filters the read results on the server side and returns only the rows of data that meet the conditions in the filter. For more information, see [Configure filter](/intl.en-US/SDK Reference/.NET SDK/Table/Configure filter.md).**Note:** When columnsToGet and filter are used at the same time, the columns specified by columnsToGet are returned. Then, the returned columns are filtered. |
 
 -   Example 1
 
@@ -353,18 +353,18 @@ You can call this operation to update data of a specified row. You can add or de
     |---------|-----------|
     |tableName|The name of the table.|
     |primaryKey|The primary key of the row.**Note:** The number and type of primary key columns configured must be consistent with those of primary key columns of the table. |
-    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/.NET SDK/Table operations/Configure conditional update.md).|
-    |attribute|The attribute column to be updated.    -   To add or update data, you must set the attribute name, attribute value, attribute type \(optional\), and timestamp \(optional\).
+    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/.NET SDK/Table/Configure conditional update.md).|
+    |attribute|The attribute column to be updated.    -   To add an attribute column or update the value of an existing attribute column, you must specify the name, value and type \(optional\) of the attribute column, and a timestamp \(optional\).
 
-You can customize a version number or specify that the system generates the version number. If the timestamp is not set, the version number is generated by the system. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
+The timestamp is the version number of the data. It can be automatically generated or customized. If you do not specify this parameter, Tablestore automatically generates a timestamp. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
 
         -   The version number is calculated based on the number of milliseconds that have elapsed since 00:00:00 UTC on January 1, 1970.
-        -   When you choose to customize the version number, make sure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range.
-    -   To delete a specific version of an attribute, you need only to set the attribute name and timestamp.
+        -   If you choose to specify the version number, ensure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range.
+    -   You need only to set the name of the attribute column and the timestamp to delete a specified version of data in an attribute column.
 
-A timestamp is a 64-bit integer that indicates a specific version of data. Unit: milliseconds.
+A timestamp is a 64-bit integer that indicates a specified version of data. Unit: milliseconds.
 
-    -   When you delete an attribute column, you need only to set the attribute name.
+    -   You need only to set the name of the attribute column to delete an attribute column.
 
 **Note:** A row exists even if all attribute columns in the row are deleted. To delete a row, use the DeleteRow operation. |
 
@@ -433,7 +433,7 @@ You can call this operation to delete a row of data. If the row to delete does n
     |---------|-----------|
     |tableName|The name of the table.|
     |primaryKey|The primary key of the row.**Note:** The number and type of primary key columns configured must be consistent with those of primary key columns of the table. |
-    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/.NET SDK/Table operations/Configure conditional update.md).|
+    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/.NET SDK/Table/Configure conditional update.md).|
 
 -   Examples
 
