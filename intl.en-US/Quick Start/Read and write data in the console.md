@@ -23,21 +23,6 @@ After a table is created, you can read data from and write data to the table in 
     **Note:** A maximum of 50 rows of data can be displayed in the Tablestore console. However, Tablestore does limit the number of rows of data that can be displayed when you use Tablestore SDKs.
 
 
-## Delete data
-
-You can delete data that you no longer need.
-
-1.  Log on to the [Tablestore console](https://otsnext.console.aliyun.com/).
-
-2.  On the Overview page, click the name of the requested instance or click **Manage Instance** in the Actions column corresponding to the instance.
-
-3.  In the Tables section of the Instance Details tab, click the name of the requested table, and click the Data Editor tab. You can also click **Data Editor** in the Actions column corresponding to the table.
-
-4.  On the Data Editor tab, select the row of data that you want to delete. Click **Delete**.
-
-5.  In the Delete message, click **OK**.
-
-
 ## Update data
 
 You can update data in the attribute columns of a row.
@@ -133,5 +118,20 @@ To query data within a specified range, perform the following steps:
 6.  Click **OK**.
 
     Data that meets the filter conditions is displayed based on the specified order on the Data Editor tab.
+
+
+## Delete data
+
+You can delete data that you no longer need.
+
+1.  Log on to the [Tablestore console](https://otsnext.console.aliyun.com/).
+
+2.  On the Overview page, click the name of the requested instance or click **Manage Instance** in the Actions column corresponding to the instance.
+
+3.  In the Tables section of the Instance Details tab, click the name of the requested table, and click the Data Editor tab. You can also click **Data Editor** in the Actions column corresponding to the table.
+
+4.  On the Data Editor tab, select the row of data that you want to delete. Click **Delete**.
+
+5.  In the Delete message, click **OK**.
 
 
