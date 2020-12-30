@@ -2,7 +2,7 @@
 
 Search index uses inverted indexes and column-oriented storage to address complex query needs when a large amount of data exists. After you create a search index in the console, you can use the index to query data.
 
-**Note:** For more information about search indexes, see [Overview](/intl.en-US/Developer Guide/Search Index/Overview.md).
+**Note:** For more information about search indexes, see [Overview](/intl.en-US/Function Introduction/Search Index/Overview.md).
 
 ## Create a search index
 
@@ -16,7 +16,7 @@ Search index uses inverted indexes and column-oriented storage to address comple
 
 5.  In the Create Index dialog box, create a search index.
 
-    ![fig_tablestore_009](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/7569132061/p96405.png)
+    ![fig_tablestore_009](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7569132061/p96405.png)
 
     1.  Set Index Type to **Search Index**.
 
@@ -30,7 +30,7 @@ Search index uses inverted indexes and column-oriented storage to address comple
 
         -   When Schema Generation Type is set to **Manual**, set field names and supported data types for the field values. Specify whether to turn on Array.
         -   When Schema Generation Type is set to **Auto Generate**, the system automatically uses the primary key columns and attribute columns of the table as the fields to index. Set supported data types for the field values. Specify whether to turn on Array.
-        **Note:** The **Field Name** and **Field Type** must matched those of the table. For more information about the mapping relationship of field types between the table and search index, see [Fields](/intl.en-US/Developer Guide/Search Index/API operations/Overview.md).
+        **Note:** The **Field Name** and **Field Type** must matched those of the table. For more information about the mapping relationship of field types between the table and search index, see [Data types of column values](/intl.en-US/Function Introduction/Search Index/Operations/Overview.md).
 
 6.  Click **OK**.
 
@@ -49,7 +49,7 @@ You can use an existing search index to query data.
 
 4.  Click **Index Query** in the Actions column.
 
-    ![fig_tablestore_010](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/7569132061/p96432.png)
+    ![fig_tablestore_010](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7569132061/p96432.png)
 
 5.  In the Search dialog box, set filter conditions.
 
@@ -70,10 +70,10 @@ You can use an existing search index to query data.
 
 For more information about how to use Tablestore SDK to implement search index, see the following topics:
 
--   [Java SDK](/intl.en-US/SDK Reference/Java SDK/Search index/CreateSearchIndex.md)
--   [Go SDK](/intl.en-US/SDK Reference/Go SDK/Search index-based queries/Create search indexes.md)
--   [Python SDK](/intl.en-US/SDK Reference/Python SDK/Search index-based queries/Create search indexes.md)
--   [Node.js SDK](/intl.en-US/SDK Reference/NodeJS SDK/Search index-based queries/Create search indexes.md)
--   [.NET SDK](/intl.en-US/SDK Reference/. .NET SDK/Search index operations/CreateSearchIndex.md)
--   [PHP SDK](/intl.en-US/SDK Reference/PHP SDK/Search index/Create a search index.md)
+-   [Java SDK](/intl.en-US/SDK Reference/Java SDK/Search Index/Create search indexes.md)
+-   [Go SDK](/intl.en-US/SDK Reference/Go SDK/Search Index/Create search indexes.md)
+-   [Python SDK](/intl.en-US/SDK Reference/Python SDK/Search Index/Create search indexes.md)
+-   [Node.js SDK](/intl.en-US/SDK Reference/Node.js SDK/Search Index/Create search indexes.md)
+-   [.NET SDK](/intl.en-US/SDK Reference/.NET SDK/Search Index/Create search indexes.md)
+-   [PHP SDK](/intl.en-US/SDK Reference/PHP SDK/Search index/Create search indexes.md)
 
