@@ -15,7 +15,7 @@ You can call this operation to write a row of data. If the row already exists, t
 
     ```
         /**
-         * Write a row of data. If the row already exists, the data of the row is overwritten. The number of the consumed capacity units (CUs) is returned.
+         * Write a row of data. If the row already exists, this operation deletes the existing row (all columns and all versions of the original row), and then writes data to the row. The number of the consumed capacity units (CUs) is returned.
           * @api
          * @param [] $request The request parameters.
          * @return [] The response. 
