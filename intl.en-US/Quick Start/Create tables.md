@@ -63,7 +63,7 @@ Unit: CU.
         -   Click **Add Global Secondary Index**. Index Name and Primary Key are required. Pre-defined Column is optional.
 6.  Click **OK**.
 
-    After a table is created, you can view the table in the **Tables** section. If the created table is not displayed in the list of tables, click the ![fig_tablestore_002](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/7506659951/p96207.png) icon to refresh the list of tables.
+    After a table is created, you can view the table in the **Tables** section. If the created table is not displayed in the list of tables, click the ![fig_tablestore_002](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7506659951/p96207.png) icon to refresh the list of tables.
 
     After a table is created, you can perform the following operations on the table:
 
@@ -73,7 +73,7 @@ Unit: CU.
         -   On the Manage Index tab, you can create a search index or global secondary index, view index details, query data, and delete indexes.
         -   On the Tunnels tab, you can enable the stream feature, create a tunnel, show the list of channels, and delete a tunnel.
         -   On the Monitoring Indicators tab, you can view monitored data based on tables or indexes, time ranges, categories, and operations.
-    -   In the Actions column corresponding to the table, choose **![fig_001](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/7506659951/p100545.png)** \> **Delete** from the shortcut menu. You can delete the table.
+    -   In the Actions column corresponding to the table, choose **![fig_001](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7506659951/p100545.png)** \> **Delete** from the shortcut menu. You can delete the table.
 
         **Note:** Before you delete a table, ensure that you have deleted indexes created for the table. Otherwise, the table fails to delete.
 
