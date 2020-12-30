@@ -489,7 +489,7 @@ The timestamp in the value of time\_range ranges from 0 to INT64.MAX. |
     |start\_column|The column from which you want to start reading. This parameter is used to read wide rows. The response contains the current start column.The columns are sorted based on their names in alphabetical order. Example: A table contains columns a, b, and c. If the value of start\_column is b, the reading starts from column b, and columns b and c are returned. |
     |end\_column|The column at which you want to end reading. This parameter is used to read wide rows. The response does not contain the current end column.The columns are sorted based on their names in alphabetical order. Example: A table contains columns a, b, and c. If the value of end\_column is b, the reading ends at column b, and column a is returned. |
     |token|The starting position of a wide row in the next read operation. This function is unavailable.|
-    |column\_filter|Filters read results on the server to return rows that meet the conditions in the filter. For more information, see [Configure filter](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure filter.md).**Note:** If columns\_to\_get and column\_filter are used at the same time, the system first obtains the columns specified by columns\_to\_get and then filters the returned columns. |
+    |column\_filter|Filters read results on the server to return rows that meet the conditions in the filter. For more information, see [Filter](/intl.en-US/SDK Reference/Python SDK/Table/Filter.md).**Note:** If columns\_to\_get and column\_filter are used at the same time, the system first obtains the columns specified by columns\_to\_get and then filters the returned columns. |
 
 -   Request format
 
