@@ -1,8 +1,8 @@
-# TimeRange {#reference456 .reference}
+# TimeRange
 
-TimeRange specifies the time stamp range or time stamp value during data query.
+TimeRange specifies the timestamp range or timestamp value to query.
 
-## Data structure { .section}
+## Data structure
 
 ```language-protobuf
 message TimeRange {
@@ -10,27 +10,29 @@ message TimeRange {
     optional int64 end_time = 2;
     optional int64 specific_time = 3;
 }
-
+			
 ```
 
 start\_time:
 
 -   Type: int64
 
--   The starting time stamp \(unit: millisecond\). The minimum and maximum values of the time stamp are 0 and INT64. MAX, respectively.
+-   Description: the starting timestamp. Unit: milliseconds. Valid values: \[0, INT64.MAX\).
 
 
 end\_time:
 
 -   Type: int64
 
--   The ending time stamp \(unit: millisecond\). The minimum and maximum values of the time stamp are 0 and INT64. MAX, respectively.
+-   Description: the ending timestamp. Unit: milliseconds. Valid values: \[0, INT64.MAX\).
 
 
 specific\_time:
 
 -   Type: int64
 
--   The specified time stamp. You can set either specific\_time, or \[start\_time, end\_time\). The unit for the time stamp must be millisecond. The minimum and maximum values of the time stamp are 0 and INT64. MAX, respectively.
+-   Description: the specific timestamp. You can set one of specific\_time and \[start\_time, end\_time\). Unit: milliseconds. Valid values: \[0, INT64.MAX\).
+
+**Note:** \[start\_time, end\_time\) indicates a time range that starts from the start timestamp and ends at the end timestamp. The range includes the start timestamp and excludes the end timestamp.
 
 
