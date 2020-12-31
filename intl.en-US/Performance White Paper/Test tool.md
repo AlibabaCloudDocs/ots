@@ -1,14 +1,16 @@
-# Test tool {#concept_64990_zh .concept}
+# Test tool
 
-## YCSB {#section_rlr_4k4_dfb .section}
+This topic describes the test tool used for the Tablestore performance test.
 
-Yahoo! Cloud Serving Benchmark \(YCSB\) is an open-source distributed performance testing tool for testing the read/write performance of NoSQL products.
+## YCSB
 
-YCSB supports common NoSQL database and data grid products, such as Cassandra, MongoDB, HBase, Redis, and Infinispan. The installation and use are easy. You can extend test data types and supported database systems.
+Yahoo! Yahoo! Cloud Serving Benchmar \(YCSB\) is an open-source distributed performance testing tool to test the read and write performance of NoSQL products.
 
-## Installation method { .section}
+YCSB supports common NoSQL database and data grid products such as Cassandra, MongoDB, HBase, Redis, and Infinispan. The installation and use are easy. You can extend test data types and supported database systems.
 
-See the [YCSB documentation](https://github.com/brianfrankcooper/YCSB).
+## Install and use YCSB
 
-YCSB does not yet support tests on Table Store. The relevant testing tool code is being made open source.
+For more information about how to use YCSB, visit [YCSB](https://github.com/brianfrankcooper/YCSB).
+
+YCSB allows you to perform performance tests on Tablestore. For more information, visit [YCSB](https://github.com/brianfrankcooper/YCSB/tree/master/tablestore).
 
