@@ -22,8 +22,6 @@ Prepare a Tablestore table named pet. The name column is the only primary key co
 
 ## Examples of access by using Hive
 
-Prerequisites
-
 Examples
 
 ```
