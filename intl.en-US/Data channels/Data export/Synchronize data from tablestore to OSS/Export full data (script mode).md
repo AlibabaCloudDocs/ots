@@ -54,7 +54,7 @@ The operations are similar to those of Step 1. However, in this step, you must c
 
 In this example, the data source is named OTS2OSS, as shown in the following figure.
 
-![fig_oss_001](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8199939061/p198808.png)
+![fig_oss_001](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/1150049061/p198808.png)
 
 ## Step 3: Create a synchronization task
 
