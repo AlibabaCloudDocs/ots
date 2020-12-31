@@ -50,7 +50,7 @@ The procedure is similar to that in Step 1, except that in the Add data source d
 
 In this example, the data source is named OTS2ODPS, as shown in the following figure.
 
-![fig_odps_001](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0621049061/p130237.png)
+![fig_odps_001](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7061049061/p130237.png)
 
 ## Step 3: Create a synchronization task
 
