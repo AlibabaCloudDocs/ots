@@ -1,8 +1,8 @@
-# PlainBuffer {#reference3003 .reference}
+# PlainBuffer
 
-The PlainBuffer format is defined in Table Store to indicate row data, because it delivers better performance for serialization, and small object resolution, compared to Protocol Buffer.
+Compared with Protocol Buffer, PlainBuffer delivers better performance for serialization and resolution of small objects. Therefore, PlainBuffer is used to format data in Tablestore.
 
-## Format definition {#section_cvs_nsq_dfb .section}
+## Format definition
 
 ```
 plainbuffer = tag_header row1  [row2]  [row3]
@@ -25,10 +25,10 @@ cell_op_value = delete_all_version | delete_one_version
 cell_ts_value = int64 
 delete_all_version = 0x01 (1byte)
 delete_one_version = 0x03 (1byte)
-
+                
 ```
 
-## Tag value { .section}
+## Tag values
 
 ```
 tag_header = 0x75 (4byte)
@@ -42,12 +42,12 @@ tag_cell_ts = 0x07 (1byte)
 tag_delete_marker = 0x08 (1byte)
 tag_row_checksum = 0x09 (1byte)
 tag_cell_checksum = 0x0A (1byte)
-
+            
 ```
 
-## ValueType value { .section}
+## ValueType values
 
-The values of value\_type in formated\_value are as follows:
+Valid values of value\_type in formated\_value:
 
 ```
 VT_INTEGER = 0x0
@@ -59,20 +59,20 @@ VT_BLOB = 0x7
 VT_INF_MIN = 0x9
 VT_INF_MAX = 0xa
 VT_AUTO_INCREMENT = 0xb
-
+            
 ```
 
-## Calculate the checksum { .section}
+## Checksum calculation
 
-The basic logic for calculating the checksum is as follows:
+The checksum is calculated based on the following basic logic:
 
--   Calculate the name/value/type/time stamp of each cell.
--   Calculate the delete in the row. If delete mark exists in the row, supplement a single-byte 1; otherwise, supplement a single-byte 0.
--   Because the checksum is calculated for each cell, the cell checksum is used to calculate the row checksum, that is, the CRC operation is only performed on the checksums of cells in the row, not data in the row.
+-   The name, value, type, and timestamp of each cell is calculated.
+-   The delete mark of each row is calculated. A byte of 1 is added for each row that has a delete mark. A byte of 0 is added for each row that does not have a delete mark.
+-   After the checksum is calculated for each cell in a row, these cell checksums are used to calculate the row checksum. The CRC is performed only on the cells in the row, instead of data in the row.
 
 Java implementation:
 
-**Note:** The following code is from `$tablestore-4.2.1-sources/com/alicloud/openservices/tablestore/core/protocol/PlainBufferCrc8.java`. For more information, see [Java SDK](../../../../intl.en-US/SDK Reference/Java SDK/Installation.md).
+**Note:** The following code is extracted from `$tablestore-4.2.1-sources/com/alicloud/openservices/tablestore/core/protocol/PlainBufferCrc8.java`. For more information, see [Installation](/intl.en-US/SDK Reference/Java SDK/Installation.md).
 
 ```language-c++
 public static byte getChecksum(byte crc, PlainBufferCell cell) throws IOException {
@@ -117,17 +117,17 @@ public static byte getChecksum(byte crc, PlainBufferRow row) throws IOException 
 
     return crc;
 }
-
+            
 ```
 
-## Example { .section}
+## Example
 
-A data row contains two primary key columns and four data columns. The primary key types are string and integer, and the data types are string, int, and double. The versions are 1001, 1002, and 1003. A column is also contained to delete all versions.
+A row contains two primary key columns and four attribute columns. The data types of the primary key columns are string and integer, while the data types in the attribute columns are string, integer, and double. The versions are 1001, 1002, and 1003. The fourth attribute column indicates whether to delete all versions.
 
--   Primary key column:
+-   Primary key columns:
     -   \[pk1:string:iampk\]
     -   \[pk2:integer:100\]
--   Attribute column:
+-   Attribute columns:
     -   \[column1:string:bad:1001\]
     -   \[column2:integer:128:1002\]
     -   \[column3:double:34.2:1003\]
@@ -136,16 +136,15 @@ A data row contains two primary key columns and four data columns. The primary k
 Encoding:
 
 ```
-  <HHeader starting>[0x75]
-  <rimary key column starting>[0x1]
+<The start position for headers>[0x75]
+<The start position for primary key columns>[0x1]
   <Cell1>[0x3][0x4][0x3][3][pk1][0x5][0x3][5][iampk][_cell_checksum]
-    <Cell2>[0x3][0x4][0x3][3][pk2][0x5][0x0][8][100][_cell_checksum]
-  <Attribute column starting>[0x2]
-    <Cell1>[0x3][0x4][0x3][7][column1][0x5][0x3][3][bad][0x7][1001][_cell_checksum]
-    <Cell2>[0x3][0x4][0x3][7][column2][0x5][0x0][8][128][0x7][1002][_cell_checksum]
-    <Cell3>[0x3][0x4][0x3][7][column3][0x5][0x1][8][34.2][0x7][1003][_cell_checksum]
-    <Cell4>[0x3][0x4][0x3][7][column4][0x6][1][_cell_checksum]
-  [_row_check_sum]
-
+  <Cell2>[0x3][0x4][0x3][3][pk2][0x5][0x0][8][100][_cell_checksum]
+<The start position for attribute columns>[0x2]
+  <Cell1>[0x3][0x4][0x3][7][column1][0x5][0x3][3][bad][0x7][1001][_cell_checksum]
+  <Cell2>[0x3][0x4][0x3][7][column2][0x5][0x0][8][128][0x7][1002][_cell_checksum]
+  <Cell3>[0x3][0x4][0x3][7][column3][0x5][0x1][8][34.2][0x7][1003][_cell_checksum]
+  <Cell4>[0x3][0x4][0x3][7][column4][0x6][1][_cell_checksum]
+[_row_check_sum]
 ```
 
