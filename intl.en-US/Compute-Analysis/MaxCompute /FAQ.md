@@ -1,17 +1,19 @@
-# FAQ {#concept_59871_zh .concept}
+# FAQ
 
--   Symptoms: FAILED: ODPS-0010000:System internal error - fuxi job failed, WorkerPackageNotExist
+This topic describes the frequently asked questions about the use of MaxCompute to access Tablestore.
 
-    Resolution: Set set odps.task.major.version=unstructured\_data.
+-   FAILED: ODPS-0010000:System internal error - fuxi job failed, WorkerPackageNotExist
 
--   Symptoms: FAILED: ODPS-0010000:System internal error - std::exception:Message: a timeout was reached
+    Cause: You must set odps.task.major.version to unstructured\_data.
 
-    Resolution: The Table Store endpoint is incorrect, which makes MaxCompute unaccessible. Enter the correct endpoint.
+-   FAILED: ODPS-0010000:System internal error - std::exception:Message: a timeout was reached
 
--   Symptoms: logview invalid end\_point
+    Cause: The endpoint to access Tablestore is invalid, which causes MaxCompute to fail to access Tablestore.
 
-    Resolution: The logview URL is returned during the execution. If an error is returned when a browser is used to access the address, it may be due to an incorrect configuration. Check MaxCompute configuration.
+-   logview invalid end\_point
+
+    Cause: In the execution process, the logview URL is returned. If an error is returned when a browser is used to access the address, the configurations may be invalid. Check MaxCompute configurations.
 
 
-If the problem persists, contact the [after-sales technical support](https://selfservice.console.aliyun.com/ticket/createIndex).
+If the problem persists, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
 
