@@ -1,12 +1,12 @@
 # BatchGetRow
 
-BatchGetRow reads several data rows from one or more tables.
+You can call this operation to simultaneously read multiple rows of data from one or more tables.
 
-It is essentially a set of multiple GetRow operations. Each operation is independently executed, returns results independently, and independently consumes capacity units.
+The BatchGetRow operation is a set of multiple GetRow operations. The execution, returning of results, and capacity unit \(CU\) consumption of each operation are carried out independently.
 
-Compared to the execution of a large number of GetRow operations, the use of the BatchGetRow operation can reduce the request response time and increase the data read rate.
+Compared with the execution of a large number of GetRow operations, the use of the BatchGetRow operation can effectively reduce the request response time and increase the data read rate.
 
-## Request Structure:
+## Request structure
 
 ```
 message BatchGetRowRequest {
@@ -14,64 +14,57 @@ message BatchGetRowRequest {
 }           
 ```
 
-tables:
+## Request parameters
 
--   Type: repeated [TableInBatchGetRowRequest](/intl.en-US/API Reference/Data Types/TableInBatchGetRowRequest.md)
+|Parameter|Type|Required|Description|
+|---------|----|--------|-----------|
+|tables|repeated [TableInBatchGetRowRequest](/intl.en-US/API Reference/Data Types/TableInBatchGetRowRequest.md)|Yes|This parameter specifies the information of rows to be read.
 
--   Required Parameter: Yes
+ The entire operation fails and returns an error if any of the following conditions appears in tables:
 
--   Specifies the information of rows to be read.
+ -   Any table listed in the tables parameter does not exist.
 
--   The entire operation fails and returns an error if `tables` has any of the following conditions:
+-   The name of any table does not comply with [Naming conventions and data types](/intl.en-US/Function Introduction/Wide Column model/Naming conventions and data types.md).
 
-    -   Any table in `tables` does not exist.
+-   The primary key is not specified for any row in a table, the primary key column name does not comply with the conventions, or the primary key column type is incorrect.
 
-    -   The name of any table in `tables` does not comply with the naming rule.
+-   A column name in columns\_to\_get of any table does not comply with [Naming conventions and data types](/intl.en-US/Function Introduction/Wide Column model/Naming conventions and data types.md).
 
-    -   The primary key is not specified for any row in `tables`, the primary key name does not comply with the conventions, or the primary key type is incorrect.
+-   Tables with the same name exist.
 
-    -   For any table in `tables`, a column name in columns\_to\_get does not comply with the naming rule.
+-   Any table in the tables contains rows with identical primary keys.
 
-    -   `tables` contains tables with identical names.
+-   The total number of RowInBatchGetRowRequest in all tables exceeds 100.
 
-    -   Any table in `tables` contains rows with identical primary keys.
+-   Any table in the tables does not contain any RowInBatchGetRowRequest.
 
-    -   In `tables`, the total number of RowInBatchGetRowRequest exceeds 100.
+-   The value of columns\_to\_get of any table exceeds 128. |
 
-    -   Any table in `tables` does not contain any RowInBatchGetRowRequest.
-
-    -   Columns\_to\_get for any table in `tables` exceeds 128 columns.
-
-
-## Response message structure:
+## Response structure
 
 ```
 message BatchGetRowResponse {
     repeated TableInBatchGetRowResponse tables = 1;
-}           
+}          
 ```
 
-tables:
+**Note:** The BatchGetRow operation may partially fail at the row level. However, it still returns an HTTP status code of 200. The application must check errors in RowInBatchGetRowResponse to confirm the execution results for each row and handle the errors.
 
--   Type: repeated [TableInBatchGetRowResponse](/intl.en-US/API Reference/Data Types/TableInBatchGetRowResponse.md)
+## Response parameters
 
--   Corresponds to the data to be read in each table.
+|Parameter|Type|Description|
+|---------|----|-----------|
+|tables|repeated [TableInBatchGetRowResponse](/intl.en-US/API Reference/Data Types/TableInBatchGetRowResponse.md)|-   The value of this parameter corresponds to the data to be read in each table.
 
 -   The TableInBatchGetRowResponse object order in the response message is the same as the TableInBatchGetRowRequest object order in BatchGetRowRequest. The order of each RowInBatchGetRowResponse under TableInBatchGetRowResponse is the same as that of RowInBatchGetRowRequest under TableInBatchGetRowRequest.
 
--   If a row does not exist or does not have data in the specified columns\_to\_get, a corresponding RowInBatchGetRowResponse still appears in TableInBatchGetRowResponse, but the row’s primary\_key\_columns and attribute\_columns are null.
+-   If a row does not exist or does not have data in the specified columns\_to\_get, a corresponding RowInBatchGetRowResponse still appears in TableInBatchGetRowResponse, but the values of primary\_key\_columns and attribute\_columns of the row are null.
 
--   If a row fails to be read, the is\_ok value in RowInBatchGetRowResponse for the row is false and the row is null.
+-   If a row fails to be read, the is\_ok value in RowInBatchGetRowResponse for the row is false and the row is null. |
 
+## CU consumption
 
-**Note:** At the row level, the BatchGetRow operation may partially fail. In this case, it still returns an HTTP status code of 200, but the application must check errors in RowInBatchGetRowResponse to confirm the execution results for each row and then proceed accordingly.
-
-Capacity unit consumption:
-
--   If the entire operation fails, no capacity units are consumed.
-
--   If a request time-out occurs and the results are undefined, a capacity unit may or may not be consumed.
-
--   In other situations, each RowInBatchGetRowRequest operation is viewed as one [GetRow](/intl.en-US/API Reference/Operations/GetRow.md) operation when write capacity units are counted.
-
+-   If the entire operation fails, it does not consume any CUs.
+-   If the request times out and the results are undefined, CUs may or may not be consumed.
+-   In other situations, each RowInBatchGetRowRequest operation is considered as one GetRow operation when write CUs are calculated. For more information, see [GetRow](/intl.en-US/API Reference/Operations/GetRow.md).
 
