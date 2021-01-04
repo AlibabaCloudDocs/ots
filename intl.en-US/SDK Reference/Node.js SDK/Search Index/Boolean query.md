@@ -31,7 +31,7 @@ var client = require('../client');
 var TableStore = require('.. /../index.js');
 var Long = TableStore.Long;
 /**
- * Use boolean query to implement the following operations: (col2<4 or col3<5) or (col2 = 4 and (col3 = 5 or col3 =6)). Logic:
+ * Use Boolean query to implement the following operations: (col2<4 or col3<5) or (col2 = 4 and (col3 = 5 or col3 =6)). Logic:
  * boolQuery1 = rangeQuery(col2<4) or rangeQuery(col3<5)
  * boolQuery2 = termQuery(col3=5) or (col3=6)
  * boolQuery3 = termQuery(col2=4) and boolquery2
