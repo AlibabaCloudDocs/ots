@@ -1,21 +1,21 @@
-# Preface {#concept_43005_zh .concept}
+# Preface
 
-This topic describes how to install and use Java SDK Version 4.0.0 and later for Table Store.
+This topic describes how to use Tablestore SDK for Java. This topic applies to Tablestore SDK for Java V5.0.0 and later.
 
-## Prerequisites {#section_gxz_hxc_2fb .section}
+## Prerequisites
 
--   You have[activated Table Store](../../../../../reseller.en-US/Quick Start/Sign up for Table Store.md) and [created an AccessKey](../../../../../reseller.en-US/General Reference/Create an AccessKey.md).
+-   Tablestore is activated. For more information, see [Sign up for Table Store](/intl.en-US/Quick Start/Activate Tablestore.md).
+-   An AccessKey pair is created. For more information, see [Create an AccessKey]().
+-   Tablestore SDK for Java V4.0.0 and later versions support data versions and time to live \(TTL\). For more information about data versions and TTL, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
 
--   Java SDK Version 4.0.0 and later support multiple data versions and TTL. You have learned about [TTL](../../../../../reseller.en-US/Data Models/Wide Column/Data versions and time to live.md#) and [multiple versions of incremental data](../../../../../reseller.en-US/Data Models/Wide Column/Data versions and time to live.md#).
+## Compatibility
 
-## Compatibility {#section_akr_ckp_dgb .section}
+Latest version: 5.10.3
 
-Latest Java SDK version: 4.10.2.
+-   Tablestore SDK for Java V4.x.x: compatible
+-   Tablestore SDK for Java V2.x.x: incompatible
 
--   For Java SDKs V4.x.x: compatible
--   For Java SDKs V2.x.x: incompatible
+## Versions
 
-## Versions { .section}
-
-For more information about version iterations, see [Java SDK](reseller.en-US/SDK Reference/Download SDK/Java SDK.md#).
+For more information about the versions of Tablestore SDK for Java, see [Java SDK](/intl.en-US/SDK Reference/Download SDK/Tablestore SDK for Java.md).
 
