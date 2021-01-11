@@ -30,8 +30,8 @@ No data can be found when the Search operation is called.
 
 ## Solutions
 
--   When you create the search index, specify the column names and data types that are in correct correspondence with those in the table, and specify the data formats of data written to the table that match the data types in the search index. For more information, see [Data types of column values](/intl.en-US/Function Introduction/Search Index/API operations/Overview.md) or [ARRAY and NEST data types](/intl.en-US/Function Introduction/Search Index/API operations/ARRAY and NEST data types.md).
+-   When you create the search index, specify the column names and data types that are in correct correspondence with those in the table, and specify the data formats of data written to the table that match the data types in the search index. For more information, see [Data types of column values](/intl.en-US/Function Introduction/Search Index/Operations/Overview.md) or [ARRAY and NEST data types](/intl.en-US/Function Introduction/Search Index/Operations/ARRAY and NEST data types.md).
 -   Synchronize data in the table to the search index.
--   Select an appropriate query method and specify correct query criteria when you use search index. For more information, see [Query](/intl.en-US/Function Introduction/Search Index/API operations/Overview.md).
--   Use the correct tokenizer. For more information, see [Tokenization](/intl.en-US/Function Introduction/Search Index/API operations/Tokenization.md).
+-   Select an appropriate query method and specify correct query criteria when you use search index. For more information, see [Query](/intl.en-US/Function Introduction/Search Index/Operations/Overview.md).
+-   Use the correct tokenizer. For more information, see [Tokenization](/intl.en-US/Function Introduction/Search Index/Operations/Tokenization.md).
 
