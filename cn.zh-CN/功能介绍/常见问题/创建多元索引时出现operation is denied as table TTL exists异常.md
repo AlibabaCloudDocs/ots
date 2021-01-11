@@ -1,6 +1,6 @@
 # 创建多元索引时出现operation is denied as table TTL exists异常
 
-介绍创建多元索引时出现operation is denied as table TTL exists异常的现象、原因和解决方案。
+本文介绍创建多元索引时出现operation is denied as table TTL exists异常的现象、原因和解决方案。
 
 ## 现象
 
