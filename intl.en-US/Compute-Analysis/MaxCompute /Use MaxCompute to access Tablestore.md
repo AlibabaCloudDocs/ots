@@ -26,7 +26,7 @@ Before you use MaxCompute to access Tablestore, make sure that the following pre
 
 3.  Create an AccessKey pair for the RAM user.
 
-4.  Create a role in the RAM console to authorize MaxCompute to access Tablestore. For more information, see [Allow MaxCompute to access Table Store across accounts](/intl.en-US/Compute-Analysis/MaxCompute /Allow MaxCompute to access Table Store across accounts.md).
+4.  Create a role in the RAM console to authorize MaxCompute to access Tablestore. For more information, see [Cross-account authorization](/intl.en-US/Compute-Analysis/MaxCompute /Cross-account authorization.md).
 
 5.  In the Tablestore console, create an instance and a table. For more information, see [Create instances](/intl.en-US/Quick Start/Create instances.md) and [Create tables](/intl.en-US/Quick Start/Create tables.md).
 
