@@ -1,6 +1,6 @@
 # 使用通配符查询时出现length of field value is longer than 10 for the \[WILDCARD\_QUERY\] query异常
 
-介绍使用通配符查询时出现length of field value is longer than 10 for the \[WILDCARD\_QUERY\] query异常的现象、原因和解决方案。
+本文介绍使用通配符查询时出现length of field value is longer than 10 for the \[WILDCARD\_QUERY\] query异常的现象、原因和解决方案。
 
 ## 现象
 
