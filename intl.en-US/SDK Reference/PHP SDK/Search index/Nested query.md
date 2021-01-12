@@ -1,6 +1,6 @@
 # Nested query
 
-This topic describes how to use NestedQuery to query the data of nested columns. You cannot directly query NESTED fields. You must specify the NestedQuery object. In NestedQuery, you must specify the path of a NESTED column and a subquery. The subquery can be of any type.
+This topic describes how to use nested query to query the child row data of nested columns. You cannot directly query nested fields. You must specify the NestedQuery object. In NestedQuery, you must specify the path of a nested column and a subquery. The subquery can be of any type.
 
 ## Prerequisites
 
