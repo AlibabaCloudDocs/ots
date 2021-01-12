@@ -1,6 +1,6 @@
 # Range query
 
-You can use range query to query data that falls within a specified range. If the type of a field is TEXT, Tablestore tokenizes the string and matches tokens by using the specified prefix.
+You can use range query to query data that falls within a specified range. If the type of a field is TEXT, Tablestore tokenizes the string and matches any of the tokens that fall within the specified range.
 
 ## Prerequisites
 
