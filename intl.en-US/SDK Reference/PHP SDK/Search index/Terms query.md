@@ -1,6 +1,6 @@
 # Terms query
 
-This query is similar to term query. However, terms query supports multiple terms. This query is also similar to the SQL IN operator. A row of data is returned if one of the keywords matches the field value. Terms query is equivalent to the IN operator in SQL statements.
+This query is similar to term query. However, terms query supports multiple terms. This query is also similar to the SQL IN operator. A row of data is returned if one of the keywords matches field values. Terms query is equivalent to the IN operator in SQL statements.
 
 ## Prerequisites
 
