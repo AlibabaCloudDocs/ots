@@ -1,6 +1,6 @@
 # Term query
 
-You can use term query to query data that exactly matches the specified value of a field. Term query is similar to queries based on string match conditions. When a table contains a TEXT string, Tablestore tokenizes the string and exactly matches tokens.
+You can use term query to query data that exactly matches the specified value of a field. Term query is similar to queries based on string match conditions. If the type of a field is TEXT, Tablestore tokenizes the string and exactly matches tokens.
 
 ## Prerequisites
 
