@@ -2,8 +2,6 @@
 
 Match phrase query is similar to match query, but evaluates the position between multiple tokens. A row meets the query condition only when the order and position of the tokens in the row match those of the tokens contained in the tokenized keyword.
 
-
-
 ## Operations
 
 You can call the Search or ParallelScan operation and set the query type to MatchPhraseQuery to perform match phrase query.
@@ -41,7 +39,7 @@ If returnAll is set to true, all columns are returned. |
 
 ```
 /**
- * Search the table for rows where the value of Col_Text matches the whole phase "hangzhou shanghai" in order. Tablestore returns the number of rows that match the phrase and part of the matched rows in this query.
+ * Search the table for rows where the value of Col_Text matches the whole phrase "hangzhou shanghai" in order. Tablestore returns the number of rows that match the phrase and part of the matched rows in this query.
  * @param client
  */
 private static void matchPhraseQuery(SyncClient client) {
