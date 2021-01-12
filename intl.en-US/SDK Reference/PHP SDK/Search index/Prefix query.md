@@ -1,6 +1,6 @@
 # Prefix query
 
-You can use prefix query to query data that matches a specified prefix. When a table contains a TEXT string, Tablestore tokenizes the string and matches tokens by using the specified prefix.
+You can use prefix query to query data that matches a specified prefix. If the type of a field is TEXT, Tablestore tokenizes the string and matches tokens by using the specified prefix.
 
 ## Prerequisites
 
