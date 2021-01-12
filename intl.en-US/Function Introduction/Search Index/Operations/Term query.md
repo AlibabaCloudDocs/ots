@@ -11,7 +11,7 @@ You can call the Search or ParallelScan operation and set the query type to Term
 You can use the following Tablestore SDKs to implement term query:
 
 -   Tablestore SDK for Java: [Term query](/intl.en-US/SDK Reference/Java SDK/Search Index/Term query.md)
--   Tablestore SDK for Go: [Go Term query](/intl.en-US/SDK Reference/Go SDK/Search Index/Term query.md)
+-   Tablestore SDK for Go: [Term query](/intl.en-US/SDK Reference/Go SDK/Search Index/Term query.md)
 -   Tablestore SDK for Python: [Term query](/intl.en-US/SDK Reference/Python SDK/Search Index/Term query.md)
 -   Tablestore SDK for Node.js: [Term query](/intl.en-US/SDK Reference/Node.js SDK/Search Index/Term query.md)
 -   Tablestore SDK for .NET: [Term query](/intl.en-US/SDK Reference/.NET SDK/Search Index/Term query.md)
