@@ -1,6 +1,6 @@
 # Billable items of global secondary indexes
 
-Additional storage usage is required to use global secondary index. When the system inserts data to a data table, it may also need to write the index tables created on the data table at the same time. During this process, read and write CUs are consumed. This topic describes the billing rules for global secondary index.
+Additional storage usage is required to use global secondary index. When you inserts data to a data table, the system may also need to write the index tables created on the data table. During this process, read and write CUs are consumed. This topic describes the billing rules for global secondary index.
 
 **Note:** Capacity units \(CUs\) are read and write throughput units. They are the smallest units used to measure the costs of read and write operations. For example, when the system reads 4 KB from one row per second, one read CU is consumed.
 
