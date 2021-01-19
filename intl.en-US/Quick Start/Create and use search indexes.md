@@ -4,13 +4,13 @@ Search index uses inverted indexes and column-oriented storage to address comple
 
 **Note:** For more information about search indexes, see [Overview](/intl.en-US/Function Introduction/Search Index/Overview.md).
 
-## Create a search index
+## Create search indexes
 
 1.  Log on to the [Tablestore console](https://otsnext.console.aliyun.com/).
 
-2.  On the Overview tab, click the name of an instance or click **Manage Instance** in the Actions column corresponding to the instance.
+2.  On the Overview page, click the name of the requested instance or click **Manage Instance** in the Actions column corresponding to the instance.
 
-3.  In the Tables section of the Instance Details tab, click **Data Editor** in the Actions column corresponding to the table. Click the Manage Index tab.
+3.  In the Tables section of the Instance Details tab, click the name of a table, or click **Data Editor** in the Actions column corresponding to the table. Click the Manage Index tab.
 
 4.  On the Manage Index tab, click **Create Index**.
 
@@ -20,7 +20,7 @@ Search index uses inverted indexes and column-oriented storage to address comple
 
     1.  Set Index Type to **Search Index**.
 
-    2.  The system automatically generates an index name. You can also set Index Name to a specific value.
+    2.  The system generates an index name. You can also set Index Name to a specific value.
 
     3.  Set Routing Key to the names of primary key columns.
 
@@ -29,15 +29,15 @@ Search index uses inverted indexes and column-oriented storage to address comple
     4.  Set Schema Generation Type.
 
         -   When Schema Generation Type is set to **Manual**, set field names and supported data types for the field values. Specify whether to turn on Array.
-        -   When Schema Generation Type is set to **Auto Generate**, the system automatically uses the primary key columns and attribute columns of the table as the fields to index. Set supported data types for the field values. Specify whether to turn on Array.
-        **Note:** The **Field Name** and **Field Type** must matched those of the table. For more information about the mapping relationship of field types between the table and search index, see [Data types of column values](/intl.en-US/Function Introduction/Search Index/Operations/Overview.md).
+        -   When Schema Generation Type is set to **Auto Generate**, the system uses the primary key columns and attribute columns of the table as the fields to index. Set supported data types for the field values. Specify whether to turn on Array.
+        **Note:** The **Field Name** and **Field Type** values must be the same as those of the table. For more information about the mapping relationship of field types between the table and search index, see [Data types of column values](/intl.en-US/Function Introduction/Search Index/Operations/Overview.md).
 
 6.  Click **OK**.
 
-    After a search index is created, click **Index Details** in the Actions column corresponding to the search index. You can view information about the index, such as the routing fields and pre-defined columns.
+    After a search index is created, click **Index Details** in the Actions column corresponding to the search index. You can view the information about the index, such as the routing fields and pre-defined columns.
 
 
-## Query data
+## Data query
 
 You can use an existing search index to query data.
 
@@ -47,7 +47,7 @@ You can use an existing search index to query data.
 
 3.  In the Tables section of the Instance Details tab, click the name of an table, or click **Data Editor** in the Actions column corresponding to the table. Click the Manage Index tab.
 
-4.  Click **Index Query** in the Actions column.
+4.  Click **Index Query** in the Actions column .
 
     ![fig_tablestore_010](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7569132061/p96432.png)
 
@@ -66,9 +66,9 @@ You can use an existing search index to query data.
     Data that meets the filter conditions is displayed in the specified order on the Data Editor tab.
 
 
-## SDK
+## Use Tablestore SDKs
 
-For more information about how to use Tablestore SDK to implement search index, see the following topics:
+For more information about how to use Tablestore SDKs to implement search index, see the following topics:
 
 -   [Java SDK](/intl.en-US/SDK Reference/Java SDK/Search Index/Create search indexes.md)
 -   [Go SDK](/intl.en-US/SDK Reference/Go SDK/Search Index/Create search indexes.md)
