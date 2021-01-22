@@ -1,16 +1,16 @@
 Overview 
 =============================
 
-Tablestore uses the data delivery function to deliver full or incremental data to Object Storage Service (OSS) that is used as the data lake. This function enables Tablestore to store historical data in OSS at lower cost while Tablestore implements offline or quasi-real-time analysis of larger amounts of data.
+Tablestore uses data delivery to deliver full or incremental data to Object Storage Service (OSS) that is used as a data lake in real time. This feature enables Tablestore to store historical data in OSS at lower costs while Tablestore implements offline or quasi-real-time analysis of larger amounts of data.
 
 Scenarios 
 ------------------------------
 
-You can use data delivery function to address needs of the following scenarios:
+You can use data delivery to address needs of the following scenarios:
 
 * Tiered storage of cold and hot data
 
-  You can use data delivery and the [time to live (TTL)](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md) feature of Tablestore to store full data in OSS at low cost. Tablestore allows you to query and analyze hot data with low latencies.
+  Data delivery uses the [time to live (TTL)](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md) feature of Tablestore to store full data in OSS at low costs. Tablestore allows you to query and analyze hot data with low latencies.
   
 
 * Full data backup
@@ -20,13 +20,14 @@ You can use data delivery function to address needs of the following scenarios:
 
 * Large-scale data analysis in real time
 
-  You can use data delivery to deliver incremental data of Tablestore to OSS in real time (every two minutes). Delivered data is partitioned based on the system time and stored in the Parquet format. In addition, you can use OSS high-speed bandwidth for reading and optimization of scanning for Parquet data to implement efficient real-time data analysis.
+  You can use data delivery to deliver incremental data from Tablestore to OSS in real time (every 2 minutes). Delivered data is partitioned based on the system time and stored in the Parquet format. You can use OSS high-speed bandwidth for reading and optimization of scanning for Parquet data to implement efficient real-time data analysis.
   
 
 * Accelerated analysis by using SQL statements
 
-  When search indexes are not created for Tablestore data, and the query conditions exclude primary key column-based filter conditions, you can use delivery service to synchronize data to OSS. Then, use DLA and OSS data scanning to accelerate SQL-based analysis.
+  When search indexes are not created for Tablestore data, and the query conditions exclude primary key column-based filter conditions, you can use data delivery to synchronize data to OSS. Then, use DLA and OSS data scanning to accelerate SQL-based analysis.
 
+  ![image.png](../images/p168841.png "image.png")
   
 
 
@@ -35,7 +36,7 @@ You can use data delivery function to address needs of the following scenarios:
 Features 
 -----------------------------
 
-Data delivery function has the following features:
+Data delivery has the following features:
 
 * Data delivery obtains full and incremental data of Tablestore. When the amount of data reaches the predetermined size or after the data is delivered for more than two minutes, the data is stored in OSS.
 
@@ -45,7 +46,7 @@ Data delivery function has the following features:
 
   
 
-* Data delivery supports the monitoring of the time when data delivery is completed. Data delivery provides the DescribeDeliveryTask operation to return the time when data delivery is completed.
+* Data delivery supports the monitoring of the time when data delivery is complete. Data delivery provides the DescribeDeliveryTask operation to return the time when data delivery is complete.
 
   
 
@@ -62,17 +63,17 @@ Benefits
 
 * A complete set of data delivery modes
 
-  Data delivery modes of full, incremental, and differential are provided. When the incremental mode is set, delivery tasks implement quasi-real-time delivery of data, obtain the latest data, cache the data, and write the data to OSS after two minutes.
+  Data delivery modes of full, incremental, and differential are provided. When the incremental mode is set, delivery tasks implement quasi-real-time delivery of data, obtain the latest data, cache the data, and write the data to OSS after 2 minutes.
   
 
 * Seamless integration with the computational ecology
 
-  Data delivery is compatible with the open source ecology standards and the naming conventions followed by Hive. Delivered data is stored in the Parquet format. To analyze the data delivered to an OSS bucket, use the external table in [E-MapReduce](https://www.alibabacloud.com/help/product/28066.htm?spm=a2c63.m28257.a1.64.45785922n1Mk3s).
+  Data delivery is compatible with open source ecology standards and the naming conventions followed by Hive. Delivered data is stored in the Parquet format. To analyze the data in an external table after data is delivered to an OSS bucket, use [E-MapReduce](https://www.alibabacloud.com/help/zh/product/28066.htm?spm=a2c63.m28257.a1.63.16d9ed69Q7b5Fm).
   
 
 * Tiered storage and access experience
 
-  After data is delivered to OSS, you can access different data such as data in tables, and index tables and data delivered to OSS. This way, the analysis requirements of different scenarios are met.
+  After data is delivered to OSS, you can access different data such as data in tables and index tables and data delivered to OSS. This way, the analysis requirements of different scenarios are met.
   
 
 
