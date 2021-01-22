@@ -1,13 +1,13 @@
 # Endpoint
 
-Each Tablestore instance has an endpoint in each type of network. You must specify an endpoint before any operations can be performed on data in Tablestore. Different instance endpoints are used in different scenarios.
+Each Tablestore instance has an endpoint. You must specify an endpoint before operations can be performed on data in Tablestore. Different instance endpoints are used in different scenarios.
 
 **Note:** For more information about region names, see [Region](/intl.en-US/Function Introduction/Terms/Region.md).
 
 ## Query endpoints
 
 1.  Log on to the [Tablestore console](https://otsnext.console.aliyun.com/).
-2.  On the Overview page, click the name of an instance or click **Manage Instance** in the Actions column corresponding to the instance.
+2.  On the Overview page, click the name of the required instance or click **Manage Instance** in the Actions column corresponding to the instance.
 
     Go to the Instance Details tab. You can view the endpoints of the instance in the Instance Access URL section.
 
