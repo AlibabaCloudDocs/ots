@@ -1,30 +1,38 @@
-# ListTable {#reference266 .reference}
+# ListTable
 
-ListTable obtains the names of all tables under the current instance.
+You can call this operation to query the names of all tables that are created in the current instance.
 
-## Request structure: { .section}
+## Usage notes
 
-```language-pb
-message ListTableRequest {
-}
+If a table has just been created, its table name appears in ListTableResponse, but this does not necessarily mean that this table can be read or written at the moment.
+
+## Request structure
 
 ```
+message ListTableRequest {
+}            
+```
 
-## Response message structure: { .section}
+## Response structure
 
-```language-pb
+```
 message ListTableResponse {
     repeated string table_names = 1;
-}
-
+}            
 ```
 
-table\_names:
+|Parameter|Type|Description|
+|---------|----|-----------|
+|table\_names|repeated String|The names of all tables in the current instance.|
 
--   Type: repeated string
+## Use Tablestore SDKs
 
--   The names of all tables under the current instance.
+You can use the following Tablestore SDKs to list the names of tables:
 
-
-**Note:** If a table has been newly created, its table name appears in ListTableResponse. However, no read/write operation can be performed on a table immediately after it is created. Generally, a read/write operation can be performed on a new table one minute after it is created.
+-   Tablestore SDK for Java: [Query table names](/intl.en-US/SDK Reference/Java SDK/Table/Query table names.md)
+-   Tablestore SDK for Go: [Query table names](/intl.en-US/SDK Reference/Go SDK/Table/Query table names.md)
+-   Tablestore SDK for Python: [Query table names](/intl.en-US/SDK Reference/Python SDK/Table/Query table names.md)
+-   Tablestore SDK for Node.js: [Query table names](/intl.en-US/SDK Reference/Node.js SDK/Table/Query table names.md)
+-   Tablestore SDK for .NET: [Query table names](/intl.en-US/SDK Reference/.NET SDK/Table/Query table names.md)
+-   Tablestore SDK for PHP: [Query table names](/intl.en-US/SDK Reference/PHP SDK/Table operations/Query table names.md)
 
