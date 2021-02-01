@@ -27,7 +27,7 @@ You can install Tablestore SDK for Java by using one of the two following method
     In this example, Tablestore SDK for Java V5.4.0 is used. To import JAR packages into Eclipse, perform the following operations:
 
     1.  [Download the Tablestore SDK for Java package](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyun-tablestore-sdk/java/tablestore-5.4.0-release.zip).
-    2.  Decompress the package.
+    2.  Decompress the SDK for Java package.
     3.  Copy the tablestore-<versionId\>.jar file and all files in the lib folder to your project.
 
         <versionId\> specifies the version of Tablestore SDK for Java. For example, the file name for V5.4.0 is tablestore-5.4.0.jar.
