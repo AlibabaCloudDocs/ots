@@ -2,7 +2,7 @@
 
 This topic describes the version history of Tablestore SDK for Java.
 
-**Note:** Tablestore SDK for Java V4.0.0 and later support max versions and time to live \(TTL\). Both these parameters incompatible with Tablestore SDK for Java V2.x.x.
+**Note:** Tablestore SDK for Java V4.0.0 and later support max versions and time to live \(TTL\). Both of these parameters are incompatible with Tablestore SDK for Java V2.x.x.
 
 ## Version: 5.10.3
 
@@ -12,10 +12,10 @@ Download URL: [5.10.3](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyu
 
 Change records:
 
--   Data Delivery is added. For more information about how to use the console or the SDK, see [Quick start](/intl.en-US/Function Introduction/Data Delivery/Quick start.md) or [Use SDKs](/intl.en-US/Function Introduction/Data Delivery/Use SDKs.md).
--   Aggregation that queries rows in groups is supported for search index. For more information, see [Aggregation](/intl.en-US/Function Introduction/Search Index/API operations/Aggregation.md).
+-   Delivery service is added. For more information about how to use the console or Tablestore SDKs, see [Quick start](/intl.en-US/Function Introduction/Data Delivery/Quick start.md) or [Use SDKs](/intl.en-US/Function Introduction/Data Delivery/Use SDKs.md).
+-   Aggregation that queries rows in groups is supported for search index. For more information, see [Aggregation](/intl.en-US/Function Introduction/Search Index/Operations/Aggregation.md).
 -   Format check for configuration parameters is added.
--   The connection to the computing engine is optimized in the SDK internal.
+-   The SDK is optimized and connected to the computing engine.
 
 ## Version: 5.7.0
 
@@ -25,8 +25,8 @@ Download URL: [5.7.0](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyun
 
 Change records:
 
--   Parallel scan is supported for search index. For more information, see [Parallel scan](/intl.en-US/Function Introduction/Search Index/API operations/Parallel scan.md).
--   TableStoreWrite is optimized for Tablestore SDK for Java.
+-   Parallel scan is supported for search index. For more information, see [Parallel scan](/intl.en-US/Function Introduction/Search Index/Operations/Parallel scan.md).
+-   TableStoreWriter is optimized for Tablestore SDK for Java.
 
 ## Version: 5.4.0
 
@@ -36,7 +36,7 @@ Download URL: [5.4.0](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyun
 
 Change records:
 
--   Predefined columns can be added or deleted for existing tables.
+-   Predefined columns can be added to or deleted from existing tables.
 -   Tunnel Service is optimized for Tablestore SDK for Java.
 
 ## Version: 5.3.0
@@ -63,7 +63,7 @@ Download URL: [5.0.0](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyun
 
 Change records:
 
--   To unify SDK version numbers, Tablestore SDK for Java is updated to 5.x. Tablestore SDK for Java V5.x.x is compatible with Tablestore SDK for Java V4.x.
+-   To unify SDK version numbers, Tablestore SDK for Java is updated to 5.x. Tablestore SDK for Java V5.x is compatible with Tablestore SDK for Java V4.x.
 -   Exists query is added to search index.
 
 ## Version: 4.12.1
@@ -122,7 +122,7 @@ Download URL: [aliyun\_tablestore\_java\_sdk\_2.2.4.zip](https://docs-aliyun.cn-
 Change records:
 
 -   Condition update is added.
--   Filter is added.
+-   The filter feature is supported.
 
 ## Version: 2.1.0
 
