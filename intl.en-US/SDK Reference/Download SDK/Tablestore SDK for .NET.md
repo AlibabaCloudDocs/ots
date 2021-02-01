@@ -1,6 +1,6 @@
 # Tablestore SDK for .NET
 
-This topic describes the version history of Tablestore SDK for NET.
+This topic describes the version history of Tablestore SDK for .NET.
 
 ## Version: 4.1.4
 
@@ -34,9 +34,9 @@ Download URL: [https://www.nuget.org/packages/Aliyun.TableStore.SDK/4.1.0](https
 
 Change records:
 
--   Atomic counter is supported. For more information, see [Configure atomic counter](/intl.en-US/SDK Reference/. .NET SDK/Table operations/Configure atomic counter.md).
--   Global secondary index is supported. For more information, see [Global secondary indexes](/intl.en-US/SDK Reference/. .NET SDK/Global secondary indexes.md).
--   Search index is supported. For more information, see [CreateSearchIndex](/intl.en-US/SDK Reference/. .NET SDK/Search index operations/CreateSearchIndex.md).
+-   Atomic counter is supported. For more information, see [Configure atomic counter](/intl.en-US/SDK Reference/.NET SDK/Table/Configure atomic counter.md).
+-   Global secondary index is supported. For more information, see [Global secondary index](/intl.en-US/SDK Reference/.NET SDK/Global secondary index.md).
+-   Search index is supported. For more information, see [Create search indexes](/intl.en-US/SDK Reference/.NET SDK/Search Index/Create search indexes.md).
 
 ## Version: 4.0.0
 
@@ -46,8 +46,8 @@ Download URL: [https://www.nuget.org/packages/Aliyun.TableStore.SDK/4.0.0](https
 
 Change records:
 
--   Max versions and TTL are supported. For more information, see [Max versions and TTL](/intl.en-US/Developer Guide/Wide Column model/Max versions and TTL.md).
--   Auto-increment primary key columns are supported. For more information, see [Configure auto-increment primary key columns](/intl.en-US/SDK Reference/. .NET SDK/Table operations/Configure auto-increment primary key columns.md).
+-   Max versions and TTL are supported. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
+-   Auto-increment primary key columns are supported. For more information, see [Configure an auto-increment primary key column](/intl.en-US/SDK Reference/.NET SDK/Table/Configure an auto-increment primary key column.md).
 
 ## Version: 3.0.0
 
