@@ -20,7 +20,7 @@ For SDKs V3.x.x: compatible.
 
 For SDKs V2.x.x:
 
--   Some operations are incompatible. The Condition.IGNORE, Condition.EXPECT\_EXIST, and Condition.EXPECT\_NOT\_EXIST parameters are deleted.
+-   Part of operations are incompatible. The Condition.IGNORE, Condition.EXPECT\_EXIST, and Condition.EXPECT\_NOT\_EXIST parameters are deleted.
 -   The DLL file name is changed from Aliyun.dll to Aliyun.TableStore.dll.
 
 ## Version
