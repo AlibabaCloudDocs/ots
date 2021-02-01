@@ -27,7 +27,7 @@ Python 2 or Python 3 is available.
 
 -   Method 3: Use source code.
     1.  Download the [SDK package](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyun-tablestore-sdk/python/aliyun-tablestore-python-sdk-5.1.0.tar.gz).
-    2.  Decompress the SDK package, and then run the following command:
+    2.  Decompress the SDK package. Then, run the following command:
 
         ```
         sudo python setup.py install       
@@ -36,7 +36,7 @@ Python 2 or Python 3 is available.
 
 ## Verify Tablestore SDK for Python
 
-To check the SDK version in the Python environment, enter python on the command line and then press Enter.
+To check the SDK version in the Python environment, enter python on the command line and press Enter.
 
 ```
 >>> import tablestore
