@@ -9,13 +9,13 @@ Tablestore provides the following single-row operations: PutRow, GetRow, UpdateR
 
 ## PutRow
 
-You can call this operation to write a row of data. If the row already exists, this operation deletes the existing row \(all columns and all versions of the original row\), and then writes data to the row.
+You can call this operation to insert a row. If the row exists, data of all versions in all columns of the row is deleted before new data is inserted.
 
--   API operations
+-   Operations
 
     ```
         /**
-         * Write a row of data. If the row already exists, this operation deletes the existing row (all columns and all versions of the original row), and then writes data to the row. The number of the consumed capacity units (CUs) is returned.
+         * Write a row of data. If the row exists, data of all versions in all columns of the row is deleted before new data is inserted. The number of the consumed capacity units (CUs) is returned.
           * @api
          * @param [] $request The request parameters.
          * @return [] The response. 
@@ -31,7 +31,7 @@ You can call this operation to write a row of data. If the row already exists, t
     |Parameter|Description|
     |---------|-----------|
     |table\_name|The name of the table.|
-    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure conditional update.md).    -   row\_existence: the row existence condition.
+    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure conditional update.md).    -   row\_existence: the row existence condition.
 
 **Note:**
 
@@ -41,21 +41,21 @@ You can call this operation to write a row of data. If the row already exists, t
     -   column\_condition: the column-based condition. |
     |primary\_key|The primary key of the row.**Note:**
 
-    -   The number and type of primary key columns configured must be consistent with those of primary key columns of the table.
-    -   When the primary key column is an auto-increment column, you need only to set the value of the auto-increment column to placeholders. For more information, see [Configure an auto-increment primary key column](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure an auto-increment primary key column.md).
+    -   The configured number and types of primary key columns must be consistent with the actual number and types of primary key columns of the table.
+    -   For an auto-increment primary key column, you need only to set the value of the auto-increment primary key column to a placeholder. For more information, see [Configure an auto-increment primary key column](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure an auto-increment primary key column.md).
     -   The primary key of a table can contain one to four primary key columns. Primary key columns are sorted in the order in which they are added. For example, the schema of PRIMARY KEY \(A, B, C\) is different from that of PRIMARY KEY \(A, C, B\). Tablestore sorts rows based on the values of all primary key columns.
-    -   Each item specifies the values in the following sequence: the primary key name, primary key value \(PrimaryKeyValue\), and primary key type \(PrimaryKeyType\). PrimaryKeyType is optional.
+    -   Each primary key column is specified by parameters in the following sequence: the primary key name, primary key value \(PrimaryKeyValue\), and primary key type \(PrimaryKeyType\). PrimaryKeyType is optional.
     -   The value of PrimaryKeyValue can be an integer, a binary, or a string.
-    -   PrimaryKeyType can be set to PrimaryKeyTypeConst::CONST\_INTEGER, PrimaryKeyTypeConst::CONST\_STRING \(UTF-8 encoded string\), PrimaryKeyTypeConst::CONST\_BINARY, or PrimaryKeyTypeConst::CONST\_PK\_AUTO\_INCR \(auto-increment primary key columns\). If the type of data to query is INTEGER or STRING, this parameter can be ignored. Otherwise, the type must be specified. |
-    |attribute\_columns|The attribute column of the row.    -   Each item specifies the values in the following sequence: the attribute column name, attribute column value \(ColumnValue\), attribute column value type \(ColumnType, which is optional\), and timestamp \(optional\).
-    -   ColumnType can be set to ColumnTypeConst::CONST\_INTEGER, ColumnTypeConst::CONST\_STRING, ColumnTypeConst::CONST\_BINARY, ColumnTypeConst::CONST\_BOOLEAN, or ColumnTypeConst::CONST\_DOUBLE, which respectively indicate the INTEGER, STRING \(UTF-8 encoded string\), BINARY, BOOLEAN, and DOUBLE types. If the type is BINARY, the type must be specified. Otherwise, the type can be ignored or set to null.
-    -   The timestamp is the version number of the data. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
+    -   PrimaryKeyType can be set to PrimaryKeyTypeConst::CONST\_INTEGER, PrimaryKeyTypeConst::CONST\_STRING, PrimaryKeyTypeConst::CONST\_BINARY, or PrimaryKeyTypeConst::CONST\_PK\_AUTO\_INCR \(auto-increment primary key columns\), which separately indicate the INTEGER, STRING \(UTF-8 encoded string\), BINARY, and PK\_AUTO\_INCR \(auto-increment primary key columns\) types. If the type of data is INTEGER or STRING, this parameter can be ignored. Otherwise, the type must be specified. |
+    |attribute\_columns|The attribute columns of the row.    -   An attribute column is specified by parameters in the following sequence: the attribute column name, attribute column value \(ColumnValue\), attribute column value type \(ColumnType, which is optional\), and timestamp \(optional\).
+    -   ColumnType can be set to ColumnTypeConst::CONST\_INTEGER, ColumnTypeConst::CONST\_STRING, ColumnTypeConst::CONST\_BINARY, ColumnTypeConst::CONST\_BOOLEAN, or ColumnTypeConst::CONST\_DOUBLE, which separately indicate the INTEGER, STRING \(UTF-8 encoded string\), BINARY, BOOLEAN, and DOUBLE types. If the type of data is BINARY, this parameter must be specified. Otherwise, the type can be ignored or set to null.
+    -   A timestamp is the data version number. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
 
-You can customize a version number or specify that the system generates the version number. If the timestamp is not set, the version number is generated by the system.
+You can customize a data version number or use the data version number generated by Tablestore. If you do not specify this parameter, the data version number generated by the system is used.
 
-        -   The version number is calculated based on the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
-        -   When you choose to customize the version number, make sure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range. |
-    |return\_content|Specifies the data type to return.return\_type: Set the value to ReturnTypeConst::CONST\_PK, which returns the primary key values. This parameter is used for auto-increment primary key columns. |
+        -   The version number generated by Tablestore is calculated based on the number of milliseconds that have elapsed since 00:00:00 UTC on January 1, 1970.
+        -   When you choose to specify the version number, make sure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range. |
+    |return\_content|The return type.return\_type: Set the value to ReturnTypeConst::CONST\_PK, which returns the primary key values. This parameter is used for auto-increment primary key columns. |
 
 -   Request format
 
@@ -86,12 +86,12 @@ You can customize a version number or specify that the system generates the vers
 
     |Parameter|Description|
     |---------|-----------|
-    |consumed|The number of capacity units \(CUs\) consumed by this operation.capacity\_unit: the read/write CUs.
+    |consumed|The number of CUs consumed by this operation.capacity\_unit: the number of read and write CUs consumed.
 
-    -   read: read throughput
-    -   write: write throughput |
-    |primary\_key|The value of the primary key, which is consistent with that in the request.**Note:** If you set ReturnTypeConst::CONST\_PK, the value of the primary key is returned. |
-    |attribute\_columns|The value of the attribute column, which is consistent with that in the request. No attribute columns are returned in this example.|
+    -   read: the read throughput
+    -   write: the write throughput |
+    |primary\_key|The value of the primary key, which is consistent with that in the request.**Note:** If you set return\_type to ReturnTypeConst::CONST\_PK, the value of the primary key is returned. |
+    |attribute\_columns|The values of attribute columns. The attribute column names are consistent with those specified in the request. At present, the value of this paramter is empty.|
 
 -   Response format
 
@@ -114,7 +114,7 @@ You can customize a version number or specify that the system generates the vers
 
 -   Example 1
 
-    The following code provides an example on how to write a row that contains 10 attribute columns and write one version of data for each column. The system generates a version number \(timestamp\) for the row.
+    The following code provides an example on how to write a row that contains 10 attribute columns and write one version of data for each column. The version number \(timestamp\) is generated by Tablestore.
 
     ```
     $attr = array();
@@ -136,7 +136,7 @@ You can customize a version number or specify that the system generates the vers
 
 -   Example 2
 
-    The following code provides an example on how to write a row that contains 10 attribute columns and write three versions of data for each column. The system generates a version number \(timestamp\) for the row.
+    The following code provides an example on how to write a row that contains 10 attribute columns and write three versions of data for each column. In this example, a custom version number \(timestamp\) is used.
 
     ```
     $attr = array();
@@ -161,7 +161,7 @@ You can customize a version number or specify that the system generates the vers
 
 -   Example 3
 
-    The following code provides an example on how to write a row that contains 10 attribute columns and write three versions of data for each column when the expected row does not exist. The system generates a version number \(timestamp\) for the row.
+    The following code provides an example on how to write a row that contains 10 attribute columns and write three versions of data for each column. In this example, a condition that expects the row not to exist is set and a custom version number \(timestamp\) is used.
 
     ```
     $attr = array();
@@ -186,7 +186,7 @@ You can customize a version number or specify that the system generates the vers
 
 -   Example 4
 
-    The following code provides an example on how to write a row that contains 10 attribute columns and write three versions of data for each column when the expected row exists and the value of Col0 is greater than 100. The system generates a version number \(timestamp\) for the row.
+    The following code provides an example on how to write a row that contains 10 attribute columns and write three versions of data for each column. In this example, a condition that expects the row to exist and the Col0 value of the row to be greater than 100 is set and a custom version number \(timestamp\) is used.
 
     ```
     $attr = array();
@@ -199,7 +199,7 @@ You can customize a version number or specify that the system generates the vers
     $request = [
         'table_name' => 'MyTable',
         'condition' => [
-            'row_existence' => RowExistenceExpectationConst::CONST_EXPECT_EXIST, // Delete the row if it exists.
+            'row_existence' => RowExistenceExpectationConst::CONST_EXPECT_EXIST, // Configure the condition to write data when the expected row exists.
             'column_condition' => [                  // If the condition is met, the data is updated.
                 'column_name' => 'Col0',
                 'value' => 100,
@@ -221,12 +221,12 @@ You can customize a version number or specify that the system generates the vers
 
 You can call this operation to read a row of data.
 
-The following results of the read request may be returned:
+The following results for the read request may be returned:
 
 -   If the row exists, the primary key columns and attribute columns of the row are returned.
 -   If the row does not exist, no row is returned and no error is reported.
 
--   API operations
+-   Operations
 
     ```
         /**
@@ -246,32 +246,32 @@ The following results of the read request may be returned:
     |Parameter|Description|
     |---------|-----------|
     |table\_name|The name of the table.|
-    |primary\_key|The primary key of the row.**Note:** The number and type of primary key columns configured must be consistent with those of primary key columns of the table. |
-    |max\_versions|The maximum number of read versions.**Note:** You must specify at least one of max\_versions and time\_range.
+    |primary\_key|The primary key of the row.**Note:** The configured number and types of primary key columns must be consistent with the actual number and types of primary key columns of the table. |
+    |max\_versions|The maximum number of versions that can be read.**Note:** You must specify at least one of max\_versions and time\_range.
 
     -   If you specify only max\_versions, data of up to the specified number of versions is returned from the latest to the earliest.
-    -   If you specify only time\_range, all data within a range or a version of data is returned.
+    -   If you specify only time\_range, data whose version number is within the specified range or a specified version of data is returned.
     -   If you specify both max\_versions and time\_range, data of up to the specified number of versions within the time range is returned from the latest to the earliest. |
-    |time\_range|Reads data within a range of versions or a version of data. For more information, see [TimeRange](/intl.en-US/API Reference/Data Types/TimeRange.md).**Note:** You must specify at least one of max\_versions and time\_range.
+    |time\_range|Specifies a range of versions to read or a version of data to read. For more information, see [TimeRange](/intl.en-US/API Reference/Data Types/TimeRange.md).**Note:** You must specify at least one of max\_versions and time\_range.
 
     -   If you specify only max\_versions, data of up to the specified number of versions is returned from the latest to the earliest.
-    -   If you specify only time\_range, all data within a range or a version of data is returned.
+    -   If you specify only time\_range, data whose version number is within the specified range or a specified version of data is returned.
     -   If you specify both max\_versions and time\_range, data of up to the specified number of versions within the time range is returned from the latest to the earliest.
-    -   To query data within a range, you must set start\_time and end\_time. start\_time specifies the start timestamp. end\_time indicates the end timestamp. The time range is a left-closed and right-open interval, which is \[start\_time, end\_time\).
-    -   If you query data within a range of versions, set specific\_time. specific\_time specifies a specific timestamp.
-You can set one of specific\_time and \[start\_time, end\_time\).
+    -   If you specify a range of versions to read, you must set start\_time and end\_time. start\_time indicates the start timestamp. end\_time indicates the end timestamp. The specified range includes the start timestamp and excludes the end timestamp.
+    -   If you want to query data of a specified version, you must set specific\_time. specific\_time indicates a specified timestamp.
+You can set either of specific\_time or \[start\_time, end\_time\).
 
-Valid values: \[0, INT64.MAX\). Unit: milliseconds. |
+The timestamp used for the value of time\_range ranges from 0 to INT64.MAX. Unit: milliseconds. |
     |columns\_to\_get|The set of columns to read. The column name can be the primary key column or attribute column. If you do not specify this parameter, all data in the row is returned.
 
 **Note:**
 
-    -   If you query a row of data, the system returns the data in all columns of the row. You can set the columns\_to\_get parameter to read the data only in specified columns. If col0 and col1 are added to columns\_to\_get, only the values of the col0 and col1 columns are returned.
-    -   When columns\_to\_get and column\_filter are used at the same time, the columns specified by columns\_to\_get are returned. Then, the returned columns are filtered. |
-    |start\_column|The start column to read, which is used to read wide rows. The response contains the start column.The columns are sorted based on their names in alphabetical order. Example: A table contains columns a, b, and c. If the value of start\_column is b, data that is read starts from column b, and columns b and c are returned. |
-    |end\_column|The end column to read, which is used to read wide rows. The response does not contain the end column.The columns are sorted based on their names in alphabetical order. Example: A table contains columns a, b, and c. If the value of end\_column is b, data that is read ends at column b, and column a is returned. |
-    |token|This parameter specifies the starting position of a wide row in the next read operation. This function is unavailable.|
-    |column\_filter|Filters the read results on the server side and returns only the rows of data that meet the conditions in the filter. For more information, see [Configure filter](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure filter.md).**Note:** When columns\_to\_get and column\_filter are used at the same time, the columns specified by columns\_to\_get are returned. Then, the returned columns are filtered. |
+    -   By default, Tablestore returns the data from all columns of the row when you query a row. You can set the columns\_to\_get parameter to return the data in specified columns. For example, if you include col0 and col1 in columns\_to\_get, only the values of col0 and col1 are returned.
+    -   If you use columns\_to\_get and column\_filter together, Tablestore first queries the columns specified by columns\_to\_get, and then returns rows that meet the filter conditions. |
+    |start\_column|The column from which you want to start reading. This parameter is used to read wide rows. The response contains the start column.The columns are sorted based on their names in alphabetical order. Example: A table contains columns a, b, and c. If the value of start\_column is b, the reading starts from column b, and columns b and c are returned. |
+    |end\_column|The column at which you want to end reading. This parameter is used to read wide rows. The response does not contain the end column.The columns are sorted based on their names in alphabetical order. Example: A table contains columns a, b, and c. If the value of end\_column is b, the reading ends at column b, and column a is returned. |
+    |token|This parameter specifies the start position of a wide row in the next read operation. This feature is unavailable.|
+    |column\_filter|You can set filter conditions to filter the queried results on the server side. Only rows that meet the specified filter conditions are returned. For more information, see [Configure filter](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure filter.md).**Note:** If you use columns\_to\_get and column\_filter together, Tablestore first queries the columns specified by columns\_to\_get, and then returns rows that meet the filter conditions. |
 
 -   Request format
 
@@ -306,20 +306,20 @@ Valid values: \[0, INT64.MAX\). Unit: milliseconds. |
 
     |Parameter|Description|
     |---------|-----------|
-    |consumed|The number of CUs consumed by this operation.capacity\_unit: the read/write CUs.
+    |consumed|The number of CUs consumed by this operation.capacity\_unit: the number of read and write CUs consumed.
 
-    -   read: read throughput
-    -   write: write throughput |
+    -   read: the read throughput
+    -   write: the write throughput |
     |primary\_key|The value of the primary key, which is consistent with that in the request.**Note:** If the row does not exist, primary\_key is an empty list \[\]. |
-    |attribute\_columns|The value of the attribute column.**Note:** If the row does not exist, the attribute\_columns is an empty list \[\].
+    |attribute\_columns|The values of attribute columns.**Note:** If the row does not exist, attribute\_columns is an empty list \[\].
 
-    -   Each item specifies the values in the following sequence: the attribute column name, attribute column value \(ColumnValue\), attribute column value type \(ColumnType\), and timestamp.
+    -   Each attribute column is specified by parameters in the following sequence: the attribute column name, attribute column value \(ColumnValue\), attribute column value type \(ColumnType\), and timestamp.
 
-The timestamp is a 64-bit integer, which indicates the multiple different versions of the attribute column data.
+A timestamp is a 64-bit integer, which indicate multiple versions of data.
 
-    -   The attribute columns in the response are sorted by attribute column name in alphabetical order. The versions of the attribute columns are sorted by timestamp in descending order.
-    -   The order of attribute\_columns may be inconsistent with that of the columns\_to\_get in the request. |
-    |next\_token|This parameter specifies the position of a wide row in the next read operation. This function is unavailable.|
+    -   The attribute columns in the response are sorted by attribute column name in ascending alphabetical order. The versions of the attribute columns are sorted by timestamp in descending order.
+    -   The order of attribute columns may be different between the request and response. |
+    |next\_token|The start position of a wide row in the next read operation. This feature is unavailable.|
 
 -   Response format
 
@@ -348,7 +348,7 @@ The timestamp is a 64-bit integer, which indicates the multiple different versio
 
 -   Example 1
 
-    The following code provides an example on how to read the latest version of data and the column:
+    The following code provides an example on how to read the latest versions of the specified columns from a row:
 
     ```
     $request = [
@@ -366,7 +366,7 @@ The timestamp is a 64-bit integer, which indicates the multiple different versio
 
 -   Example 2
 
-    The following code provides an example on how to use filter:
+    The following code provides an example on how to set filter conditions to read a row of data:
 
     ```
     $request = [
@@ -390,11 +390,11 @@ The timestamp is a 64-bit integer, which indicates the multiple different versio
 
 ## UpdateRow
 
-You can call this operation to update data of a specified row. You can add or delete attribute columns of a row, delete a specified version of data from an attribute column, or update the existing data in an attribute column. If the row does not exist, a new row is added.
+You can call this operation to update data of a specified row. You can add attribute columns to or delete attribute columns from a row, delete a specified version of data from an attribute column, or update the existing data in an attribute column. If the specified row does not exist, a new row is added.
 
 **Note:** If the UpdateRow request contains only columns to delete, and the specified row does not exist, a new row is not added.
 
--   API operations
+-   Operations
 
     ```
         /**
@@ -414,22 +414,22 @@ You can call this operation to update data of a specified row. You can add or de
     |Parameter|Description|
     |---------|-----------|
     |table\_name|The name of the table.|
-    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure conditional update.md).|
-    |primary\_key|The primary key of the row.**Note:** The number and type of primary key columns configured must be consistent with those of primary key columns of the table. |
-    |update\_of\_attribute\_columns|The attribute column to be updated.    -   To add an attribute column or update the value of an existing attribute column, you must specify the name, value and type \(optional\) of the attribute column, and a timestamp \(optional\).
+    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure conditional update.md).|
+    |primary\_key|The primary key of the row.**Note:** The configured number and types of primary key columns must be consistent with the actual number and types of primary key columns of the table. |
+    |update\_of\_attribute\_columns|The attribute column to be updated.    -   An attribute column is specified by parameters in the following sequence: the attribute column name, attribute column value, attribute column value type \(optional\), and timestamp \(optional\).
 
 The timestamp is the version number of the data. It can be automatically generated or customized. If you do not specify this parameter, Tablestore automatically generates a timestamp. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md).
 
-        -   The version number is calculated based on the number of milliseconds that have elapsed since 00:00:00 UTC on January 1, 1970.
-        -   If you choose to specify the version number, ensure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range.
-    -   You need only to set the name of the attribute column and the timestamp to delete a specified version of data in an attribute column.
+        -   The version number generated by Tablestore is calculated based on the number of milliseconds that have elapsed since 00:00:00 UTC on January 1, 1970.
+        -   When you choose to specify the version number, ensure that the version number is a 64-bit timestamp accurate to the millisecond within the valid version range.
+    -   To delete a specified version of data from an attribute column, you need only to set the attribute column name and timestamp.
 
-A timestamp is a 64-bit integer that indicates a specified version of data. Unit: milliseconds.
+The timestamp is a 64-bit integer that indicates a specified version of data. Unit: milliseconds.
 
-    -   You need only to set the name of the attribute column to delete an attribute column.
+    -   To delete an attribute column, you need only to set the attribute column name.
 
 **Note:** A row exists even if all attribute columns in the row are deleted. To delete a row, use the DeleteRow operation. |
-    |return\_content|Specifies the data type to return.return\_type: Set the value to ReturnTypeConst::CONST\_PK, which returns the primary key values. This parameter is used for auto-increment primary key columns. |
+    |return\_content|The return type.return\_type: Set the value to ReturnTypeConst::CONST\_PK, which returns the primary key values. This parameter is used for auto-increment primary key columns. |
 
 -   Request format
 
@@ -475,12 +475,12 @@ A timestamp is a 64-bit integer that indicates a specified version of data. Unit
 
     |Parameter|Description|
     |---------|-----------|
-    |consumed|The number of capacity units \(CUs\) consumed by this operation.capacity\_unit: the read/write CUs.
+    |consumed|The number of CUs consumed by this operation.capacity\_unit: the number of read and write CUs consumed.
 
-    -   read: read throughput
-    -   write: write throughput |
-    |primary\_key|The value of the primary key, which is consistent with that in the request.**Note:** If you set ReturnTypeConst::CONST\_PK, the value of the primary key is returned. |
-    |attribute\_columns|The value of the attribute column, which is consistent with that in the request. No attribute columns are returned in this example.|
+    -   read: the read throughput
+    -   write: the write throughput |
+    |primary\_key|The value of the primary key, which is consistent with that in the request.**Note:** If you set return\_type to ReturnTypeConst::CONST\_PK, the value of the primary key is returned. |
+    |attribute\_columns|The values of attribute columns. The attribute column names are consistent with those specified in the request. At present, the value of this paramter is empty.|
 
 -   Response format
 
@@ -572,9 +572,9 @@ A timestamp is a 64-bit integer that indicates a specified version of data. Unit
 
 ## DeleteRow
 
-You can call this operation to delete a row of data. If the specified row does not exist, no change is made to the table.
+You can call this operation to delete a row. If the row you want to delete does not exist, no changes are made to the table.
 
--   API operations
+-   Operations
 
     ```
         /**
@@ -594,9 +594,9 @@ You can call this operation to delete a row of data. If the specified row does n
     |Parameter|Description|
     |---------|-----------|
     |table\_name|The name of the table.|
-    |condition|You can use conditional update to set row existence conditions or column-based conditions. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure conditional update.md).|
-    |primary\_key|The primary key of the row.**Note:** The number and type of primary key columns configured must be consistent with those of primary key columns of the table. |
-    |return\_content|Specifies the data type to return.return\_type: Set the value to ReturnTypeConst::CONST\_PK, which returns the primary key values. This parameter is used for auto-increment primary key columns. |
+    |condition|You can use conditional update to set a row existence condition or columns-based conditions for the row. For more information, see [Configure conditional update](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure conditional update.md).|
+    |primary\_key|The primary key of the row.**Note:** The configured number and types of primary key columns must be consistent with the actual number and types of primary key columns of the table. |
+    |return\_content|The return type.return\_type: Set the value to ReturnTypeConst::CONST\_PK, which returns the primary key values. This parameter is used for auto-increment primary key columns. |
 
 -   Request format
 
@@ -623,12 +623,12 @@ You can call this operation to delete a row of data. If the specified row does n
 
     |Parameter|Description|
     |---------|-----------|
-    |consumed|The number of capacity units \(CUs\) consumed by this operation.capacity\_unit: the read/write CUs.
+    |consumed|The number of CUs consumed by this operation.capacity\_unit: the number of read and write CUs consumed.
 
-    -   read: read throughput
-    -   write: write throughput |
-    |primary\_key|The value of the primary key, which is consistent with that in the request.**Note:** If you set ReturnTypeConst::CONST\_PK, the value of the primary key is returned. |
-    |attribute\_columns|The value of the attribute column, which is consistent with that in the request. No attribute columns are returned in this example.|
+    -   read: the read throughput
+    -   write: the write throughput |
+    |primary\_key|The value of the primary key, which is consistent with that in the request.**Note:** If you set return\_type to ReturnTypeConst::CONST\_PK, the value of the primary key is returned. |
+    |attribute\_columns|The values of attribute columns. The attribute column names are consistent with those specified in the request. At present, the value of this paramter is empty.|
 
 -   Response format
 
@@ -652,7 +652,7 @@ You can call this operation to delete a row of data. If the specified row does n
 
 -   Example 1
 
-    The following code provides an example on how to delete a row of data:
+    The following code provides an example on how to delete a row from a table:
 
     ```
     $request = [
