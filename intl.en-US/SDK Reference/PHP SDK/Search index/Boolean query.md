@@ -1,6 +1,6 @@
 # Boolean query
 
-This topic describes how to use Boolean query to query data based on a combination of filter conditions. This type of query contains one or more subqueries as filter conditions. Tablestore returns the rows that match the subqueries. Each subquery can be of any type, including BoolQuery.
+This topic describes how to use Boolean query to query data based on a combination of subqueries. Tablestore returns the rows that match the subqueries. Each subquery can be of any type, including BoolQuery.
 
 ## Prerequisites
 
@@ -14,21 +14,21 @@ This topic describes how to use Boolean query to query data based on a combinati
 |---------|-----------|
 |table\_name|The name of the table.|
 |index\_name|The name of the search index.|
-|must\_queries|Only row data that matches all subqueries is returned. This parameter is equivalent to the AND operator.|
-|must\_not\_queries|Only row data that must not match all subqueries is returned. This parameter is equivalent to the NOT operator.|
-|filter\_queries|Only row data that matches all subfilters is returned. filter is similar to query. The difference is that filter does not calculate the relevance score based on the number of subfilters that the row meet.|
-|should\_queries|The list of subqueries the query result can or cannot match. This parameter is equivalent to the OR operator.Only rows that meet the minimum number of subquery conditions specified in should\_queries can match the result.
+|must\_queries|Only rows that meet all subquery conditions are returned. This parameter is equivalent to the AND operator.|
+|must\_not\_queries|Only rows that do not meet any subquery conditions are returned. This parameter is equivalent to the NOT operator.|
+|filter\_queries|Only rows that meet all subfilters are returned. Compared with query, filter does not calculate the relevance score based on the number of subfilters that the row meet.|
+|should\_queries|The list of subqueries the query result can or cannot match. This parameter is equivalent to the OR operator.Only rows that meet the minimum number of subquery conditions specified by should\_queries are returned.
 
-The overall relevance score is higher if more subqueries of should\_queries are met. |
-|minimum\_should\_match|The minimum number that row data must match for subquery conditions in should\_queries.Default value: 1. |
+The overall relevance score is higher if more subquery conditions specified by should\_queries are met. |
+|minimum\_should\_match|The minimum number of subquery conditions specified by should\_queries that row data must match. Default value: 1.|
 
 ## Examples
 
-In the following example, the condition A is that the value of the keyword column matches that of the 'keyword', and the condition B is that the value of the long column is greater than or equal to 100 and smaller than 101.
+In the following example, condition A requires that the value of the keyword column exactly matches 'keyword', and condition B requires that the value of the long column is greater than or equal to 100 and smaller than 101.
 
--   MustQueries\(A AND B\)
+-   Example 1
 
-    The following code provides an example on how to query rows that meet both condition A and B:
+    The following code provides an example on how to use Boolean query to query rows that meet condition A and condition B:
 
     ```
     $request = array(
@@ -79,9 +79,9 @@ In the following example, the condition A is that the value of the keyword colum
     $response = $otsClient->search($request);
     ```
 
--   MustNotQueries\(! A AND ! B\)
+-   Example 2
 
-    The following code provides an example on how to query rows that do not meet condition A or B:
+    The following code provides an example on how to use Boolean query A AND ! to query rows that do not meet condition A or condition B:
 
     ```
     $request = array(
@@ -132,9 +132,9 @@ In the following example, the condition A is that the value of the keyword colum
     $response = $otsClient->search($request);
     ```
 
--   FilterQueries\(A AND B\)
+-   Example 3
 
-    The following code provides an example on how to query rows that meet both condition A and B. Data of rows does not calculate the relevance score based on the number that meets conditions.
+    The following code provides an example on how to use Boolean query to filter the query result and return rows that meet condition A or condition B. filter does not calculate the relevance score based on the number of subfilters that the row meet.
 
     ```
     $request = array(
@@ -187,7 +187,7 @@ In the following example, the condition A is that the value of the keyword colum
 
 -   ShouldQueries\(A OR B\)
 
-    The following code provides an example on how to query rows that meet condition A or B:
+    The following code provides an example on how to query rows that meet condition A or condition B:
 
     ```
     $request = array(
@@ -237,6 +237,103 @@ In the following example, the condition A is that the value of the keyword colum
         )
     );
     $response = $otsClient->search($request);
+    ```
+
+-   Example 4
+
+    The following code provides an example on how to perform a Boolean query that includes multiple BoolQueries. In \(col2<4 or col3<5\) or \(col2 = 4 and \(col3 = 5 or col3 =6\)\), each BoolQuery is connected by AND or OR.
+
+    ```
+    $request = array(
+        'table_name' => 'php_sdk_test',
+        'index_name' => 'php_sdk_test_index',
+        'search_query' => [
+            'offset' => 0,
+            'limit' => 10,
+            'get_total_count' => false,
+            'query' => [
+                'query_type' => QueryTypeConst::BOOL_QUERY,
+                'query' => [
+                    // Final combination: (col2<4 or col3<5) or (col2 = 4 and (col3 = 5 or col3 =6))
+                    'should_queries' => [
+                        [
+                            'query_type' => QueryTypeConst::BOOL_QUERY,
+                            'query' => [
+                                // Combination 1: col2 < 4 or col3 < 5
+                                'should_queries' => [
+                                    [
+                                        'query_type' => QueryTypeConst::RANGE_QUERY,
+                                        // Condition 1: col2 < 4
+                                        'query' => [
+                                            'field_name' => 'col2',
+                                            'range_to' => 4
+                                        ]
+                                    ],
+                                    [
+                                        'query_type' => QueryTypeConst::RANGE_QUERY,
+                                        // Condition 2: col3 < 5
+                                        'query' => [
+                                            'field_name' => 'col3',
+                                            'range_to' => 5
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
+                        [
+                            'query_type' => QueryTypeConst::BOOL_QUERY,
+                            // Combination 2: (col2 = 4 and (col3 = 5 or col3 =6))
+                            'query' => [
+                                'must_queries' => [
+                                    [
+                                        'query_type' => QueryTypeConst::TERM_QUERY,
+                                        // Condition 3: col2 = 4
+                                        'query' => [
+                                            'field_name' => 'col2',
+                                            'term' => 4
+                                        ]
+                                    ],
+                                    [
+                                        'query_type' => QueryTypeConst::BOOL_QUERY,
+                                        // Combination 3: (col3 = 5 or col3 =6))
+                                        'query' => [
+                                            'should_queries' => [
+                                                [
+                                                    'query_type' => QueryTypeConst::TERM_QUERY,
+                                                    // Condition 4: col3=5
+                                                    'query' => [
+                                                        'field_name' => 'col3',
+                                                        'term' => 5
+                                                    ]
+                                                ],
+                                                [
+                                                    'query_type' => QueryTypeConst::TERM_QUERY,
+                                                    // Condition 5: col3=6
+                                                    'query' => [
+                                                        'field_name' => 'col3',
+                                                        'term' => 6
+                                                    ]
+                                                ]
+                                            ],
+                                            'minimum_should_match' => 1
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
+                    'minimum_should_match' => 1
+                ]
+            ]
+        ],
+        // You can set the columns_to_get parameter to specify the columns to return or specify that all columns are returned. If you do not set this parameter, only the primary key columns are returned.
+        'columns_to_get' => [ 
+            //'return_type' => ColumnReturnTypeConst::RETURN_ALL // Specify that all columns are returned.
+            // Specify that the col1 and col2 columns are returned.
+            'return_type' => ColumnReturnTypeConst::RETURN_SPECIFIED, 
+            'return_names' => array('col1', 'col2')
+        ]
+    );
     ```
 
 
