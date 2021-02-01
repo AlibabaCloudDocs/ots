@@ -19,7 +19,7 @@ Prerequisites
 
   On the **RAM Roles** page, search AliyunServiceRoleForOTSDataDelivery. Then, click the RAM role name. On the role details page, you can view and copy the ARN information of the role.
 
-  ![fig_en_deliveryarn](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4705512161/p237198.png)
+  ![fig_en_arn](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8415512161/p237199.png)
   
 
 * TableStoreClient is initialized. For more information, see [Initialization](/intl.en-US/SDK Reference/Go SDK/Initialize a Tablestore client.md).
