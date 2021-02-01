@@ -1,6 +1,6 @@
 # Preface
 
-This topic describes how to use Tablestore SDK for Python. The content in this topic applies to Tablestore SDK for Python V4.x.x.
+This topic describes how to install and use Tablestore SDK for Python. The content in this topic applies to Tablestore SDK for Python V4.x.x.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ This topic describes how to use Tablestore SDK for Python. The content in this t
 -   Download Tablestore SDK for Python by using the SDK package. For more information, see [SDK package](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyun-tablestore-sdk/python/aliyun-tablestore-python-sdk-5.1.0.tar.gz).
 -   Download Tablestore SDK for Python from GitHub. For more information, visit [GitHub](https://github.com/aliyun/aliyun-tablestore-python-sdk).
 
-For the versions of Tablestore SDK for Python, see [SDK for Python](/intl.en-US/SDK Reference/Download SDK/SDK for Python.md).
+For more information about the versions of Tablestore SDK for Python, see [SDK for Python](/intl.en-US/SDK Reference/Download SDK/SDK for Python.md).
 
 ## Compatibility
 
