@@ -10,9 +10,9 @@ This topic describes how to install and use Tablestore SDK for Go.
 ## Download and install Tablestore SDK for Go
 
 -   For the download path of Tablestore SDK for Go, visit [SDK package](https://github.com/aliyun/aliyun-tablestore-go-sdk) \(including package, source code and examples\).
--   For information about how to install Tablestore SDK for Go, see [Installation](/intl.en-US/SDK Reference/Go SDK/Installation.md).
+-   For more information about how to install Tablestore SDK for Go, see [Installation](/intl.en-US/SDK Reference/Go SDK/Installation.md).
 
 ## Version
 
-Latest version: 5.0.2.
+Latest version: 5.0.2
 
