@@ -1,12 +1,12 @@
 # Use MaxCompute to access Tablestore
 
-This topic describes how to establish a seamless connection between Tablestore and MaxCompute within the same Alibaba Cloud account.
+This topic describes how to establish a seamless connection between Tablestore and MaxCompute that belongs to the same Alibaba Cloud account.
 
 ## Background information
 
 [MaxCompute](https://www.alibabacloud.com/product/maxcompute) is a cost-effective and fully managed platform for petabytes of data warehousing. You can use this service to process and analyze large amounts of data in a fast and efficient manner. You can execute a simple Data Definition Language \(DDL\) statement to create an external table in MaxCompute. Then, you can use this table to associate MaxCompute with external data sources. This allows access to and output of data in various formats. MaxCompute tables can contain only structured data. However, external tables can contain either structured or non-structured data.
 
-Tablestore and MaxCompute have their own type systems, and the following table shows their mappings.
+Tablestore and MaxCompute have their own type systems, and the following table lists their mappings.
 
 |Tablestore|MaxCompute|
 |:---------|:---------|
@@ -107,14 +107,14 @@ WITH SERDEPROPERTIES ( -- (2)
 LOCATION 'tablestore://cap1.cn-hangzhou.ots-internal.aliyuncs.com'; -- (5)
 ```
 
-The following table describes the parameters.
+The following table lists the parameters.
 
 |Label|Parameter|Description|
 |:----|:--------|:----------|
 |\(1\)|com.aliyun.odps.TableStoreStorageHandler|StorageHandler built in MaxCompute. StorageHandler processes Tablestore data. StorageHandler defines the interaction between MaxCompute and Tablestore. MaxCompute implements related logic.|
 |\(2\)|SERDEPROPERITES|The operation that provides parameter options. The tablestore.columns.mapping and tablestore.table.name parameters are required for TableStoreStorageHandler.|
 |\(3\)|tablestore.columns.mapping|Required. The columns of the Tablestore table to be accessed by MaxCompute. The columns include primary key columns and attribute columns. Columns that contain colons \(`:`\) are the primary key columns of Tablestore. Examples: `:vid` and `:gt`. Other columns in the example are attribute columns. You must specify all primary key columns of the table in Tablestore when you specify the mapping. You need only to specify the attribute columns that MaxCompute accesses instead of specifying all attribute columns.|
-|\(4\)|tablestore.table.name|The name of the Tablestore table to be accessed. If the specified name of the Tablestore table does not exist, an error occurs. MaxCompute does not create Tablestore tables proactively.|
+|\(4\)|tablestore.table.name|The name of the Tablestore table to be accessed. If the specified name of the Tablestore table does not exist, an error occurs. MaxCompute does not proactively create Tablestore tables.|
 |\(5\)|LOCATION|The information of the Tablestore instance to be accessed. The information includes the name of the instance and endpoint.|
 
 ## Step 3: Use an external table to access Tablestore data
