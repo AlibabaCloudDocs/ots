@@ -6,13 +6,13 @@ This topic describes how to use the DataWorks console to synchronize incremental
 
 If a Tablestore data source is added, skip this step.
 
-For more information about how to add Tablestore data sources, see [Step 1: Add a Tablestore data source](/intl.en-US/Data channels/Data export/Synchronize data from tablestore to OSS/Full export (script mode).md).
+For more information about how to add Tablestore data sources, see [Step 1: Add a Tablestore data source](/intl.en-US/Data channels/Data export/Synchronize data from tablestore to OSS/Export full data (script mode).md).
 
 ## Step 2: Add an OSS data source
 
 If an OSS data source is added, skip this step.
 
-Add an OSS data source. For more information about how to add an OSS data source, see [Step 2: Add an OSS data source](/intl.en-US/Data channels/Data export/Synchronize data from tablestore to OSS/Full export (script mode).md).
+For more information about how to add an OSS data source, see [Step 2: Add an OSS data source](/intl.en-US/Data channels/Data export/Synchronize data from tablestore to OSS/Export full data (script mode).md).
 
 ## Step 3: Configure a scheduled synchronization task
 
@@ -20,9 +20,9 @@ To create and configure a task to synchronize incremental data from Tablestore t
 
 1.  Go to the Data Integration homepage.
 
-    1.  Log on to the [DataWorks console](https://workbench.data.aliyun.com/console) as a workspace administrator.
+    1.  Log on to the [DataWorks console](https://workbench.data.aliyun.com/console) as a project administrator.
 
-        **Note:** Only the space administrator role can add data sources. Members who assume other roles can only view the data sources.
+        **Note:** Only the project administrator role can add data sources. Members who assume other roles can only view data sources.
 
     2.  Select a region. In the left-side navigation pane, click Workspaces.
 
@@ -88,10 +88,10 @@ To create and configure a task to synchronize incremental data from Tablestore t
          "mode": "single_version_and_update_only", # The mode in which Tablestore Stream exports data. Set this parameter to single_version_and_update_only. If the configuration template does not contain this parameter, add this parameter.
          "column":[  # Set the columns that you want to export to OSS. If the configuration template does not contain this parameter, add this parameter. You can customize the number of columns.
                   {
-                     "name": "uid"  # The name of the column, which is the primary key column of Tablestore.
+                     "name": "uid"  # The name of a primary key column of Tablestore.
                   },
                   {
-                     "name": "name"  # The name of the column, which is the attribute column of Tablestore.
+                     "name": "name"  # The name of an attribute column of Tablestore.
                   },
          ],
          "isExportSequenceInfo": false, # Specify whether to export time series information. If you set the mode parameter to single_version_and_update_only, this parameter can be set only to false.
@@ -103,7 +103,7 @@ To create and configure a task to synchronize incremental data from Tablestore t
         "parameter": {
          "datasource": "", # The name of the OSS data source.
          "object": "",  # The prefix of the name of the file you want to synchronize to OSS. We recommend that you use the "Tablestore instance name/Table name/date" format. Example: "instance/table/{date}".
-         "writeMode": "truncate", # The operation the system performs when files of the same name exist. Valid values: truncate, append, and nonConflict. truncate indicates that files of the same name are cleared. append indicates that data is appended to the content of files of the same name. nonConflict indicates that an error is reported if files of the same name exist.
+         "writeMode": "truncate", # The operation the system performs when files of the same name exist. Valid values: truncate, append, and nonConflict. truncate indicates that files of the same name are deleted. append indicates that data is appended to the content of files of the same name. nonConflict indicates that an error is reported if files of the same name exist.
          "fileFormat": "csv", # The format of the file. Valid values: csv, txt, and parquet.
          "encoding": "UTF-8", # The encoding type.
          "nullFormat": "null", # The string used to identify the null field value. The value can be an empty string.
@@ -127,7 +127,7 @@ To create and configure a task to synchronize incremental data from Tablestore t
 
         After the task is completed, you can check whether the task is successful and view the number of exported rows on the Runtime Log tab.
 
-        Incremental data is automatically synchronized from Tablestore to OSS at the latency of five to ten minutes.
+        Incremental data is automatically synchronized from Tablestore to OSS at the latency of 5 to 10 minutes.
 
 5.  Configure the scheduling parameters.
 
@@ -154,9 +154,9 @@ To create and configure a task to synchronize incremental data from Tablestore t
 
     **Note:** You can also click **Operation Center** in the upper-right corner of the DataStudio console to go to Operation Center.
 
-    1.  Log on to the [DataWorks console](https://workbench.data.aliyun.com/console) as a workspace administrator.
+    1.  Log on to the [DataWorks console](https://workbench.data.aliyun.com/console) as a project administrator.
 
-    2.  In the left-side navigation pane, click Workspaces.
+    2.  Select a region. In the left-side navigation pane, click Workspaces.
 
     3.  On the Workspaces page, click **Operation Center** in the Actions column corresponding to the required workspace.
 
