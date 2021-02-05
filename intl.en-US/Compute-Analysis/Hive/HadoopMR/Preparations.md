@@ -21,7 +21,7 @@ You can use Hive and HadoopMR to access and analyze data in Tablestore directly 
         java version "1.8.0_77"
         Java(TM) SE Runtime Environment (build 1.8.0_77-b03)
         Java HotSpot(TM) 64-Bit Server VM (build 25.77-b03, mixed mode)
-    						
+                            
     ```
 
 
@@ -44,7 +44,7 @@ You can use Hive and HadoopMR to access and analyze data in Tablestore directly 
     5114 HMaster
     24287 SecondaryNameNode
     24527 NodeManager
-    						
+                            
     ```
 
 4.  Add the path of Hadoop in /etc/profile. Run the source /etc/profile command to make the configurations take effect.
@@ -65,7 +65,7 @@ You can use Hive and HadoopMR to access and analyze data in Tablestore directly 
     $ mkdir /home/admin/hive-2.1.0
     $ tar -zxvf apache-hive-2.1.0-bin.tar.gz -C /home/admin/
     $ mv /home/admin/apache-hive-2.1.0-bin /home/admin/hive-2.1.0/
-    						
+                            
     ```
 
 3.  Follow the example to initialize schema.
@@ -77,7 +77,7 @@ You can use Hive and HadoopMR to access and analyze data in Tablestore directly 
         # Start initialization. For mysql, replace derby with mysql.
         # If an error occurs in the execution process, delete rm -rf metastore_db/ before you execute the code again.
         $ ./bin/schematool -initSchema -dbType derby
-    						
+                            
     ```
 
 4.  Follow the example to start the Hive environment.
