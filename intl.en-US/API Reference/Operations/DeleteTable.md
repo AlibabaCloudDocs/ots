@@ -1,32 +1,27 @@
-# DeleteTable {#reference242 .reference}
+# DeleteTable
 
-DeleteTable deletes the specified table under this instance.
+You can call this operation to delete a specified table from the current instance.
 
-## Request structure: { .section}
+## Request structure
 
-```language-pb
+```
 message DeleteTableRequest {
     required string table_name = 1;
 }
-
 ```
 
-table\_name:
+table\_name
 
 -   Type: string
+-   Required: yes
+-   The name of the table you want to delete
 
--   Required Parameter: Yes
-
--   The name of the table to be deleted.
-
-
-## Response message structure: { .section}
-
-```language-pb
-message DeleteTableResponse {
-}
+## Response structure
 
 ```
+message DeleteTableResponse {
+}
+```
 
-If the DeleteTable response does not contain an error, then the table has been deleted.
+If the response of DeleteTable does not contain an error, the table has been deleted.
 
