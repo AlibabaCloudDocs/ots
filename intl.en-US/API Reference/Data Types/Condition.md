@@ -1,38 +1,34 @@
-# Condition {#reference427 .reference}
+# Condition
 
-Condition specifies the row judgment conditions in PutRow, UpdateRow, and DeleteRow. It currently contains row\_existence and column\_condition.
+Condition specifies the row judgment conditions in PutRow, UpdateRow, and DeleteRow. It contains the row\_existence and column\_condition parameters.
 
-## Data structure {#section_t25_tpq_dfb .section}
+## Data structure
 
-```language-protobuf
+```
 message Condition {
     required RowExistenceExpectation row_existence = 1;
     optional bytes column_condition      = 2;
 }
-
+			
 ```
 
 row\_existence:
 
--   Type: [RowExistenceExpectation]() 
-
--   The row existence check settings for this row.
-
+-   Type: see [RowExistenceExpectation](/intl.en-US/API Reference/Data Types/RowExistenceExpectation.md)
+-   Description: the row existence check settings for this row.
 
 column\_condition:
 
--   Type: Bytes
+-   Type: bytes
+-   Description: the column-based condition settings. This parameter indicates the binary data \(in bytes\) after the filter is serialized in the Protobuf format. For more information, see [Filter](/intl.en-US/API Reference/Data Types/Filter.md).
 
--   The column condition settings. It indicates the bytes after the [Filter]() is serialized in Protobuf format.
+## Operations
 
+[PutRow](/intl.en-US/API Reference/Operations/PutRow.md)
 
-## Related operations { .section}
+[UpdateRow](/intl.en-US/API Reference/Operations/UpdateRow.md)
 
-[PutRow](reseller.en-US/API Reference/Operations/PutRow.md#)
+[DeleteRow](/intl.en-US/API Reference/Operations/DeleteRow.md)
 
-[UpdateRow](reseller.en-US/API Reference/Operations/UpdateRow.md#)
-
-[DeleteRow](reseller.en-US/API Reference/Operations/DeleteRow.md#)
-
-[BatchWriteRow](reseller.en-US/API Reference/Operations/BatchWriteRow.md#)
+[BatchWriteRow](/intl.en-US/API Reference/Operations/BatchWriteRow.md)
 
