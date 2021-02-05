@@ -1,26 +1,26 @@
-# DescribeTable {#reference897 .reference}
+# DescribeTable
 
-DescribeTable queries the structure information and the reserved read/write throughput value of the specified table.
+You can call this operation to query the structure information and reserved read/write throughput value of the specified table.
 
-## Request structure: { .section}
+## Request structure:
 
 ```language-pb
 message DescribeTableRequest {
     required string table_name = 1;
 }
-
+			
 ```
 
 table\_name:
 
--   Type: String
+-   Type: string
 
--   Required parameter: Yes
+-   Required: yes
 
--   The name of the table to be queried.
+-   This parameter specifies the name of the table you want to query.
 
 
-## Response message structure: { .section}
+## Response structure:
 
 ```language-pb
 message DescribeTableResponse {
@@ -30,43 +30,43 @@ message DescribeTableResponse {
     optional StreamDetails stream_details = 5;
     repeated bytes shard_splits = 6;
 }
-
+			
 ```
 
 table\_meta:
 
--   Type: [TableMeta](reseller.en-US/API Reference/Data Types/TableMeta.md#) 
+-   Type: [TableMeta](/intl.en-US/API Reference/Data Types/TableMeta.md)
 
--   The table’s schema, which is the same as the Schema given at the time of table creation.
+-   This parameter indicates the schema of the table. The schema is the same as the schema provided when the table is created.
 
 
 reserved\_throughput\_details:
 
--   Type: [ReservedThroughputDetails](reseller.en-US/API Reference/Data Types/ReservedThroughputDetails.md#) 
+-   Type: [ReservedThroughputDetails](/intl.en-US/API Reference/Data Types/ReservedThroughputDetails.md)
 
--   The table’s reserved read/write throughput settings information. In addition to the current reserved read/write throughput settings, it also contains the time these settings were last updated and the number of times they have been lowered for the current date.
+-   This parameter indicates the reserved read/write throughput settings information of the table. The information contains the current reserved read/write throughput settings, the time these settings were last updated, and the number of times they have been lowered on the current date.
 
 
 table\_options:
 
--   Type: [TableOptions](reseller.en-US/API Reference/Data Types/TableOptions.md#) 
+-   Type: [TableOptions](/intl.en-US/API Reference/Data Types/TableOptions.md)
 
--   The latest value of the table\_options parameter.
+-   This parameter indicates the latest value of the table\_options parameter.
 
 
 StreamSpecification:
 
--   Type: [StreamSpecification](reseller.en-US/API Reference/Data Types/StreamSpecification.md#)
+-   Type: [StreamSpecification](/intl.en-US/API Reference/Data Types/StreamSpecification.md)
 
--   Required parameter: No
+-   Required: no
 
--   Specifies whether to enable Stream-related attributes.
+-   This parameter indicates whether Stream-related attributes are enabled.
 
 
 shard\_splits:
 
 -   Type: bytes
 
--   The split points of all shards in the current table.
+-   This parameter indicates the split points of all partitions in the current table.
 
 
