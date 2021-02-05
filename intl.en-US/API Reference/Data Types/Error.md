@@ -1,10 +1,10 @@
-# Error {#reference309 .reference}
+# Error
 
-Error can indicate an error message in the response returned when an operation fails, and indicate an error for an individual row request in the BatchGetRow and BatchWriteRow operations.
+Error indicates an error message returned when an operation fails. This parameter is also used to indicate errors for single-row requests in the BatchGetRow and BatchWriteRow operations.
 
-## Data structure {#section_j5n_mqq_dfb .section}
+## Data structure
 
-``` {#codeblock_8vq_3se_6s4 .language-xml}
+```
 Error {
     required string code = 1;
     optional string message = 2;
@@ -16,19 +16,19 @@ code:
 
 -   Type: string
 
--   The error code for the current individual row operation.
+-   Description: the error code for the current single-row operation.
 
 
 message:
 
 -   Type: string
 
--   The error message for the current individual row operation.
+-   Description: the error message for the current single-row operation. For more information about error messages, see the topic about error code.
 
 
-## Related operations {#section_8up_84a_y76 .section}
+## Operations
 
-[BatchGetRow](reseller.en-US/API Reference/Operations/BatchGetRow.md#)
+[BatchGetRow](/intl.en-US/API Reference/Operations/BatchGetRow.md)
 
-[BatchWriteRow](reseller.en-US/API Reference/Operations/BatchWriteRow.md#)
+[BatchWriteRow](/intl.en-US/API Reference/Operations/BatchWriteRow.md)
 
