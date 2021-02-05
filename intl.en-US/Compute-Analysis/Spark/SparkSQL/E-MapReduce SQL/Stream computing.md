@@ -1,20 +1,21 @@
 Stream computing 
 =====================================
 
-You can use Spark SQL on the E-MapReduce (EMR) cluster to access Tablestore. Stream computing uses change data capture (CDC) based on Tunnel Service to complete streaming consumption and computing in micro-batch mode of Spark. Meanwhile, at-least-once semantics is provided.
+You can use Spark SQL on the E-MapReduce (EMR) cluster to access Tablestore. Stream computing uses change data capture (CDC) to complete streaming consumption and computing in micro-batch mode of Spark based on Tunnel Service. Meanwhile, at-least-once semantics is provided.
 
 
 
 Prerequisites 
 ----------------------------------
 
-* A Hadoop cluster is created in EMR. For more information, see [Create a cluster](/intl.en-US/Quick Start/Create a cluster.md).
+* An EMR Hadoop cluster is created. For more information, see [Create a cluster](/intl.en-US/Quick Start/Create a cluster.md).
 
-  When you create a cluster, ensure that **Assign Public IP Address** is enabled to access the cluster over the Internet and Remote Logon is enabled to log on to a remote server by using Shell.
+  When you create a cluster, make sure that **Assign Public IP Address** is enabled to access the cluster over the Internet and Remote Logon is enabled to log on to a remote server by using Shell.
   **Note**
 
-  This topic uses Shell commands. For more information about how to use the graphical interfaces of EMR to implement data development, see [Manage projects](/intl.en-US/Data Development/Manage projects.md).
+  This topic uses Shell commands. For more information about how to use the graphical interfaces of EMR to implement data development, see[Manage projects](/intl.en-US/Data Development/Manage projects.md).
 
+  ![fig_sparksql001](../images/p162026.png)
   
 
 * The [emr-datasources_shaded_2.11-2.2.0-SNAPSHOT.jar](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyun-tablestore-emr/emr-datasources_shaded_2.11-2.2.0-SNAPSHOT.jar) package is uploaded to the EMR Header server.
@@ -31,38 +32,43 @@ Quick start
 
    1. Create a Source table and a Sink table. For more information, see [Overview](/intl.en-US/Quick Start/Overview.md).
 
-      The name of the Source table is OrderSource. The primary key columns are UserId and OrderId. The attribute columns are price and timestamp. 
+      The name of the Source table is OrderSource. The primary key columns are UserId and OrderId. The attribute columns are price and timestamp. The following figure shows an example of the table data.
 
-      
-
-      The name of the Sink table is OrderStreamSink. The primary key columns are begin and end. The attribute columns are count and totalPrice. The start time and end time are in the format of yyyy-MM-dd HH:mm:ss. Example: 2019-11-27 14:54:00.
+      ![fig_00001](../images/p179755.png)
       
    
-   2. Create a tunnel on the Source table. For more information, see [Quick start](/intl.en-US/Function Introduction/Tunnel service/Quick start.md).
+   2. The name of the Sink table is OrderStreamSink. The primary key columns are begin and end. The attribute columns are count and totalPrice. The start time and end time are in the format of yyyy-MM-dd HH:mm:ss. Example: 2019-11-27 14:54:00.
 
-      The list of tunnels displays the name, ID, and type of each tunnel. The tunnel ID is used to stream data.
+      
+   
+   3. Create a channel on the Source table. For more information, see [Quick start](/intl.en-US/Function Introduction/Tunnel service/Quick start.md).
 
-      ![fig_tunnelid_source](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7444126061/p164611.png)
+      The list of tunnels shows the name, ID, and type of each tunnel. The tunnel ID is used to stream data.
+
+      ![fig_00003](../images/p179758.png)
       
    
 
    
 
-2. Create a spark external table at the EMR cluster side.
+2. Create an external table by using Spark at the EMR cluster side.
 
    1. Log on to the EMR Header server.
 
       
+      
    
-   2. Run the following command to start the command line of Spark SQL. You can use the command line to create an external table of Spark and perform SQL-related operations.
+   2. Run the following command to start the command line of Spark SQL. You can use the command line to create an external table in Spark SQL and perform SQL-related operations.
 
-      The standard parameters to start Spark is in the `--num-executors 32 --executor-memory 2g --executor-cores 2` format. You can adjust the parameter values based on the specific cluster configurations. \<Version\> indicates the version information of the uploaded JAR package. Example: 2.1.0-SNAPSHOT.
+      The standard parameters to start Spark is in the `--num-executors 32 --executor-memory 2g --executor-cores 2` format. You can adjust the parameter values based on the specific cluster configurations. \<Version\> specifies the version information of the uploaded JAR package. Example: 2.1.0-SNAPSHOT.
 
           spark-sql --jars emr-datasources_shaded_2.11-<Version>.jar --master yarn --num-executors 32 --executor-memory 2g --executor-cores 2
 
       
    
-   3. Create a Source external table which is named order_source, and corresponds to the OrderSource table in Tablestore.
+   <conref-suf id="conref-suf-7lr-al1-ugx">
+   </conref-suf>
+   3. Create an external table, which is the Source table named order_source and corresponds to the OrderSource table in Tablestore.
 
       * Parameters
 
@@ -71,9 +77,9 @@ Quick start
         |     Parameter     |                                           Description                                            |
         |-------------------|--------------------------------------------------------------------------------------------------|
         | endpoint          | The endpoint to access the Tablestore instance. A VPC address is used to access the EMR cluster. |
-        | access.key.id     | The AccessKey ID of your Alibaba Cloud account.                                                  |
+        | access.key.id     | The AccessKey ID of your account.                                                                |
         | access.key.secret | The AccessKey secret of your Alibaba Cloud account.                                              |
-        | instance.name     | The name of the instance.                                                                        |
+        | instance.name     | The description of the instance.                                                                 |
         | table.name        | The name of the Tablestore table.                                                                |
         | catalog           | The schema of the table.                                                                         |
 
@@ -104,9 +110,9 @@ Quick start
 3. Perform stream computing.
 
    Stream computing collects statistics for the number of orders and order amount within a time window in real time and writes aggregate results to a Tablestore table.
-   1. Create a Sink external table which is named order_stream_sink of stream computing, and corresponds to the OrderStreamSink table in Tablestore.
+   1. Create an external table, which is the Sink table named order_stream_sink at the stream computing side. This table corresponds to the OrderStreamSink table in Tablestore.
 
-      The parameter configurations for creating a Sink external table and Source external table differ only in the fields of catalog.
+      The parameter configurations for creating a Sink external table and Source external table differ only in the fields in catalog.
       
    
    2. Create a view on the order_source table.
@@ -154,6 +160,7 @@ Quick start
 
    You can obtain aggregate results after you run Stream SQL. The following figure shows an example of aggregate results. The aggregate results are saved in the OrderStreamSink table.
 
+   ![fig_000002](../images/p179757.png)
    
 
 
