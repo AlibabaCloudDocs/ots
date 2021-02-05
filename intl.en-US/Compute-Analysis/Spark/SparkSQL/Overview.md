@@ -10,15 +10,18 @@ Features
 
 In addition to basic features, Tablestore Spark connector provides the following core features for batch computing:
 
-* Index selection: An appropriate index determines the efficiency of data queries. Spark can select an index that best matches filter conditions to increase the query efficiency. Tablestore allows you to choose between global secondary index and search index.
+* Index selection: An appropriate index determines the efficiency of data queries. You can select an index that best matches filter conditions to increase the query efficiency. Tablestore allows you to choose between global secondary index and search index.
+
+  **Note**
+
+  For more information about global secondary index and search index, see [Reveal of the storage technologies for large amounts of structured data: Tablestore storage and index engines](https://developer.aliyun.com/article/710400).
+  
+
+* Partition pruning: This feature allows you to filter unnecessary splits in advance by using fine-grained configurations based on filter conditions, which reduces the amount of data sent from the server.
 
   
 
-* Partition pruning: This feature allows you to filter unnecessary splits in advance by using fine-grained configurations based on filter conditions, which reduces the amount of data sent of the server.
-
-  
-
-* Projection column and Filter pushdown: This feature allows you to push down the Projection column and Filter condition to the server, which reduces the amount of data sent of each partition.
+* Projection column and Filter pushdown: This feature allows you to push down the Projection column and Filter condition to the server, which reduces the amount of data sent from each partition.
 
   
 
@@ -32,7 +35,7 @@ In addition to basic features, Tablestore Spark connector provides the following
 
 
 
-Stream computing uses change data capture (CDC) based on [Tunnel Service](/intl.en-US/Function Introduction/Tunnel service/Overview.md)to complete streaming consumption and computing in micro-batch mode of Spark. Meanwhile, at-least-once semantics is provided. In stream computing, one split is bound to one partition of an RDD. Partitions of a table can be scaled out to implement the linear scalability of data throughput.
+Stream computing uses change data capture (CDC) to complete streaming consumption and computing in micro-batch mode of Spark based on [Overview](/intl.en-US/Function Introduction/Tunnel service/Overview.md). Meanwhile, at-least-once semantics is provided. In stream computing, one split is bound to one partition of an RDD. Partitions of a table can be scaled out to implement the linear scalability of data throughput.
 
 Use EMR SQL or DataFrame 
 ---------------------------------------------
@@ -46,7 +49,7 @@ You can use one of the following methods to access Tablestore by using Spark: Us
 
 * Use DataFrame
 
-  This method requires programming knowledge. However, you can use this method to execute complex business logic, which is suitable for complex and flexible scenarios.
+  This method requires programming knowledge. However, you can combine this method with other features to execute complex business logic, which is suitable for complex and flexible scenarios.
   
 
 
@@ -59,7 +62,7 @@ Tablestore provides the following methods for batch computing of Spark to access
 
 Differences between the two data access methods:
 
-* KV-based queries implement high efficiency when the fields specified for filtering are primary key columns. However, this method is not suitable when the fields specified for filtering are non-primary key columns and these field values often change. In addition, KV-based queries do not support geo query.
+* KV-based queries implement high efficiency when the fields specified for filtering are primary key columns. However, this method is not suitable when the fields specified for filtering are non-primary key columns because these field values often change. In addition, KV-based queries do not support geo query.
 
   
 
@@ -78,7 +81,7 @@ Differences between the two data access methods:
   
   * Filtering efficiency is high when fields are used for filtering. A field can be used to filter out most data.
 
-    For example, in `select * from table where col = 1000;`, col indicates the non-primary key column. The condition a = 1000 can be used to filter out most data.
+    For example, in `select * from table where col = 1000;`, col indicates the non-primary key column. The condition col = 1000 can be used to filter out most data.
     
   
   * Query conditions contain fields for geo query.
@@ -99,7 +102,7 @@ The following section uses a figure and SQL statement `select * from table where
 
 * When you use KV-based queries, data is queried from the Tablestore table. The table can be queried only by using primary key columns. If the field specified in the SQL statement is not a primary key column of the table, the whole table must be scanned.
 
-  col1 is not the primary key column of the table. Therefore, Tablestore scans the whole table to search for a row of data that contains the col2 column whose value is 'A%'. col2 is not the primary key column of the table. Therefore, Tablestore scans the whole table again to search for two rows of data that contain the col1 column whose value is ''a''. Then, the two results are concatenated by using union.
+  col1 is not the primary key column of the table. Therefore, Tablestore scans the whole table to search for a row of data that contains the col2 column whose value is 'A%'. col2 is not the primary key column of the table. Therefore, Tablestore scans the whole table again to search for two rows of data that contain the col2 column whose value is ''a''. Then, the two results are concatenated by using union.
 
   You can also create an index table where the primary key columns are col1 and col2. However, this method reduces flexibility.
   
