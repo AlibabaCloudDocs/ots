@@ -12,9 +12,6 @@ In addition to basic features, Tablestore Spark connector provides the following
 
 * Index selection: An appropriate index determines the efficiency of data queries. You can select an index that best matches filter conditions to increase the query efficiency. Tablestore allows you to choose between global secondary index and search index.
 
-  **Note**
-
-  For more information about global secondary index and search index, see [Reveal of the storage technologies for large amounts of structured data: Tablestore storage and index engines](https://developer.aliyun.com/article/710400).
   
 
 * Partition pruning: This feature allows you to filter unnecessary splits in advance by using fine-grained configurations based on filter conditions, which reduces the amount of data sent from the server.
