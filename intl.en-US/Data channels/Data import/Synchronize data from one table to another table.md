@@ -81,14 +81,14 @@ You can use DataWorks or DataX to synchronize data from the source table to the 
 
 1.  Add data sources of Tablestore
 
-    Add the Tablestore instances of the source table and the destination table as data sources. For more information, see [Add a connection]().
+    Add the Tablestore instances of the source table and the destination table as data sources. For more information, see[Add a connection]().
 
-2.  Create a node for the data synchronization task.
-    1.  Log on to the [DataWorks console](https://workbench.data.aliyun.com/console) as a workspace administrator.
+2.  Create a synchronization task node.
+    1.  Log on to the [DataWorks console](https://workbench.data.aliyun.com/console) as the project administrator.
 
-        **Note:** Only the workspace administrator role can add connections. Members of other roles can only view the connections.
+        **Note:** Only the project administrator role can add data sources. Members who assume other roles can only view data sources.
 
-    2.  In the left-side navigation pane, click Workspaces.
+    2.  Select a region. In the left-side navigation pane, click Workspaces.
     3.  On the Workspaces page, find the workspace and click **Data Analytics** in the Actions column.
     4.  On the Data Analytics page of the DataStudio console, click **Business Flow** and select a business flow.
 
@@ -104,7 +104,7 @@ You can use DataWorks or DataX to synchronize data from the source table to the 
 
         **Note:** Tableastore supports only the script mode. For more information about how to configure scripts, see [Configure Tableastore Reader]() and [Configure Tableastore Writer]().
 
-    3.  Click the ![save](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5815446061/p127623.png) icon to save the data source configuration.
+    3.  Click the ![save](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5815446061/p127623.png) icon to save the data source configurations.
 4.  Run the synchronization task.
     1.  Click the ![start](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5815446061/p127635.png) icon.
     2.  In the Arguments dialog box, select the resource group for scheduling.
@@ -112,5 +112,5 @@ You can use DataWorks or DataX to synchronize data from the source table to the 
 
         After the task is completed, you can check whether the task is successful and view the number of exported rows on the Runtime Log tab.
 
-5.  \(Optional\) Run the data synchronization task at the scheduled time. For more information, see [Configure recurrence and dependencies for a node]().
+5.  \(Optional\) Execute the synchronization task at the scheduled time. For more information, see[Configure recurrence and dependencies for a node]().
 
