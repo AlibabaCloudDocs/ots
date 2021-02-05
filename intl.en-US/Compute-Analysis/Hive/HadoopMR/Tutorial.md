@@ -6,7 +6,7 @@ This topic describes how to use Hive and HadoopMR to access a Tablestore table.
 
 Prepare a Tablestore table named pet. The name column is the only primary key column. The following table lists the data in the table.
 
-**Note:** You do not need to write data to the empty fields. Tablestore is schema-free. You not need to write NULL even if no values exist.
+**Note:** You do not need to write data to the empty fields. Tablestore is schema-free. You do not need to write NULL even if no values exist.
 
 |name|owner|species|sex|birth|death|
 |:---|:----|:------|:--|-----|-----|
@@ -21,6 +21,8 @@ Prepare a Tablestore table named pet. The name column is the only primary key co
 |Puffball|Diane|hamster|f|1999-03-30| |
 
 ## Examples of access by using Hive
+
+Prerequisites
 
 Examples
 
@@ -63,7 +65,7 @@ Parameter descriptions:
 
 -   WITH SERDEPROPERTIES
 
-    tablestore.columns.mapping: optional. By default, the field names of an external table are the column \(primary key column or attribute column\) names of the corresponding Tablestore table. However, some scenarios where the field names of an external table are inconsistent with the column names of a Tablestore table exist. For example, issues related to case sensitivity or character sets exist. In these scenarios, specify tablestore.columns.mapping. This parameter is a string separated with a comma \(,\). No spaces are allowed at both ends of the comma \(,\). Each item indicates the column name of the table. The order of the column names is consistent with that of the field names of the corresponding external table.
+    tablestore.columns.mapping: optional. By default, the field names of an external table are the column \(primary key column or attribute column\) names of the corresponding Tablestore table. However, some scenarios where the field names of an external table are inconsistent with the column names of a Tablestore table exist. For example, issues related to case sensitivity or character sets exist. In these scenarios, specify tablestore.columns.mapping. This parameter is a string separated by a comma \(,\). No spaces are allowed at both ends of the comma \(,\). Each item indicates the column name of the table. The order of the column names is consistent with that of the field names of the corresponding external table.
 
     **Note:** The name of a column in Tablestore can be an empty string. Therefore, the empty string is considered to be part of the name of a column in a table.
 
@@ -74,7 +76,7 @@ Parameter descriptions:
 
     -   tablestore.table.name: required. The name of the table in Tablestore.
 
-    -   tablestore.access\_key\_id and tablestore.access\_key\_secret: required. For more information, see [Access control](https://www.alibabacloud.com/help/doc-detail/27296.htm).
+    -   tablestore.access\_key\_id and tablestore.access\_key\_secret: required. For more information, see [Obtain an AccessKey pair]().
 
     -   tablestore.sts\_token: optional. For more information, see [Configure user permissions](/intl.en-US/Function Introduction/Authorization management/Configure user permissions.md).
 
