@@ -62,7 +62,7 @@ The following tokenization methods are supported:
     After the tokenization method is set to fuzzy tokenization, the system performs tokenization by using n-gram. The results are between minChars and maxChars. For example, this method is used to populate the drop-down list.
 
     -   Limits
-        -   A text field cannot exceed 32 characters in length. Only the first 32 characters of a text field is retained and the characters after the 32nd character are truncated and discarded.
+        -   A text field cannot exceed 256 characters in length. Only the first 256 characters of a text field is retained and the characters after the 256th character are truncated and discarded.
         -   To prevent excessive expansion of index data, the difference between the values of maxChars and minChars must not exceed 6.
     -   Parameters
 
