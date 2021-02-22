@@ -8,7 +8,7 @@ By default, a search index is sorted based on the specified IndexSort field. Whe
 
 When you create a search index, you can customize the IndexSort value. By default, if you do not specify IndexSort, the primary key order is used.
 
-**Note:** Search indexes of the NEST type do not support IndexSort.
+**Notice:** Search indexes of the NEST type do not support IndexSort.
 
 ## Specify a sorting method
 
@@ -43,8 +43,8 @@ You can specify a sorting method for each query. Search index-based queries supp
         sorters: [
             {
                 primaryKeySort: {
-                    order: TableStore.SortOrder.SORT_ORDER_DESC // Descending order.
-                    //order: TableStore.SortOrder.SORT_ORDER_ASC // Ascending order.
+                    order: TableStore.SortOrder.SORT_ORDER_DESC // Sort the query result in the descending order.
+                    //order: TableStore.SortOrder.SORT_ORDER_ASC // Sort the query result in the ascending order.
                 }
             }
         ]
@@ -99,8 +99,8 @@ You can specify a sorting method for each query. Search index-based queries supp
             {
                 geoDistanceSort: {
                     fieldName: "Col_Geo_Point",
-                    points: ["0,0"],// Set the center point.
-                    order: TableStore.SortOrder.SORT_ORDER_ASC // The query result is returned in ascending order of the distances between geographical locations and the center point.
+                    points: ["0,0"],// Set the central point.
+                    order: TableStore.SortOrder.SORT_ORDER_ASC // The query result is returned in ascending order of the distances between geographical locations and the central point.
                 }
             }
         ]
@@ -116,7 +116,12 @@ You can use limit and offset or use tokens to split returned query results into 
 
 -   Use the limit and offset parameters
 
-    When the total number of rows to obtain is smaller than 10,000, you can specify the limit and offset parameters for pagination. The sum of the limit and offset parameter values cannot exceed 10,000.
+    When the total number of rows to obtain is smaller than 10,000, you can specify the limit and offset parameters for pagination. The sum of the limit and offset parameter values cannot exceed 10,000. The maximum value of limit is 100.
+
+    **Note:** To set limit to a value greater than 100, see [How do I increase the limit on the rows of data returned by calling the Search operation to 1,000?](/intl.en-US/FAQ/General FAQ/How do I increase the limit on the rows of data returned by calling the Search operation
+         to 1,000?.md).
+
+    If you use limit and offset for pagination but do not configure the limit and offset values, the default values are used. The default value of limit is 10. The default value of offset is 0.
 
     ```
     
@@ -132,7 +137,7 @@ You can use limit and offset or use tokens to split returned query results into 
             query: {
                 queryType: TableStore.QueryType.MATCH_ALL_QUERY
             }
-            getTotalCount: true // If TotalCount is set to true, the total number of rows that meet the filter condition is returned. If TotalCount is set to false, the total number of rows that meet the filter condition is not returned.
+            getTotalCount: true // If TotalCount is set to true, the total number of rows that meet the query condition is returned. If TotalCount is set to false, the total number of rows that meet the query condition is not returned.
         },
         columnToGet: { // Set RETURN_SPECIFIED to return the specified columns, RETURN_ALL to return all columns, or RETURN_NONE to return no data.
             returnType: TableStore.ColumnReturnType.RETURN_ALL
@@ -148,13 +153,19 @@ You can use limit and offset or use tokens to split returned query results into 
 
 -   Use a token
 
-    If Tablestore cannot complete reading all data that meets the filter condition, Tablestore returns nextToken. You can use nextToken to continue reading the subsequent data.
+    We recommend that you use a token for deep pagination because this method has no limits on the pagination depth.
 
-    When you use the token, the sorting method is the same as that used in the previous request. The system sorts data based on the IndexSort field by default or based on the method that you have specified. Therefore, you cannot set the sorting method if you use a token. You cannot set offset when a token is used. Data is returned page by page, which results in a slow query.
+    If Tablestore cannot complete reading all data that meets the query conditions, Tablestore returns nextToken. You can use nextToken to continue reading the subsequent data.
+
+    By default, you can only page backward when you use a token. However, you can cache and use the previous token to implement forward pagination because a token is valid during the query.
+
+    When you use the token, the sorting method is the same as that used in the previous request. Tablestore sorts data based on the IndexSort field by default or based on the method that you have specified. Therefore, you cannot set the sorting method if you use a token. You cannot set offset when a token is used. Data is returned page by page, which results in a slow query.
+
+    **Note:** Search indexes of the NEST type do not support IndexSort. If you use a search index of the NEST type to query data and require pagination, you must specify the sorting method to return data in the query conditions. Otherwise, Tablestore does not return nextToken when only part of data that meets the query conditions is returned.
 
     ```
     /**
-     * The following code provides an example on how to use tokens to paginate results in synchronous and asynchronous modes:
+     * The following code provides an example on how to use tokens to paginate results in synchronous and asynchronous modes.
      */
     var params = {
         tableName: TABLE_NAME,
@@ -162,7 +173,7 @@ You can use limit and offset or use tokens to split returned query results into 
         searchQuery: {
             offset: 0,
             limit: 10,
-            token: null,// Obtain a next token as the start point to scan the next page. The data type is byte stream.
+            token: null,// Obtain the nextToken as the start point to scan the next page. The data type is byte stream.
             query: {
                 queryType: TableStore.QueryType.MATCH_ALL_QUERY
             },
@@ -175,7 +186,7 @@ You can use limit and offset or use tokens to split returned query results into 
     };
     
     /**
-     * The following code provides an example on how to use tokens to paginate results in synchronous mode:
+     * The following code provides an example on how to use tokens to paginate results in synchronous mode.
      */
     (async () => { // Code in synchronous mode.
       try {
@@ -190,7 +201,7 @@ You can use limit and offset or use tokens to split returned query results into 
           var nextToken = data.nextToken.toString("base64");
           var token =  Buffer.from(nextToken, "base64");
     
-          params.searchQuery.token = token;// Update the token value for more pages to be returned.
+          params.searchQuery.token = token;// Update the token value to return more results.
           data = await client.search(params);
           console.log('token success:', JSON.stringify(data, null, 2));
         }
@@ -200,7 +211,7 @@ You can use limit and offset or use tokens to split returned query results into 
     })()
     
     /**
-     * The following code provides an example on how to use tokens to paginate results in asynchronous mode:
+     * The following code provides an example on how to use tokens to paginate results in asynchronous mode.
      */
     client.search(params, function (err, data) { 
         console.log('success:', JSON.stringify(data, null, 2));
@@ -213,7 +224,7 @@ You can use limit and offset or use tokens to split returned query results into 
             var nextToken = data.nextToken.toString("base64");
             var token =  Buffer.from(nextToken, "base64");
     
-            params.searchQuery.token = token;// Update the token value for more pages to be returned.
+            params.searchQuery.token = token;// Update the token value to return more results.
             client.search(params, function (err, data) {
                 console.log('token success:', JSON.stringify(data, null, 2));
             });
