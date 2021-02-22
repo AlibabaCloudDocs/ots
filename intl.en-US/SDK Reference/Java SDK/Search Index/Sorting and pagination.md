@@ -8,7 +8,7 @@ By default, a search index is sorted based on the specified IndexSort field. Whe
 
 When you create a search index, you can customize the IndexSort value. By default, if you do not specify IndexSort, the primary key order is used.
 
-**Note:** Search indexes of the NEST type do not support IndexSort.
+**Notice:** Search indexes of the NEST type do not support IndexSort.
 
 ## Specify a sorting method
 
