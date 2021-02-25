@@ -14,7 +14,7 @@ The following tokenization methods are supported:
 
     After single-word tokenization is set, Tablestore performs tokenization based on the following rules:
 
-    -   Chinese texts are tokenized based on each character. For example, "杭州" is tokenized into "杭" and "州". You can use match query or match phrase query and set the keyword to "杭" to query the data that contains "杭州".
+    -   Chinese texts are tokenized based on each character.
     -   English letters or digits are tokenized based on spaces or punctuation marks. Uppercase letters are converted to lowercase letters. For example, "Hang Zhou" is tokenized into "hang" and "zhou". You can use match query or match phrase query and set the keyword to "hang", "HANG", or "Hang" to query the rows that contain "Hang Zhou".
     -   Alphanumeric characters such as the model number are also separated by spaces or punctuation marks. However, these characters cannot be tokenized into smaller words. For example, “IPhone6" can be tokenized into “IPhone6". When you use match query or match phrase query, you must specify “iphone6". No results are returned if you use "iphone".
     The following table describes the parameters for single-word tokenization.
