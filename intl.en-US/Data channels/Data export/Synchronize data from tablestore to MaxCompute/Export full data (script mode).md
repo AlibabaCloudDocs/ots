@@ -254,7 +254,7 @@ To create and configure a task to synchronize data from Tablestore to MaxCompute
 
 3.  On the Workspaces page, click **Operation Center** in the Actions column corresponding to a workspace.
 
-4.  In the left-side navigation pane of the Operation Center console, choose**Cycle Task Maintenance** \> **Cycle Task**.
+4.  In the left-side navigation pane of the Operation Center console, choose **Cycle Task Maintenance** \> **Cycle Task**.
 
 5.  On the Cycle Task page, view the details about the submitted synchronization task.
 
