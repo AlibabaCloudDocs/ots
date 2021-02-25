@@ -17,7 +17,7 @@ Tablestore SDK for Python has two types of exceptions: OTSClientError and OTSSer
     -   get\_http\_status: an HTTP status code such as 200 and 404.
     -   get\_error\_code: an error type string returned by Tablestore.
     -   get\_error\_message: an error message string returned by Tablestore.
-    -   get\_request\_id: the UUID that identifies a request. If a problem persists, record the request ID and[submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createInd).
+    -   get\_request\_id: the UUID that identifies a request. If a problem persists, record the request ID and [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createInd).
 
 ## Retry
 
