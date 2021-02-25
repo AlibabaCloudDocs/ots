@@ -17,7 +17,7 @@ No data can be found when the Search operation is called.
 
     -   The data type of a column in the search index does not match the data format in the table. For example, a column in the table is of the STRING data type and has a value of -91,100, whereas the corresponding column in the search index is of the GEOPOINT data type.
 
-        **Note:** The geographical location data type in the search index is in the "latitude,longitude" format. The latitude must be in the range of −90 to +90, the longitude must be in the range of −180 to +180, and the latitude and longitude must be specified in order.
+        **Note:** The geographical location data type in the search index is in the "latitude,longitude" format. The latitude must be in the range of -90 to +90, the longitude must be in the range of -180 to +180, and the latitude and longitude must be specified in order.
 
 -   The query method is incorrect.
     -   Match query is used to query data in fields of the KEYWORD data type in the search index. For example, assume that the query condition MatchQuery\("ab"\) is set to query data "abc" in the search index while the corresponding column in the search index is of the KEYWORD data type. The query fails because the KEYWORD data type cannot be tokenized.
@@ -30,7 +30,7 @@ No data can be found when the Search operation is called.
 
 ## Solution
 
--   When you create the search index, specify the column names and data types that are in correct correspondence with those in the table, and specify the data formats of data written to the table that match the data types in the search index. For more information, see [Data types of column values](/intl.en-US/Function Introduction/Search Index/Operations/Overview.md) or [ARRAY and NEST data types](/intl.en-US/Function Introduction/Search Index/Operations/ARRAY and NEST data types.md).
+-   When you create the search index, specify the column names and data types that are in correct correspondence with those in the table, and specify the data formats of data written to the table that match the data types in the search index. For more information, see [Data types of column values](/intl.en-US/Function Introduction/Search Index/Operations/Overview.md) or [ARRAY and nested data types](/intl.en-US/Function Introduction/Search Index/Operations/ARRAY and nested data types.md).
 -   Synchronize data from the table to the search index.
 -   Select an appropriate query method and specify correct query conditions when you use search index. For more information, see [Query](/intl.en-US/Function Introduction/Search Index/Operations/Overview.md).
 -   Make sure that the correct tokenizer is used. For more information, see [Tokenization](/intl.en-US/Function Introduction/Search Index/Operations/Tokenization.md).
