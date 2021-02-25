@@ -16,7 +16,7 @@ In these scenarios, old\_value may be updated by other clients. If you use condi
  // Perform calculations on the current value, such as add 1 to the current value.
  new_value = func(old_value);
  // Use the new value to update the current value.
- Update(new_value)；
+ Update(new_value);
                 
 ```
 
@@ -56,11 +56,11 @@ Row existence condition-based update rules
 
 You can use the following Tablestore SDKs to implement conditional update:
 
--   Tablestore SDK for Java: [Conditional update](/intl.en-US/SDK Reference/Java SDK/Table operations/Configure conditional update.md)
--   Tablestore SDK for Go: [Conditional update](/intl.en-US/SDK Reference/Go SDK/Table operations/Configure conditional update.md)
--   Tablestore SDK for Python: [Conditional update](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure conditional update.md)
--   Tablestore SDK for Node.js: [Conditional update](/intl.en-US/SDK Reference/NodeJS SDK/Table operations/Configure conditional update.md)
--   Tablestore SDK for .NET: [Conditional update](/intl.en-US/SDK Reference/.NET SDK/Table operations/Configure conditional update.md)
+-   Tablestore SDK for Java: [Conditional update](/intl.en-US/SDK Reference/Java SDK/Table/Configure conditional update.md)
+-   Tablestore SDK for Go: [Conditional update](/intl.en-US/SDK Reference/Go SDK/Table/Configure conditional update.md)
+-   Tablestore SDK for Python: [Conditional update](/intl.en-US/SDK Reference/Python SDK/Table/Configure conditional update.md)
+-   Tablestore SDK for Node.js: [Conditional update](/intl.en-US/SDK Reference/Node.js SDK/Table/Configure conditional update.md)
+-   Tablestore SDK for .NET: [Conditional update](/intl.en-US/SDK Reference/.NET SDK/Table/Configure conditional update.md)
 -   Tablestore SDK for PHP: [Conditional update](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure conditional update.md)
 
 ## Examples
