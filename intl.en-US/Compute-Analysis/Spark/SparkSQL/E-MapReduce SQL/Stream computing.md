@@ -13,9 +13,8 @@ Prerequisites
   When you create a cluster, make sure that **Assign Public IP Address** is enabled to access the cluster over the Internet and Remote Logon is enabled to log on to a remote server by using Shell.
   **Note**
 
-  This topic uses Shell commands. For more information about how to use the graphical interfaces of EMR to implement data development, see[Manage projects](/intl.en-US/Data Development/Manage projects.md).
+  This topic uses Shell commands. For more information about how to use the graphical interfaces of EMR to implement data development, see [Manage projects](/intl.en-US/Data Development/Manage projects.md).
 
-  ![fig_sparksql001](../images/p162026.png)
   
 
 * The [emr-datasources_shaded_2.11-2.2.0-SNAPSHOT.jar](https://tablestore-doc.oss-cn-hangzhou.aliyuncs.com/aliyun-tablestore-emr/emr-datasources_shaded_2.11-2.2.0-SNAPSHOT.jar) package is uploaded to the EMR Header server.
