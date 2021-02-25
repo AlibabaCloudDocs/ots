@@ -92,7 +92,7 @@ In contrast to the long-term permission management mechanism provided by RAM, ST
              }                        
             ```
 
-    3.  Grant permissions to a temporary role. For more information, see [Grant permissions to a RAM role](/intl.en-US/RAM Role Management/Grant permissions to a RAM role.md)。
+    3.  Grant permissions to a temporary role. For more information, see [Grant permissions to a RAM role](/intl.en-US/RAM Role Management/Grant permissions to a RAM role.md).
 
         Assign the ram-test-app-readonly policy to RamTestAppReadOnly. These are read-only permissions on Tablestore. Assign the ram-test-app-write policy to RamTestAppWrite. These are write-only permissions on Tablestore.
 
@@ -101,9 +101,9 @@ In contrast to the long-term permission management mechanism provided by RAM, ST
         ![fig_arn](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8934808061/p178120.png)
 
 2.  Grant temporary access permissions.
-    1.  Create a custom policy. For more information, see [Create a custom policy](/intl.en-US/Policy Management/Custom policies/Create a custom policy.md)。
+    1.  Create a custom policy. For more information, see [Create a custom policy](/intl.en-US/Policy Management/Custom policies/Create a custom policy.md).
 
-        **Note:** To implement finer-grained permission control, you can customize the permissions of a policy. For more information, see [Custom permissions](/intl.en-US/Function Introduction/Authorization management/Custom permissions.md)。
+        **Note:** To implement finer-grained permission control, you can customize the permissions of a policy. For more information, see [Custom permissions](/intl.en-US/Function Introduction/Authorization management/Custom permissions.md).
 
         Create two policies named AliyunSTSAssumeRolePolicy 2016011401 and AliyunSTSAssumeRolePolicy 2016011402. Resource indicates the ARN of the role.
 
@@ -137,11 +137,11 @@ In contrast to the long-term permission management mechanism provided by RAM, ST
             }                               
             ```
 
-    2.  Grant permissions to the temporary role that the RAM user assumes. For more information, see [Grant permissions to a RAM user](/intl.en-US/RAM User Management/Grant permissions to a RAM user.md)。
+    2.  Grant permissions to the temporary role that the RAM user assumes. For more information, see [Grant permissions to a RAM user](/intl.en-US/RAM User Management/Grant permissions to a RAM user.md).
 
         Grant the custom AliyunSTSAssumeRolePolicy2016011401 and AliyunSTSAssumeRolePolicy2016011402 policies to the RAM user named ram\_test\_app.
 
-3.  Obtain temporary access credentials from STS. For more information, see [AssumeRole](/intl.en-US/API Reference/API Reference (STS)/Operation interfaces/AssumeRole.md)。
+3.  Obtain temporary access credentials from STS. For more information, see [AssumeRole](/intl.en-US/API Reference/API Reference (STS)/Operation interfaces/AssumeRole.md).
 4.  Use temporary permissions to read and write data.
 
     You can use the temporary permission to call the SDKs of different programming languages to access Tablestore. You can use the following method to create an OTSClient object and add parameters obtained from STS such as AccessKeyId, AccessKeySecret, and SecurityToken:
