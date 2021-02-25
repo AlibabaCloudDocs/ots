@@ -8,7 +8,7 @@ Read [Tablestore pricing](https://www.alibabacloud.com/product/table-store/prici
 
 1.  Log on to the [Tablestore product page](https://www.alibabacloud.com/product/table-store).
 
-2.  Click**Get it Free**.
+2.  Click **Get it Free**.
 
 3.  On the Tablestore \(Pay-As-You-Go\) page, click **Enable Now**.
 
