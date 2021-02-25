@@ -6,11 +6,11 @@ This topic describes the error handling methods and retry policies of Tablestore
 
 Tablestore SDK for Node.js handles errors as exceptions. If the operation succeeds, the called operation does not return an exception. If the operation fails, an exception is returned.
 
-**Note:** Batch operations such as BatchGetRow and BatchWriteRow can be called only after the system verifies that no exception is returned and that the status of each row is successful.
+**Note:** Batch operations such as BatchGetRow and BatchWriteRow are successful only when the system verifies that no exception is returned and that the status of each row is successful.
 
 ## Exceptions
 
-All errors are handled by Tablestore SDK for Node.js in a unified manner, and are returned as the value of the err parameter by using the callback method. Before you obtain the returned data, you must check whether the err parameter has a value. If an error occurs at the server side of Tablestore, the request ID is returned. The request ID is the UUID that identifies a request. If a problem persists, record this request ID and[submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createInd).
+All errors are handled by Tablestore SDK for Node.js in a unified manner, and are returned as the value of the err parameter by using the callback method. Before you obtain the returned data, you must check whether the err parameter has a value. If an error occurs at the server side of Tablestore, the request ID is returned. The request ID is the UUID that identifies a request. If a problem persists, record this request ID and [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createInd).
 
 ## Retry
 
