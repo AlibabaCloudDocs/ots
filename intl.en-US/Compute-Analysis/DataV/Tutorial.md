@@ -4,7 +4,7 @@ After you add a Tablestore data source in the DataV console, you can use DataV t
 
 ## Add a Tablestore data source
 
-1.  Log on to the[DataV console](https://datav.alibabacloud.com/).
+1.  Log on to the [DataV console](https://datav.alibabacloud.com/).
 
 2.  On the Data Sources tab, click **Data Sources** in the left-side navigation pane.
 
@@ -28,7 +28,7 @@ After you add a Tablestore data source in the DataV console, you can use DataV t
 
 ## Use DataV to display Tablestore data
 
-1.  Log on to the[DataV console](https://datav.alibabacloud.com/).
+1.  Log on to the [DataV console](https://datav.alibabacloud.com/).
 
 2.  On the **Projects** tab, move the pointer over the project that you want to edit and click **Edit**.
 
