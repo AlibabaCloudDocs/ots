@@ -81,7 +81,7 @@ You can use DataWorks or DataX to synchronize data from the source table to the 
 
 1.  Add data sources of Tablestore
 
-    Add the Tablestore instances of the source table and the destination table as data sources. For more information, see[Add a connection]().
+    Add the Tablestore instances of the source table and the destination table as data sources. For more information, see [Add a connection]().
 
 2.  Create a synchronization task node.
     1.  Log on to the [DataWorks console](https://workbench.data.aliyun.com/console) as the project administrator.
@@ -112,5 +112,5 @@ You can use DataWorks or DataX to synchronize data from the source table to the 
 
         After the task is completed, you can check whether the task is successful and view the number of exported rows on the Runtime Log tab.
 
-5.  \(Optional\) Execute the synchronization task at the scheduled time. For more information, see[Configure recurrence and dependencies for a node]().
+5.  \(Optional\) Execute the synchronization task at the scheduled time. For more information, see [Configure recurrence and dependencies for a node]().
 
