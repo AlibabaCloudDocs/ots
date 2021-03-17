@@ -2,9 +2,13 @@
 
 This topic describes how to use local transactions. You can create a local transaction based on a specified partition key value. After you read or write data within a local transaction, you can commit or abort the local transaction.
 
+目前局部事务功能处于邀测中，默认关闭。如果需要使用该功能，请[提交工单](https://selfservice.console.aliyun.com/ticket/createIndex)进行申请或者加入钉钉群23307953（表格存储技术交流群-2）进行咨询。
+
 The local transaction feature is available for invitational preview and is disabled by default. To use local transactions, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createInd) to request an invitational preview.
 
-You can use local transaction to specify that the operations on a partition key are atomic, which indicates that operations based on the specified partition key either succeed or fail. The isolation level of the local transaction is serializable.
+The local transaction feature is available for invitational preview and is disabled by default. To use local transactions, submit a ticket to request an invitational preview.
+
+You can use local transaction to specify that the operations on a partition key are atomic, which indicates that operations based on the specified partition key either succeed or fail. The isolation level of the local transaction is read committed.
 
 ## Prerequisites
 
