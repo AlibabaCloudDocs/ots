@@ -131,7 +131,7 @@ TunnelWorkerConfig提供Tunnel Client的自定义配置，可根据实际需要�
     -   设置了默认的线程保活时间（默认为60s），当数据量降下后，可以及时回收线程资源。 |
 |内存控制|maxChannelParallel|读取和处理数据的最大Channel并行度，可用于内存控制。 默认值为-1，表示不限制最大并行度。
 
-**说明：** 仅Java SDK 5.4.0及以上版本支持此功能。 |
+**说明：** 仅Java SDK 5.10.0及以上版本支持此功能。 |
 |最大退避时间配置|maxRetryIntervalInMillis|Tunnel的最大退避时间基准值，最大退避时间在此基准值附近随机变化，具体范围为0.75\*maxRetryIntervalInMillis~1.25\*maxRetryIntervalInMillis。 默认值为2000ms，最小值为200ms。
 
 **说明：**
