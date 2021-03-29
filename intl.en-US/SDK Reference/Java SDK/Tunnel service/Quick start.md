@@ -113,7 +113,7 @@ Default value: 30. Minimum value: 5. Unit: seconds. |
     -   Set the thread keep-alive time to 60s. When the data to process is reduced, thread resources can be recycled. |
 |Memory control|maxChannelParallel|The concurrency level of channels to read and process data for memory control. The default value is -1, indicating that the concurrency level is not limited.
 
-**Note:** This configuration applies to Tablestore SDK for Java V5.4.0 and later. |
+**Note:** This configuration applies to Tablestore SDK for Java V5.10.0 and later. |
 |Maximum backoff time|maxRetryIntervalInMillis|The reference value to calculate the maximum backoff time for the tunnel. The maximum backoff time is random around the reference value. The valid value of the maximum backoff time is in the following range: 0.75 x maxRetryIntervalInMillis to 1.25 x maxRetryIntervalInMillis. Default value: 2000 ms. Minimum value: 200 ms.
 
 **Note:**
