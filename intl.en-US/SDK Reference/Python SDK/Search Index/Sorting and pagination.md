@@ -48,7 +48,7 @@ You can specify a sorting method for each query. Search index-based queries supp
 
     You can use FieldSort to sort the query result based on a specified column.
 
-    Sort the query result based on a non-NEST field:
+    Sort the query result based on a non-nested field:
 
     ```
     sort = Sort(
@@ -60,7 +60,7 @@ You can specify a sorting method for each query. Search index-based queries supp
     )
     ```
 
-    Sort the query result based on a NEST field:
+    Sort the query result based on a nested field:
 
     ```
     sort = Sort(
@@ -109,7 +109,7 @@ You can specify a sorting method for each query. Search index-based queries supp
 
 ## Specify a pagination method
 
-You can use limit and offset or use tokens to paninate query results.
+You can use limit and offset or use tokens to split returned query results into pages.
 
 -   Use the limit and offset parameters
 
@@ -122,11 +122,11 @@ You can use limit and offset or use tokens to paninate query results.
 
     ```
     query = RangeQuery('k', 'key100', 'key500', include_lower=False, include_upper=False)
-    rows, next_token, total_count, is_all_succeed = client.search(
+    search_response = client.search(
         table_name, index_name, 
         SearchQuery(query, offset=100, limit=100, get_total_count=True), 
         ColumnsToGet(return_type=ColumnReturnType.ALL)
-    )      
+    )  
     ```
 
 -   Use a token
@@ -139,25 +139,25 @@ You can use limit and offset or use tokens to paninate query results.
 
     When you use the token, the sorting method is the same as that used in the previous request. Tablestore sorts data based on the IndexSort field by default or based on the method that you have specified. Therefore, you cannot set the sorting method if you use a token. You cannot set offset when a token is used. Data is returned page by page, which results in a slow query.
 
-    **Note:** Search indexes of the NEST type do not support IndexSort. If you use a search index of the NEST type to query data and require pagination, you must specify the sorting method to return data in the query conditions. Otherwise, Tablestore does not return next\_token when all data that meets the query conditions is not completely read.
+    **Note:** Search indexes of the nested type do not support IndexSort. If you use a search index of the nested type to query data and require pagination, you must specify the sorting method to return data in the query conditions. Otherwise, Tablestore does not return next\_token when all data that meets the query conditions is not completely read.
 
     ```
     query = MatchAllQuery()
     all_rows = []
     next_token = None
     # first round
-    rows, next_token, total_count, is_all_succeed = client.search(table_name, index_name,
+    search_response = client.search(table_name, index_name,
             SearchQuery(query, next_token=next_token, limit=100, get_total_count=True),
             columns_to_get=ColumnsToGet(['k', 't', 'g', 'ka', 'la'], ColumnReturnType.SPECIFIED))
-    all_rows.extend(rows)
+    all_rows.extend(search_response.rows)
     # loop
-    while next_token:
-        rows, next_token, total_count, is_all_succeed = client.search(table_name, index_name,
-            SearchQuery(query, next_token=next_token, sort=None, limit=100, get_total_count=True),
+    while search_response.next_token:
+        search_response = client.search(table_name, index_name,
+            SearchQuery(query, next_token=search_response.next_token, sort=None, limit=100, get_total_count=True),
             columns_to_get=ColumnsToGet(['k', 't', 'g', 'ka', 'la'], ColumnReturnType.SPECIFIED))
-        all_rows.extend(rows)
+        all_rows.extend(search_response.rows)
     
-    print 'Total rows:', len(all_rows)
+    print('Total rows:%d' % len(all_rows))
     ```
 
 
