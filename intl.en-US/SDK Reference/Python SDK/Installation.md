@@ -41,7 +41,7 @@ To check the SDK version in the Python environment, enter python on the command 
 ```
 >>> import tablestore
 >>> tablestore.__version__
-'5.1.0'       
+'5.2.1'       
 ```
 
 ## Uninstall Tablestore SDK for Python
