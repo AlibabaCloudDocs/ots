@@ -14,7 +14,7 @@ You can use asterisks \(\*\) and question marks \(?\) as wildcards to search for
 |---------|-----------|
 |query|The query type. Set this parameter to WildcardQuery.|
 |field\_name|The name of the column.|
-|value|The string that contains wildcards. The string cannot exceed 10 bytes in length.|
+|value|The string that contains wildcards. The string cannot exceed 20 characters in length.|
 |table\_name|The name of the table.|
 |index\_name|The name of the search index.|
 |limit|The maximum number of rows that the current query returns.|
