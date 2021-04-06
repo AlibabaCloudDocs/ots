@@ -16,7 +16,7 @@ This topic describes the limits of search index.
 |Total length of strings in primary key columns|1000 Byte|The total length of strings in all primary key columns of each row can be up to 1,000 bytes.|
 |Total length of strings \(indexed as KEYWORD\) in all attribute columns|4 KB|None.|
 |Total length of strings \(indexed as TEXT\) in all attribute columns|2 MB|Same as the length limit on attribute columns in tables.|
-|String length of a query that contains wildcards|10|The string of a query that contains wildcards can be up to 10 characters in length.|
+|String length of a query that contains wildcards|20|The string of a query that contains wildcards cannot exceed 20 characters in length.|
 
 ## Search
 
