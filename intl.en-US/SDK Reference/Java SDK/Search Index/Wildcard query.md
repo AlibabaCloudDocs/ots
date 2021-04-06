@@ -13,7 +13,7 @@ You can use asterisks \(\*\) and question marks \(?\) as wildcards to search for
 |Parameter|Description|
 |---------|-----------|
 |fieldName|The name of the column.|
-|value|The string that contains wildcards. The string cannot exceed 10 bytes in length.|
+|value|The string that contains wildcards. The string cannot exceed 20 characters in length.|
 |query|The type of the query. Set the query type to WildcardQuery.|
 |getTotalCount|Specifies whether to return the total number of rows that match the query conditions. By default, this parameter is set to false, which indicates that the total number of rows that match the query conditions is not returned. Query performance is affected when this parameter is set to true. |
 |tableName|The name of the table.|
