@@ -14,9 +14,9 @@ Tablestore is a multi-model data storage service that is developed by Alibaba Cl
 
 -   Powerful query capabilities
 
-    Tablestore supports queries based on global secondary indexes and search indexes in addition to primary key-based queries.
+    Tablestore supports queries based on secondary indexes and search indexes in addition to primary key-based queries.
 
-    -   Global secondary index: predefines a model to distribute data, which makes data query more efficient.
+    -   Secondary index: predefines a model to distribute data, which makes data query more efficient.
     -   Search index: supports query methods such as Boolean query, fuzzy query, geo query, and full-text search based on inverted indexes and column-oriented storage.
 -   High reliability
 
@@ -39,15 +39,15 @@ You can use the Tablestore console to get started with Tablestore. For more info
 
 -   time to live \(TTL\)
 
-    A data table attribute measured in seconds. This attribute indicates the validity period of data. For more information, see [Max versions and TTL](/intl.en-US/Developer Guide/Wide Column model/Max versions and TTL.md). To save storage space and minimize storage costs, the Tablestore backend automatically clears data after its TTL expires.
+    A data table attribute measured in seconds. This attribute indicates the validity period of data. For more information, see [Max versions and TTL](/intl.en-US/Function Introduction/Wide Column model/Max versions and TTL.md). To save storage space and minimize storage costs, the Tablestore backend automatically clears data after its TTL expires.
 
 -   region
 
-    A physical data center. Tablestore is deployed across multiple Alibaba Cloud regions. You can select a region as needed. For more information, see [Region](/intl.en-US/Developer Guide/Terms/Region.md).
+    A physical data center. Tablestore is deployed across multiple Alibaba Cloud regions. You can select a region as needed. For more information, see [Region](/intl.en-US/Function Introduction/Terms/Region.md).
 
 -   read/write throughput
 
-    A Tablestore attribute that is measured by read and write capacity units \(CUs\). A CU is the basic billing unit for data read and write operations. For more information, see [Read/write throughput](/intl.en-US/Developer Guide/Terms/Read/write throughput.md).
+    A Tablestore attribute that is measured by read and write capacity units \(CUs\). A CU is the basic billing unit for data read and write operations. For more information, see [Read/write throughput](/intl.en-US/Function Introduction/Terms/Read/write throughput.md).
 
 
 ## Implementation modes
@@ -62,20 +62,20 @@ You can use the Tablestore console to get started with Tablestore. For more info
 
 -   Tablestore CLI
 
-    Alibaba Cloud provides a command line tool Tablestore CLI for you to manage Tablestore. For more information, see [TablestoreCli](/intl.en-US/Utilities/TablestoreCli.md).
+    Alibaba Cloud provides a command line tool Tablestore CLI for you to manage Tablestore. For more information, see [Tablestore CLI](/intl.en-US/Utilities/Tablestore CLI.md).
 
 
 ## Computing and analysis
 
 You can perform computing and analysis on data in Tablestore.
 
--   For information about how to combine MaxCompute with Tablestore, see [Use MaxCompute to access Tablestore](/intl.en-US/Compute-Analysis/MaxCompute /Allow MaxCompute to access Table Store using one account.md).
+-   For information about how to combine MaxCompute with Tablestore, see [Use MaxCompute to access Tablestore](/intl.en-US/Compute-Analysis/MaxCompute /Use MaxCompute to access Tablestore.md).
 
 ## Data migration for synchronization
 
 You can migrate heterogeneous data to Tablestore without interrupting services. You can also migrate data from Tablestore to services such as OSS.
 
--   For more information about how to migrate data from Tablestore to OSS, see [Overview](/intl.en-US/Data channels/Data export/OSS/Overview.md).
+-   For more information about how to migrate data from Tablestore to OSS, see [Overview](/intl.en-US/Data channels/Data export/Synchronize data from tablestore to OSS/Overview.md).
 
 ## Billing
 
