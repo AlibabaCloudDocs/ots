@@ -33,7 +33,7 @@ The following table describes the features provided by Tablestore.
 |[Atomic counters](/intl.en-US/Function Introduction/Wide Column model/Atomic counters.md)|Columns are used as an atomic counter. The atomic counter provides real-time statistics for some online applications, such as calculating the real-time page views \(PVs\) of a post.|
 |[Filter](/intl.en-US/Function Introduction/Wide Column model/Filter.md)|Filters can be used to sort results on the server side. Only results that match the filter conditions are returned. The feature effectively reduces the volume of transferred data and shortens the response time.|
 |[Search index](/intl.en-US/Function Introduction/Search Index/Overview.md)|Based on inverted index and column-oriented storage, search index solves the complex query problem in big data scenarios.|
-|[Global secondary index](/intl.en-US/Function Introduction/Global secondary index/Usage notes.md)|Tablestore allows you to create a global secondary index on an attribute column.|
+|[Secondary index](/intl.en-US/Function Introduction/Global secondary index/Usage notes.md)|Tablestore allows you to create a secondary index on an attribute column.|
 |[Tunnel Service](/intl.en-US/Function Introduction/Tunnel service/Overview.md)|Tunnel Service provides tunnels that are used to export and consume distributed data in full, incremental, and differential modes in real time. After tunnels are created, you can consume historical and incremental data exported from a specified table.|
 |[HBase support](/intl.en-US/Function Introduction/HBase/Features of Tablestore HBase Client.md)|Tablestore HBase Client can be used to access Tablestore by using Java applications built on open source HBase APIs.|
 
