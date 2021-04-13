@@ -1,6 +1,6 @@
 # Nested query
 
-This topic describes how to use nested query to query the child row data of nested columns. You cannot directly query nested fields. You must specify the NestedQuery object. In NestedQuery, you must specify the path of a nested column and a subquery. The subquery can be of any type.
+This topic describes how to use nested query to query the data in the child rows of nested fields. Nested fields cannot be directly queried. To query a nested field, you must specify the path of the nested field and a subquery in a NestedQuery object. The subquery can be a query of any type.
 
 ## Prerequisites
 
@@ -12,9 +12,9 @@ This topic describes how to use nested query to query the child row data of nest
 
 |Parameter|Description|
 |---------|-----------|
-|path|The path of the nested column. The path is similar to the tree structure. For example, news.title indicates the title subcolumn in the news column of the nested type.|
-|query|The query on the subcolumn in the nested column. The query can be of any query type.|
-|scoreMode|Specifies which value is used to calculate the score when a column contains multiple values.|
+|path|The path of the nested field. The path is similar to the tree structure. For example, news.title indicates the title subcolumn in the nested field named news.|
+|query|The query implemented on the subcolumn in the nested field. The query can be of any query type.|
+|scoreMode|Specifies which value is used to calculate the score when the field contains multiple values.|
 |getTotalCount|Specifies whether to return the total number of rows that match the query conditions. By default, this parameter is set to false, which indicates that the total number of rows that match the query conditions is not returned. Query performance is affected when this parameter is set to true. |
 |tableName|The name of the table.|
 |indexName|The name of the search index.|
@@ -24,31 +24,85 @@ If returnAll is set to true, all columns are returned. |
 
 ## Examples
 
-The nested column contains nested\_1 and nested\_2. You need to search the col\_nested.nested\_1 column for data that matches "tablestore".
+The following examples show how to use nested queries.
 
-```
-private static void nestedQuery(SyncClient client) {
-    SearchQuery searchQuery = new SearchQuery();
-    NestedQuery nestedQuery = new NestedQuery(); // Set the query type to NestedQuery.
-    nestedQuery.setPath("col_nested"); // Set the path of the nested field.
-    TermQuery termQuery = new TermQuery(); // Specify a subquery for NestedQuery.
-    termQuery.setFieldName("col_nested.nested_1"); // Set the name of the field that you want to match. The field name must contain the prefix of the nested column.
-    termQuery.setTerm(ColumnValue.fromString("tablestore")); // Set the value that you want to match.
-    nestedQuery.setQuery(termQuery);
-    nestedQuery.setScoreMode(ScoreMode.None);
-    searchQuery.setQuery(nestedQuery);
-    //searchQuery.setGetTotalCount(true);// Specify that the total number of matched rows is returned.
+-   Example 1
 
-    SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
-    // You can set the columnsToGet parameter to specify the columns to return or specify that all columns are returned. If you do not set this parameter, only the primary key columns are returned.
-    //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
-    //columnsToGet.setReturnAll(true); // Set ReturnAll to true to return all columns.
-    //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set Columns to return specified columns.
-    //searchRequest.setColumnsToGet(columnsToGet);
+    The following code provides an example on how to query data that matches the "tablestore" condition in the col\_nested.nested\_1 column. In this example, the nested field named col\_nested includes two subcolumns: nested\_1 and nested\_2.
 
-    SearchResponse resp = client.search(searchRequest);
-    //System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched rows instead of the number of returned rows.
-    System.out.println("Row: " + resp.getRows());
-}
-```
+    ```
+    private static void nestedQuery(SyncClient client) {
+        SearchQuery searchQuery = new SearchQuery();
+        NestedQuery nestedQuery = new NestedQuery(); // Set the query type to NestedQuery.
+        nestedQuery.setPath("col_nested"); // Set the path of the nested column.
+        TermQuery termQuery = new TermQuery(); // Create the child query of the NestedQuery object.
+        termQuery.setFieldName("col_nested.nested_1"); // Set the column name. Note the path that includes nested columns. 
+        termQuery.setTerm(ColumnValue.fromString("tablestore")); // Specify the value that you want to query.
+        nestedQuery.setQuery(termQuery);
+        nestedQuery.setScoreMode(ScoreMode.None);
+        searchQuery.setQuery(nestedQuery);
+        //searchQuery.setGetTotalCount(true);// Specify the setGetTotalCount parameter to true to return the total number of rows that match the query condition.
+    
+        SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
+        // You can set the columnsToGet parameter to specify whether to return all columns or only specified columns. By default, if this parameter is not set, only the primary columns are returned.
+        //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
+        //columnsToGet.setReturnAll(true); // Set the setReturnAll parameter to return all columns.
+        //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set the setColumns parameter to return specified columns.
+        //searchRequest.setColumnsToGet(columnsToGet);
+    
+        SearchResponse resp = client.search(searchRequest);
+        //System.out.println("TotalCount: "+ resp.getTotalCount()); // Display the total number of matched columns but not returned columns.
+    System.out.println("Row:  " + resp.getRows());
+    } 
+        TermQuery termQuery = new TermQuery(); // Create the child query of the NestedQuery object. 
+        termQuery.setFieldName("col_nested.nested_1"); // Set the column name. Note the path that includes nested columns.  
+        termQuery.setTerm(ColumnValue.fromString("tablestore")); // Specify the value that you want to query.
+        nestedQuery.setQuery(termQuery);
+        nestedQuery.setScoreMode(ScoreMode.None);
+        searchQuery.setQuery(nestedQuery);
+        //searchQuery.setGetTotalCount(true);// Specify the setGetTotalCount parameter to true to return the total number of rows that match the query condition. 
+    
+        SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
+        // You can set the columnsToGet parameter to specify whether to return all columns or only specified columns. By default, if this parameter is not set, only the primary columns are returned. 
+        //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
+        //columnsToGet.setReturnAll(true); // Set the setReturnAll parameter to return all columns. 
+        //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set the setColumns parameter to return specified columns. 
+        //searchRequest.setColumnsToGet(columnsToGet);
+    
+        SearchResponse resp = client.search(searchRequest);
+        //System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched columns but not returned columns. 
+        System.out.println("Row: " + resp.getRows());
+    }
+    ```
+
+-   Example 2
+
+    The following code provides an example on how to query data that matches the "tablestore" condition in the col\_nested.nested\_2.nested\_2\_2 column. In this example, the nested field named col\_nested includes two subcolumns: nested\_1 and nested\_2. The nested\_2 subcolumn includes two columns: nested\_2\_1 and nested\_2\_2.
+
+    ```
+    private static void nestedQuery(SyncClient client) {
+        SearchQuery searchQuery = new SearchQuery();
+        NestedQuery nestedQuery = new NestedQuery(); // Set the query type to NestedQuery. 
+        nestedQuery.setPath("col_nested.nested_2"); // Set the path of the nested column, which is the parent path of the field to query. 
+        TermQuery termQuery = new TermQuery(); // Create the child query of the NestedQuery object. 
+        termQuery.setFieldName("col_nested.nested_2.nested_2_2"); // Set the path of the column, which is the full path of the field to query. 
+        termQuery.setTerm(ColumnValue.fromString("tablestore")); // Specify the value that you want to query. 
+        nestedQuery.setQuery(termQuery);
+        nestedQuery.setScoreMode(ScoreMode.None);
+        searchQuery.setQuery(nestedQuery);
+        //searchQuery.setGetTotalCount(true);// Set the setGetTotalCount parameter to true to return the total number of rows that match the query condition. 
+    
+        SearchRequest searchRequest = new SearchRequest("sampleTable", "sampleSearchIndex", searchQuery);
+        // You can set the columnsToGet parameter to specify whether to return all columns or only specified columns. By default, if this parameter is not set, only the primary columns are returned. 
+        //SearchRequest.ColumnsToGet columnsToGet = new SearchRequest.ColumnsToGet();
+        //columnsToGet.setReturnAll(true); // Set the setReturnAll parameter to return all columns. 
+        //columnsToGet.setColumns(Arrays.asList("ColName1","ColName2")); // Set the setColumns parameter to return specified columns. 
+        //searchRequest.setColumnsToGet(columnsToGet);
+    
+        SearchResponse resp = client.search(searchRequest);
+        //System.out.println("TotalCount: " + resp.getTotalCount()); // Display the total number of matched columns but not returned columns. 
+        System.out.println("Row: " + resp.getRows());
+    }
+    ```
+
 
