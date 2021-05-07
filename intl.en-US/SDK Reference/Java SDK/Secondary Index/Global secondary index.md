@@ -5,8 +5,8 @@ After you create index tables for a base table, you can read data from the index
 ## Prerequisites
 
 -   Client is initialized. For more information, see [Initialization](/intl.en-US/SDK Reference/Java SDK/Initialization.md).
--   A table is created. The value of timeToLive is -1. The value of maxVersions is 1.
--   Predefined columns are set for the table.
+-   A data table is created. The value of timeToLive is -1. The value of maxVersions is 1.
+-   Predefined columns are configured for the data table.
 
 ## Create an index table by calling the CreateIndex operation
 
@@ -43,123 +43,6 @@ You can call the CreateIndex operation to create an index table for an existing 
         client.createIndex(request); // Create the index table.
     }
     ```
-
-
-## Read data from the index table
-
-You can read a row of data or read data within a specified range from the index table. If the columns to return are included in the index table, you can query the data from the index table. Otherwise, you must query the base table for the required data.
-
--   Read a row of data from the index table
-
-    For more information, see [Single-row operations](/intl.en-US/SDK Reference/Java SDK/Single-row operations.md).
-
-    When you use the GetRow operation to read data from the index table, take note of the following items:
-
-    -   You must set tableName to the name of the index table.
-    -   Tablestore autocompletes the primary key for the index table. Therefore, when you specify the primary key of a row, you must specify the columns based on which you create the index table and the autocompleted primary key columns.
--   Read data within a specified range from the index table
-
-    For more information, see [Multi-row operations](/intl.en-US/SDK Reference/Java SDK/Multi-row operations.md).
-
-    -   Parameters
-
-        When you use the GetRange operation to read data from the index table, take note of the following items:
-
-        -   You must set tableName to the name of the index table.
-        -   Tablestore autocompletes the primary key for the index table. Therefore, when you specify the start primary key and the end primary key of the range, you must specify the columns based on which you create the index table and the autocompleted primary key columns.
-    -   Sample code
-
-        If the columns to return are included in the index table, you can query the data from the index table.
-
-        ```
-        private static void scanFromIndex(SyncClient client) {
-            RangeRowQueryCriteria rangeRowQueryCriteria = new RangeRowQueryCriteria(INDEX_NAME); // Specify the name of the index table.
-        
-            // Specify the primary key to start from.
-            PrimaryKeyBuilder startPrimaryKeyBuilder = PrimaryKeyBuilder.createPrimaryKeyBuilder();
-            startPrimaryKeyBuilder.addPrimaryKeyColumn(DEFINED_COL_NAME_1, PrimaryKeyValue.INF_MIN); // Specify the minimum value of DEFINED_COL_NAME_1.
-            startPrimaryKeyBuilder.addPrimaryKeyColumn(PRIMARY_KEY_NAME_1, PrimaryKeyValue.INF_MIN); // Specify the minimum value of PRIMARY_KEY_NAME_1.
-            startPrimaryKeyBuilder.addPrimaryKeyColumn(PRIMARY_KEY_NAME_2, PrimaryKeyValue.INF_MIN); // Specify the minimum value of PRIMARY_KEY_NAME_2.
-            rangeRowQueryCriteria.setInclusiveStartPrimaryKey(startPrimaryKeyBuilder.build());
-        
-            // Specify the primary key to end with.
-            PrimaryKeyBuilder endPrimaryKeyBuilder = PrimaryKeyBuilder.createPrimaryKeyBuilder();
-            endPrimaryKeyBuilder.addPrimaryKeyColumn(DEFINED_COL_NAME_1, PrimaryKeyValue.INF_MAX); // Specify the maximum value of DEFINED_COL_NAME_1.
-            endPrimaryKeyBuilder.addPrimaryKeyColumn(PRIMARY_KEY_NAME_1, PrimaryKeyValue.INF_MAX); // Specify the maximum value of PRIMARY_KEY_NAME_1.
-            endPrimaryKeyBuilder.addPrimaryKeyColumn(PRIMARY_KEY_NAME_2, PrimaryKeyValue.INF_MAX); // Specify the maximum value of PRIMARY_KEY_NAME_2.
-            rangeRowQueryCriteria.setExclusiveEndPrimaryKey(endPrimaryKeyBuilder.build());
-        
-            rangeRowQueryCriteria.setMaxVersions(1);
-        
-            System.out.println("The following results are returned from the index table:");
-            while (true) {
-                GetRangeResponse getRangeResponse = client.getRange(new GetRangeRequest(rangeRowQueryCriteria));
-                for (Row row : getRangeResponse.getRows()) {
-                    System.out.println(row);
-                }
-        
-                // If the nextStartPrimaryKey value is not null, continue the read operation.
-                if (getRangeResponse.getNextStartPrimaryKey() ! = null) {
-                    rangeRowQueryCriteria.setInclusiveStartPrimaryKey(getRangeResponse.getNextStartPrimaryKey());
-                } else {
-                    break;
-                }
-            }
-        }
-        ```
-
-        If the columns to return are not included in the index table, you must query the base table for the required data.
-
-        ```
-        private static void scanFromIndex(SyncClient client) {
-            RangeRowQueryCriteria rangeRowQueryCriteria = new RangeRowQueryCriteria(INDEX_NAME); // Specify the name of the index table.
-        
-            // Specify the primary key to start from.
-            PrimaryKeyBuilder startPrimaryKeyBuilder = PrimaryKeyBuilder.createPrimaryKeyBuilder();
-            startPrimaryKeyBuilder.addPrimaryKeyColumn(DEFINED_COL_NAME_1, PrimaryKeyValue.INF_MIN); // Specify the minimum value of DEFINED_COL_NAME_1.
-            startPrimaryKeyBuilder.addPrimaryKeyColumn(PRIMARY_KEY_NAME_1, PrimaryKeyValue.INF_MIN); // Specify the minimum value of PRIMARY_KEY_NAME_1.
-            startPrimaryKeyBuilder.addPrimaryKeyColumn(PRIMARY_KEY_NAME_2, PrimaryKeyValue.INF_MIN); // Specify the minimum value of PRIMARY_KEY_NAME_2.
-            rangeRowQueryCriteria.setInclusiveStartPrimaryKey(startPrimaryKeyBuilder.build());
-        
-            // Specify the primary key to end with.
-            PrimaryKeyBuilder endPrimaryKeyBuilder = PrimaryKeyBuilder.createPrimaryKeyBuilder();
-            endPrimaryKeyBuilder.addPrimaryKeyColumn(DEFINED_COL_NAME_1, PrimaryKeyValue.INF_MAX); // Specify the maximum value of DEFINED_COL_NAME_1.
-            endPrimaryKeyBuilder.addPrimaryKeyColumn(PRIMARY_KEY_NAME_1, PrimaryKeyValue.INF_MAX); // Specify the maximum value of PRIMARY_KEY_NAME_1.
-            endPrimaryKeyBuilder.addPrimaryKeyColumn(PRIMARY_KEY_NAME_2, PrimaryKeyValue.INF_MAX); // Specify the maximum value of PRIMARY_KEY_NAME_2.
-            rangeRowQueryCriteria.setExclusiveEndPrimaryKey(endPrimaryKeyBuilder.build());
-        
-            rangeRowQueryCriteria.setMaxVersions(1);
-        
-            while (true) {
-                GetRangeResponse getRangeResponse = client.getRange(new GetRangeRequest(rangeRowQueryCriteria));
-                for (Row row : getRangeResponse.getRows()) {
-                    PrimaryKey curIndexPrimaryKey = row.getPrimaryKey();
-                    PrimaryKeyColumn pk1 = curIndexPrimaryKey.getPrimaryKeyColumn(PRIMARY_KEY_NAME1);
-                    PrimaryKeyColumn pk2 = curIndexPrimaryKey.getPrimaryKeyColumn(PRIMARY_KEY_NAME2);
-                    PrimaryKeyBuilder mainTablePKBuilder = PrimaryKeyBuilder.createPrimaryKeyBuilder();
-                    mainTablePKBuilder.addPrimaryKeyColumn(PRIMARY_KEY_NAME1, pk1.getValue());
-                    mainTablePKBuilder.addPrimaryKeyColumn(PRIMARY_KEY_NAME2, ke2.getValue());
-                    PrimaryKey mainTablePK = mainTablePKBuilder.build(); // Specify primary keys for the base table based on the primary keys of the index table.
-        
-                    // Query the base table.
-                    SingleRowQueryCriteria criteria = new SingleRowQueryCriteria(TABLE_NAME, mainTablePK);
-                    criteria.addColumnsToGet(DEFINED_COL_NAME3); // Specify to read the DEFINED_COL_NAME3 attribute column from the base table.
-                    // Set MaxVersions to 1 to read the latest version of data.
-                    criteria.setMaxVersions(1);
-                    GetRowResponse getRowResponse = client.getRow(new GetRowRequest(criteria));
-                    Row mainTableRow = getRowResponse.getRow();
-                    System.out.println(row); 
-                }
-        
-                // If the nextStartPrimaryKey value is not null, continue the read operation.
-                if (getRangeResponse.getNextStartPrimaryKey() ! = null) {
-                    rangeRowQueryCriteria.setInclusiveStartPrimaryKey(getRangeResponse.getNextStartPrimaryKey());
-                } else {
-                    break;
-                }
-            }
-        }
-        ```
 
 
 ## Delete the index table by calling the DeleteIndex operation
