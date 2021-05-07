@@ -1,6 +1,6 @@
 # Local secondary index
 
-After you create index tables for a base table, you can read data from the index tables or delete specified index tables.
+After you create an index table for a data table, you can read data from the index table or delete the specified index table.
 
 ## Use Tablestore SDKs
 
@@ -13,21 +13,39 @@ You can use the following Tablestore SDKs to implement the local secondary index
 
 ## Create an index table by calling the CreateIndex operation
 
-You can call the CreateIndex operation to create an index table for an existing base table.
+You can call the CreateIndex operation to create an index table on an existing data table.
 
-**Note:** You can also create one or more index tables when you create a base table by calling the CreateTable operation. For more information, see [Create data tables](/intl.en-US/SDK Reference/Java SDK/Table/Create data tables.md).
+**Note:** You can create one or more index tables when you create a data table by calling the CreateTable operation. For more information, see [Create data tables](/intl.en-US/SDK Reference/Java SDK/Table/Create data tables.md).
 
 -   Parameter
 
     |Parameter|Description|
     |---------|-----------|
-    |mainTableName|The name of the base table.|
-    |indexMeta|The schema information of the index table, which includes the following items:    -   IndexName: the name of the index table.
-    -   primaryKey: the primary key of the index table, which is a combination of any primary key columns and predefined columns of the base table.
-    -   definedColumns: the indexed attribute column, which is a combination of predefined columns of the base table.
-    -   indexType: the type of the index table. Only IT\_GLOBAL\_INDEX is supported.
-    -   indexUpdateMode: the update mode of the index table. Only IUM\_ASYNC\_INDEX is supported. |
-    |includeBaseData|Specifies whether the index table includes the existing data in the base table.If the last parameter includeBaseData in CreateIndexRequest is set to true, the existing data of the base table is included in the index table. If includeBaseData is set to false, the existing data is not included. |
+    |mainTableName|The name of the data table.|
+    |indexMeta|The schema information of the index table. The schema information contains the following items:    -   indexName: the name of the index table.
+    -   primaryKey: the indexed columns of the index table. The indexed columns are a combination of primary key columns and predefined columns of the data table.
+
+If you use the local secondary index feature, the first primary key column of an index table must be the same as the first primary key column of the corresponding data table.
+
+    -   definedColumns: the indexed attribute columns. The attribute columns are a combination of predefined columns of the data table.
+    -   indexType: the type of the index. Valid values: IT\_GLOBAL\_INDEX and IT\_LOCAL\_INDEX.
+        -   If indexType is not specified or is set to IT\_GLOBAL\_INDEX, the global secondary index feature is used.
+
+If you use the global secondary index feature, Tablestore automatically synchronizes the columns to be indexed and data in primary key columns from a data table to an index table in asynchronous mode. The synchronization latency is within a few milliseconds.
+
+        -   If indexType is set to IT\_LOCAL\_INDEX, the local secondary index feature is used.
+
+If you use the local secondary index feature, Tablestore automatically synchronizes data from the indexed columns and the primary key columns of a data table to the columns of an index table in synchronous mode. After the data is written to the data table, you can query the data from the index table.
+
+    -   indexUpdateMode: the update mode of the index. Valid values: IUM\_ASYNC\_INDEX and IUM\_SYNC\_INDEX.
+        -   If indexUpdateMode is not specified or is set to IUM\_ASYNC\_INDEX, the asynchronous mode is used to update the index.
+
+If you use the global secondary index feature, you must set the index update mode to IUM\_ASYNC\_INDEX.
+
+        -   If you set indexUpdateMode to IUM\_SYNC\_INDEX, the synchronous update mode is used.
+
+If you use the local secondary index feature, you must set the index update mode to IUM\_SYNC\_INDEX, which indicates the synchronous update mode. |
+    |includeBaseData|Specifies whether to include the existing data of the data table in the index table. If the last parameter includeBaseData in CreateIndexRequest is set to true, the existing data of the data table is included in the index table. If includeBaseData is set to false, the existing data is excluded. |
 
 -   Examples
 
@@ -53,10 +71,26 @@ You can call the CreateIndex operation to create an index table for an existing 
 
 ## Read data from an index table
 
+You can read a row of data or read data within a specified range from the index table. If the index table contains the attribute columns to return, you can query the data from the index table. If the index table does not contain the columns to return, you must query the required data from the data table.
+
+-   Read a row of data from an index table
+
+    For more information, see [Single-row operations](/intl.en-US/SDK Reference/Java SDK/Single-row operations.md).
+
+    When you call the GetRow operation to read data from an index table, take note of the following items:
+
+    -   You must set tableName to the name of the index table.
+    -   Tablestore automatically adds the primary key columns that are not specified as indexed columns to an index table. Therefore, when you specify the primary key columns of a row, you must specify the indexed columns based on which you create the index table and the primary key columns of the data table.
 -   Read data within a specified range from the index table
 
     For more information, see [Multi-row operations](/intl.en-US/SDK Reference/Java SDK/Multi-row operations.md).
 
+    -   Parameters
+
+        When you call the GetRange operation to read data from an index table, take note of the following items:
+
+        -   You must set tableName to the name of the index table.
+        -   Tablestore automatically adds the primary key columns that are not specified as indexed columns to an index table. Therefore, when you specify the start primary key and end primary key, you must specify the indexed columns based on which you create the index table and the primary key columns of the data table.
     -   Examples
 
         If an index table contains the columns to return, you can query the required data from the index table.
@@ -152,23 +186,23 @@ You can call the CreateIndex operation to create an index table for an existing 
         ```
 
 
-## Delete the index table by calling the DeleteIndex operation
+## Delete an index table by calling the DeleteIndex operation
 
-You can call the DeleteIndex operation to delete a specified index table from a base table.
+You can call the DeleteIndex operation to delete the specified index table from the corresponding data table.
 
 -   Parameters
 
     |Parameter|Description|
     |---------|-----------|
-    |mainTableName|The name of the base table.|
+    |mainTableName|The name of the data table.|
     |indexName|The name of the index table.|
 
--   Sample code
+-   Examples
 
     ```
     private static void deleteIndex(SyncClient client) {
-        DeleteIndexRequest request = new DeleteIndexRequest(TABLE_NAME, INDEX_NAME); // Specify the name of the index table that you want to delete and the name of the corresponding base table.
-        client.deleteIndex(request); // Delete the index table.
+        DeleteIndexRequest request = new DeleteIndexRequest(TABLE_NAME, INDEX_NAME); // Specify the name of the index table that you want to delete and the name of the corresponding data table. 
+        client.deleteIndex(request); // Delete the index table. 
     }
     ```
 
