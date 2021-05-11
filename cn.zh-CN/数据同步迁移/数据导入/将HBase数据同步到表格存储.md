@@ -1,3 +1,7 @@
+---
+keyword: [HBase全量同步到表格存储, HBase全量导入到表格存储]
+---
+
 # 将HBase数据同步到表格存储
 
 使用DataX将HBase数据库中的全量数据同步到表格存储（Tablestore）中。
