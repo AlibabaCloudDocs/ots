@@ -19,7 +19,7 @@ SyncClient client = new SyncClient(
         "accessKeySecret",
         "instanceName", configuration);
 
-TimelineStoreFactory factory = new TimelineStoreFactoryImpl(client);
+TimelineStoreFactory serviceFactory = new TimelineStoreFactoryImpl(client);
 ```
 
 ## Initialize TimelineMetaStore
