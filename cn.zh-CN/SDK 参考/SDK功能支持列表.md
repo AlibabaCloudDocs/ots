@@ -1,3 +1,7 @@
+---
+keyword: [Java SDK支持, Go SDK支持, Python SDK支持, Node.js SDK支持, .NET SDK支持, PHP SDK支持]
+---
+
 # SDK功能支持列表
 
 通过本文您可以了解表格存储各功能支持的主流语言SDK。
