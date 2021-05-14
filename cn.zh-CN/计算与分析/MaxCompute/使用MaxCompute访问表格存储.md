@@ -41,7 +41,7 @@
 
     -   设置实例网络类型为**允许任意网络访问**。
 
-        ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/6205309951/p11958.png)
+        ![odps3](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/6205309951/p11958.png)
 
 
 ## 步骤一：安装并配置客户端
@@ -74,7 +74,7 @@
 
     如果显示当前MaxCompute项目中的表，则表示上述配置正确。
 
-    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/6205309951/p11959.png)
+    ![odps2](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/6205309951/p11959.png)
 
 
 ## 步骤二：创建外部表
@@ -128,5 +128,5 @@ select vid,count(*),avg(speed),avg(oil_consumption) from ots_vehicle_track where
 
 返回类似如下结果：
 
-![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/6205309951/p11960.jpeg)
+![odps1](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/6205309951/p11960.jpeg)
 
