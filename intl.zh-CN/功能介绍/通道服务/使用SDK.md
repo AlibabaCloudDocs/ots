@@ -4,9 +4,7 @@
 
 ## 注意事项
 
-使用通道服务的注意事项如下：
-
--   TunnelWorkerConfig中默认会启动读数据和处理数据的线程池。如果使用的是单台机器，则会启动多个TunnelWorker，建议共用一个TunnelWorkerConfig。
+-   TunnelWorkerConfig中默认会启动读数据和处理数据的线程池。如果使用的是单台机器，当需要启动多个TunnelWorker时，建议共用一个TunnelWorkerConfig。
 -   在创建全量加增量类型的Tunnel时，由于Tunnel的增量日志最多会保留7天（具体的值和数据表的Stream的日志过期时间一致），全量数据如果在7天内没有消费完成，则此Tunnel进入增量阶段会出现OTSTunnelExpired错误，导致增量数据无法消费。如果您预估全量数据无法在7天内消费完成，请及时联系表格存储技术支持或者加入钉钉群23307953（表格存储技术交流群-2）进行咨询。
 -   TunnelWorker的初始化需要预热时间，该值受TunnelWorkerConfig中的heartbeatIntervalInSec参数影响，可以通过TunnelWorkerConfig中的setHeartbeatIntervalInSec方法配置，默认为30s，最小值为5s。
 -   当Tunnel从全量切换至增量阶段时，全量的Channel会结束，增量的Channel会启动，此阶段会有初始化时间，该值也受TunnelWorkerConfig中的heartbeatIntervalInSec参数影响。
@@ -86,8 +84,8 @@
         }
     }
     
-    //TunnelWorkerConfig默认会启动读数据和处理数据的线程池。如果使用的是单台机器，则会启动多个TunnelWorker。
-    //强烈建议共用一个TunnelWorkerConfig，TunnelWorkerConfig中包括更多的高级参数。
+    //TunnelWorkerConfig默认会启动读数据和处理数据的线程池。
+    //如果使用的是单台机器，当需要启动多个TunnelWorker时，建议共用一个TunnelWorkerConfig。TunnelWorkerConfig中包括更多的高级参数。
     TunnelWorkerConfig config = new TunnelWorkerConfig(new SimpleProcessor());
     //配置TunnelWorker，并启动自动化的数据处理任务。
     TunnelWorker worker = new TunnelWorker(tunnelId, tunnelClient, config);
