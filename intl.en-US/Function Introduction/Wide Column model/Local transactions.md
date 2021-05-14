@@ -1,6 +1,6 @@
 # Local transactions
 
-This topic describes how to use local transactions. You can create a local transaction based on a specified partition key value. After you read or write data within a local transaction, you can commit or abort the local transaction.
+This topic describes how to use local transactions. You can create a local transaction based on a specified partition key value. After you read or write data within a local transaction, you can commit or abort the local transaction. Pessimistic locking is used to control concurrent operations within a local transaction.
 
 The local transaction feature is available for invitational preview and is disabled by default. To use local transactions, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createInd) to request an invitational preview.
 
@@ -106,10 +106,10 @@ The following table describes the operations that can be performed on local tran
 
 You can use the following Tablestore SDKs to implement local transactions:
 
--   Tablestore SDK for Java: [Local transactions](/intl.en-US/SDK Reference/Java SDK/Table operations/Configure local transaction.md)
--   Tablestore SDK for Go: [Local transactions](/intl.en-US/SDK Reference/Go SDK/Table operations/Configure local transaction.md)
--   Tablestore SDK for Python: [Local transactions](/intl.en-US/SDK Reference/Python SDK/Table operations/Configure local transaction.md)
--   Tablestore SDK for Node.js: [Local transactions](/intl.en-US/SDK Reference/NodeJS SDK/Table operations/Configure local transaction.md)
+-   Tablestore SDK for Java: [Local transactions](/intl.en-US/SDK Reference/Java SDK/Table/Configure local transaction.md)
+-   Tablestore SDK for Go: [Local transactions](/intl.en-US/SDK Reference/Go SDK/Table/Configure local transaction.md)
+-   Tablestore SDK for Python: [Local transactions](/intl.en-US/SDK Reference/Python SDK/Table/Configure local transaction.md)
+-   Tablestore SDK for Node.js: [Local transactions](/intl.en-US/SDK Reference/Node.js SDK/Table/Configure local transaction.md)
 -   Tablestore SDK for PHP: [Local transactions](/intl.en-US/SDK Reference/PHP SDK/Table operations/Configure local transaction.md)
 
 ## Parameters
