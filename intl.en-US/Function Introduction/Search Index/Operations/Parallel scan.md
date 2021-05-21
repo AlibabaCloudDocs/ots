@@ -288,7 +288,7 @@ The following code provides examples on how to scan data by using a single threa
                                     .currentParallelId(currentParallelId)
                                     .maxParallel(maxParallel)
                                     .build())
-                                .addColumnsToGet("col_1", "col_2", "col_3")  // Specify some columns to return from the seach index. To obtain data in all columns, set returnAllColumnsFromIndex to true. 
+                                .addColumnsToGet("col_1", "col_2", "col_3")  // Specify some columns to return from the search index. To obtain data in all columns, set returnAllColumnsFromIndex to true. 
                                 //.returnAllColumnsFromIndex(true)
                                 .sessionId(sessionId)
                                 .build();
