@@ -356,7 +356,7 @@ The following table provides the information of LocalIndexOnBeCalledNumber.
 |456789|234567|1532586054|200|3|
 |456789|345678|1532584054|200|3|
 
-To query the records of phone calls between caller number 456789 and called number 123456, you need only to specify the following values when you call the getRange operation: Set the maximum and minimum values of CellNumber in the PK0 column to 456789. Set the maximum and minimum values of CalledNumber in the PK1 column to 123456. Set the minimum value of StartTime in the PK2 column to 0 and the maximum value to INT\_MAX. Then, scan the data table to obtain the expected data. The following code provides an example on how to list the records of phone calls:
+To query the records of phone calls between caller number 456789 and called number 123456, you need only to specify the following values when you call the getRange operation: Set the maximum and minimum values of CellNumber in the PK0 column to 456789. Set the maximum and minimum values of CalledNumber in the Defined0 column to 123456. Set the minimum value of StartTime in the PK1 column to 0 and the maximum value to INT\_MAX. Then, scan the data table to obtain the expected data. The following code provides an example on how to list the records of phone calls:
 
 ```
 private static void getRangeFromMainTable(SyncClient client, long cellNumber, long calledNumber){
