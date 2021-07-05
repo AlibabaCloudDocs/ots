@@ -74,7 +74,6 @@ Nested values are an array. If you set fieldType to Nested, you do not need to s
 
 A value of true indicates that Tablestore creates an inverted index or spatial index for the column. A value of false indicates that Tablestore does not create indexes for the column.
 
--   indexOptions: optional. This parameter specifies whether to store terms such as position and offset in an inverted list. In most cases, use the default value.
 -   analyzer: optional. This parameter specifies the type of the analyzer. If the field type is set to Text, you can set this parameter. By default, the type of the analyzer is set to the single-word tokenization. For more information about analyzers, see [Tokenization](/intl.en-US/Function Introduction/Search Index/Operations/Tokenization.md).
 -   enableSortAndAgg: optional. This parameter specifies whether to enable the sorting and aggregation features. Type: Boolean.
 
