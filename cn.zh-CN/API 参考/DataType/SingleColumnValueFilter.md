@@ -27,7 +27,7 @@ message SingleColumnValueFilter {
 例如过滤条件为column\_a\>0，如果设置filter\_if\_missing为true，则当某一行没有column\_a列时，该行的条件判断会通过。 |
 |latest\_version\_only|bool|是|是否只对最新版本有效。取值范围如下：-   true（默认）：只检测最新版本的值是否满足条件。
 -   false：检测所有版本的值是否满足条件。 |
-|value\_transfer\_rule|[ValueTransferRule]()|否|使用正则表达式匹配到字符串后，将字符串转换为String、Integer或者Double类型。当某些列中存储了自定义格式数据（例如JSON格式字符串）时，如果用户希望通过某个子字段值来过滤查询该列数据，则需要设置此参数。 |
+|value\_transfer\_rule|[ValueTransferRule](/cn.zh-CN/API 参考/DataType/ValueTransferRule.md)|否|使用正则表达式匹配到字符串后，将字符串转换为String、Integer或者Double类型。当某些列中存储了自定义格式数据（例如JSON格式字符串）时，如果用户希望通过某个子字段值来过滤查询该列数据，则需要设置此参数。 |
 
 ## 相关操作
 
