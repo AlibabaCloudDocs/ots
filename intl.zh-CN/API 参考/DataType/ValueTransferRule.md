@@ -22,5 +22,5 @@ message ValueTransferRule {
 部分匹配的正则表达式在模式中由一对括号（…）分隔。
 
 如果正则表达式为全匹配模式，则返回第一个匹配结果；如果正则表达式中包含部分匹配语法，则返回第一个满足的子匹配结果。例如列值为1aaa51bbb5，如果正则表达式为1\[a-z\]+5，则返回值为1aaa5；如果正则表达式为1\(\[a-z\]+\)5，则返回值为aaa。 |
-|cast\_type|[VariantType]()|是|将字符串转换为String、Integer或者Double类型，用于后续的关系运算。|
+|cast\_type|[VariantType](/intl.zh-CN/API 参考/DataType/VariantType.md)|是|将字符串转换为String、Integer或者Double类型，用于后续的关系运算。|
 
