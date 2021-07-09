@@ -10,7 +10,7 @@ You can use Hive and HadoopMR to access and analyze data in Tablestore directly 
 
 1.  Download the installation package of JDK V7 or later. Install JDK V7 or later.
 
-    -   Linux or MacOS: Use the package manager built in the system.
+    -   Linux or macOS: Use the package manager built in the system.
 
     -   Windows: For more information about the download path, visit [Java SE Development Kit 8 Downloads](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
 
