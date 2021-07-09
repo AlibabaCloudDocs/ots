@@ -108,7 +108,7 @@ After the sample code is modified, you can perform debugging on the local comput
 
 * Perform debugging on the local computer
 
-  Intellij IDEA is used in the example.
+  IntelliJ IDEA is used in the example.
   **Note**
 
   The environments used for testing are Spark 2.4.3, Scala 2.11.7, and Java SE Development Kit 8. If you encounter any problems when you debug the sample code, contact Tablestore technical support personnel.
