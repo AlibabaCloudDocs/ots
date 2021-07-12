@@ -1,30 +1,29 @@
-# DescribeStream {#reference1406 .reference}
+# DescribeStream
 
 获取当前stream的shard信息。
 
-## 请求结构： { .section}
+## 请求结构
 
-```language-pb
+```
 message DescribeStreamRequest {
     required string stream_id = 1;
     optional string inclusive_start_shard_id = 2;
     optional int32 shard_limit = 3;
-}
-
+}           
 ```
 
 stream\_id:
 
 -   类型：required string
 
--   当前stream的id
+-   当前stream的ID
 
 
 inclusive\_start\_shard\_id:
 
 -   类型：required string
 
--   查询起始shard的id
+-   查询起始shard的ID
 
 
 shard\_limit:
@@ -34,9 +33,9 @@ shard\_limit:
 -   单次查询返回shard数目的上限
 
 
-## 响应消息结构： { .section}
+## 响应消息结构
 
-```language-pb
+```
 message DescribeStreamResponse {
     required string stream_id = 1;
     required int32 expiration_time = 2;
@@ -52,14 +51,14 @@ message StreamShard {
     optional string parent_id = 2;
     optional string parent_sibling_id = 3;
 }
-
+            
 ```
 
 stream\_id:
 
 -   类型：required string
 
--   当前stream的id
+-   当前stream的ID
 
 
 expiration\_time:
@@ -73,7 +72,7 @@ table\_name:
 
 -   类型：required string
 
--   当前stream 所属的table名字
+-   当前stream 所属的table名称
 
 
 creation\_time:
@@ -94,17 +93,17 @@ shards:
 
 -   类型：required StreamShard
 
--   streamShard的信息，包括shard的id，父shard的id，父shard的邻居shard信息（适用于父shard发生merge）
+-   streamShard的信息，包括shard的ID，父shard的ID，父shard的邻居shard信息（适用于父shard发生merge）
 
 
 next\_shard\_id:
 
 -   类型：optional string
 
--   分页查询下一个shard的起始id
+-   分页查询下一个shard的起始ID
 
 
-注意事项：
+## 注意事项
 
 读取当前shard的数据时需要确保父shard的数据已经全部读取完毕。
 
